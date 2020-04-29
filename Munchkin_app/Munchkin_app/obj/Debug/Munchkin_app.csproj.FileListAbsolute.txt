@@ -1,0 +1,16 @@
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\bin\Debug\Munchkin_app.exe.config
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\bin\Debug\Munchkin_app.exe
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\bin\Debug\Munchkin_app.pdb
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\obj\Debug\Munchkin_app.csprojAssemblyReference.cache
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\obj\Debug\MainWindow.g.cs
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\obj\Debug\App.g.cs
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\obj\Debug\Munchkin_app_MarkupCompile.cache
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\obj\Debug\Munchkin_app_MarkupCompile.lref
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\obj\Debug\App.baml
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\obj\Debug\MainWindow.baml
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\obj\Debug\Munchkin_app.g.resources
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\obj\Debug\Munchkin_app.Properties.Resources.resources
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\obj\Debug\Munchkin_app.csproj.GenerateResource.cache
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\obj\Debug\Munchkin_app.csproj.CoreCompileInputs.cache
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\obj\Debug\Munchkin_app.exe
+C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munchkin_app\obj\Debug\Munchkin_app.pdb
