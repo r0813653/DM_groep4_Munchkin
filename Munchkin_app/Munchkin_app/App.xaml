@@ -4,6 +4,16 @@
              xmlns:local="clr-namespace:Munchkin_app"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <DropShadowEffect x:Key="dropShadow" />
+        <Style x:Key="CustomButton" TargetType="{x:Type Button}">
+            <Setter Property="TextElement.FontSize" Value="50px"/>
+            <Setter Property="Background" Value="#FFFADA9D" />
+            <Setter Property="BorderBrush" Value="#FF3C0900"/>
+            <Setter Property="BorderThickness" Value="8"/>
+            <Setter Property="Foreground" Value="#FF3C0900"/>
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FontFamily" Value="fonts/#Victoriana"/>
+            <Setter Property="Effect" Value="{StaticResource dropShadow}" />
+        </Style>
     </Application.Resources>
 </Application>
