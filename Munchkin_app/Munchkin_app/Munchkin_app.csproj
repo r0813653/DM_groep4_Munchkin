@@ -95,5 +95,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Munchking_startscherm_edit.jpg" />
+    <Resource Include="images\Munchkin_background.jpeg" />
+    <Resource Include="images\Munchkin_startscherm.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
