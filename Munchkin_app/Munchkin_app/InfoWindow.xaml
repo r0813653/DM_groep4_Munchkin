@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Munchkin_app"
         mc:Ignorable="d"
-<<<<<<< HEAD
+
         Title="InfoWindow" Height="800 " Width="1280">
     <Window.Background>
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
@@ -18,21 +18,8 @@
                 <Button Style="{StaticResource CustomButton}" Width="230" Margin="20">Credits</Button>
             </StackPanel>
             <Image Source="images/play.png" Width="766" HorizontalAlignment="Left" Panel.ZIndex="-1" Margin="-153,-58,0,-155.6"></Image>
-            <Image Source="images/Munchkin.png" Width="200" Margin="983,-233,90.6,232.4"> </Image>
+            <Image Source="images/Munchkin.png" Width="200" Margin="983,-233,90.6,232.4"></Image>
         </Grid>
     </ScrollViewer>
-=======
-        Title="InfoWindow" Height="800" Width="1280">
-    <Window.Background>
-        <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
-    </Window.Background>
-    <Grid>
-        <StackPanel VerticalAlignment="Center">
-            <Button Width="300" FontSize="80" Style="{StaticResource CustomButton}" Margin="20">Spelregels</Button>
-            <Button Width="650" FontSize="80" Style="{StaticResource CustomButton}" Margin="20">Zoek jou favoriete kaarten</Button>
-            <Button Width="240" FontSize="80" Style="{StaticResource CustomButton}" Margin="20">Credits</Button>
-        </StackPanel>
-        
-    </Grid>
->>>>>>> development
+    
 </Window>
