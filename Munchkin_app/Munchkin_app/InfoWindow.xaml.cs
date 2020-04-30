@@ -10,27 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Munchkin_app
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for InfoWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class InfoWindow : Window
     {
-        public MainWindow()
+        public InfoWindow()
         {
             InitializeComponent();
-        }
-
-      
-        private void btn_info_Click(object sender, RoutedEventArgs e)
-        {
-            InfoWindow infoWindow = new InfoWindow();
-            infoWindow.Show();
-            this.Hide();
         }
     }
 }
