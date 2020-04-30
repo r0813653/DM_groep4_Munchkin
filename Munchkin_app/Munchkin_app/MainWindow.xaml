@@ -11,6 +11,7 @@
     <Window.Background>
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
     </Window.Background>
+    <ScrollViewer HorizontalScrollBarVisibility="Hidden">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="300"></RowDefinition>
@@ -40,4 +41,5 @@
 
         </StackPanel>
     </Grid>
+    </ScrollViewer>
 </Window>
