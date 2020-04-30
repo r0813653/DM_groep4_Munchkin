@@ -22,7 +22,7 @@ namespace Munchkin_app
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
     }
 }
