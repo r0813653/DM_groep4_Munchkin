@@ -100,5 +100,8 @@
     <Resource Include="images\Munchkin_background.jpeg" />
     <Resource Include="images\Munchkin_startscherm.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Munchkin_manneke_noBackground.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
