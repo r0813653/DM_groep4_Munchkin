@@ -5,10 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Munchkin_app"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="800" Width="1280"
+        FontFamily="/fonts/#Victoriana">
+
     <Window.Background>
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
     </Window.Background>
+    <ScrollViewer HorizontalScrollBarVisibility="Hidden">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300"></RowDefinition>
+            <RowDefinition Height="500"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50px" MinWidth="20"></ColumnDefinition>
+            <ColumnDefinition Width="125*" MinWidth="400"></ColumnDefinition>
+            <ColumnDefinition Width="118*" MinWidth="580"></ColumnDefinition>
+            <ColumnDefinition Width="100px" MinWidth="100"></ColumnDefinition>
+
+        </Grid.ColumnDefinitions>
+        <Button  FontSize="30" Margin="0 50 0 0" Grid.Row="0" Grid.Column="2" Height="60" Width="100" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#FFFADA9D" BorderBrush="#FF3C0900" Foreground="#FF3C0900" BorderThickness="6">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect> Info</Button>
+        <Label FontSize="300" HorizontalAlignment="Center" Foreground="#FF3C0900" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" BorderBrush="#FF3C0900" BorderThickness="0,0,0,10">Munchkin</Label>
+        <Image Source="images/Munchkin_manneke_noBackground.png" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,9.8" Grid.RowSpan="2" Height="640"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="1"  VerticalAlignment="Center" Margin="454,36,111,31" Height="433" Grid.ColumnSpan="2"  >
+
+            <Button Margin=" 15" FontSize="80" Style="{StaticResource CustomButton}" Width="280px">Start spel</Button>
+            <Button Margin=" 15" FontSize="80" Style="{StaticResource CustomButton}" Width="370">Start toernooi</Button>
+            <Button Margin=" 15" FontSize="80" Style="{StaticResource CustomButton}" Width="310">Verlaat spel</Button>
+
+
+        </StackPanel>
     </Grid>
+    </ScrollViewer>
 </Window>
