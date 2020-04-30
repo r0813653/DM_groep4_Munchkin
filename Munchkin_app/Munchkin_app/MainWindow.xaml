@@ -25,7 +25,7 @@
             <ColumnDefinition Width="100px" MinWidth="100"></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
-        <Button  FontSize="30" Margin="0 50 0 0" Grid.Row="0" Grid.Column="2" Height="60" Width="100" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#FFFADA9D" BorderBrush="#FF3C0900" Foreground="#FF3C0900" BorderThickness="6">
+        <Button x:Name="btn_info" Click="btn_info_Click" FontSize="30" Margin="0 50 0 0" Grid.Row="0" Grid.Column="2" Height="60" Width="100" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#FFFADA9D" BorderBrush="#FF3C0900" Foreground="#FF3C0900" BorderThickness="6">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect> Info</Button>

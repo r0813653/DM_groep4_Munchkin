@@ -24,5 +24,13 @@ namespace Munchkin_app
         {
             InitializeComponent();
         }
+
+      
+        private void btn_info_Click(object sender, RoutedEventArgs e)
+        {
+            InfoWindow infoWindow = new InfoWindow();
+            infoWindow.Show();
+            this.Hide();
+        }
     }
 }
