@@ -32,5 +32,13 @@ namespace Munchkin_app
             infoWindow.Show();
             this.Hide();
         }
+
+       
+        private void btn_startNewGame_Click(object sender, RoutedEventArgs e)
+        {
+            NewGameWindow newGameWindow = new NewGameWindow();
+            newGameWindow.Show();
+            this.Hide();
+        }
     }
 }
