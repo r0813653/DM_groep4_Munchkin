@@ -22,7 +22,6 @@ namespace Munchkin_app
         public NewGameWindow()
         {
             InitializeComponent();
-            this.WindowState = WindowState.Maximized;
         }
 
         List<TextBox> lijstNamenTextboxen = new List<TextBox>(); // lijst is nodig om achteraf gegevens op te vragen 

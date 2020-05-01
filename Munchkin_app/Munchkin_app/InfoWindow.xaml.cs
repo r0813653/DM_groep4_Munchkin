@@ -22,7 +22,6 @@ namespace Munchkin_app
         public InfoWindow()
         {
             InitializeComponent();
-            this.WindowState = WindowState.Maximized;
         }
     }
 }
