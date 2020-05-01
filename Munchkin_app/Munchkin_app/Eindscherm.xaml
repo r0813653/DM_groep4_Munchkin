@@ -29,8 +29,8 @@
                 <DataGrid AutoGenerateColumns="False" x:Name="datagridScores" IsReadOnly="True" Grid.Row="2"  Margin="200 0 200 10" Background="Transparent" RowBackground="Transparent" HeadersVisibility="None" BorderBrush="#FF3C0900" BorderThickness="8" Height="140"/>
             </StackPanel>
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" >
-                <Button Style="{StaticResource CustomButton}" Content="Speel nogmaals" FontSize="35" Margin="10 0 10 10" />
-                <Button Style="{StaticResource CustomButton}" Content="Naar hoofdmenu" FontSize="35" Margin="10 0 10 10"/>
+                <Button Style="{StaticResource CustomButton}" Content="Naar hoofdmenu" FontSize="35" Margin="10 0 100 10"/>
+                <Button Style="{StaticResource CustomButton}" Content="Speel nogmaals" FontSize="35" Margin="100 0 10 10" />
             </WrapPanel>
     </Grid>
     </ScrollViewer>
