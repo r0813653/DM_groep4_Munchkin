@@ -78,7 +78,7 @@ namespace Munchkin_app
                         radiobuttonVrouw.Name = "rbVrouw" + i;
                         radiobuttonVrouw.GroupName = groupname;
                         radiobuttonVrouw.FontSize = 30;
-                        radiobuttonMan.VerticalContentAlignment = VerticalAlignment.Center;
+                        radiobuttonVrouw.VerticalContentAlignment = VerticalAlignment.Center;
                         radiobuttonVrouw.Foreground= new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3C0900"));
                         // add checkboxes to list
                         lijstRadiobuttons.Add(radiobuttonMan);
@@ -98,6 +98,11 @@ namespace Munchkin_app
                     MessageBox.Show("Sorry, er is een maximum van 6 spelers.");
                 }
                 
+                
+            }
+            else if (e.Key == Key.Back)
+            {
+                stackpanel.Children.Clear();
             }
             else
             {
