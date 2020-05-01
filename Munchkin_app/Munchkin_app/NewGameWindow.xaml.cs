@@ -65,17 +65,20 @@ namespace Munchkin_app
 
                         //create the checkboxes
                         string groupname = "rbGroup" + i;
+                       
                         RadioButton radiobuttonMan = new RadioButton();
                         RadioButton radiobuttonVrouw = new RadioButton();
                         radiobuttonMan.Name = "rbMan" +i;
                         radiobuttonMan.Content = "man";
                         radiobuttonMan.FontSize = 30;
                         radiobuttonMan.GroupName = groupname;
+                        radiobuttonMan.VerticalContentAlignment = VerticalAlignment.Center;
                         radiobuttonMan.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3C0900"));
                         radiobuttonVrouw.Content = "vrouw";
                         radiobuttonVrouw.Name = "rbVrouw" + i;
                         radiobuttonVrouw.GroupName = groupname;
                         radiobuttonVrouw.FontSize = 30;
+                        radiobuttonMan.VerticalContentAlignment = VerticalAlignment.Center;
                         radiobuttonVrouw.Foreground= new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3C0900"));
                         // add checkboxes to list
                         lijstRadiobuttons.Add(radiobuttonMan);
