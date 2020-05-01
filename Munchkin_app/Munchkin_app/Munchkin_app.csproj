@@ -55,12 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    
+  <Page Include="Fase1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
 	<Page Include="Eindscherm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InfoWindow.xaml">
+
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -72,7 +76,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-
+    <Compile Include="Fase1.xaml.cs">
+      <DependentUpon>Fase1.xaml</DependentUpon>
+    </Compile>
 <Compile Include="Eindscherm.xaml.cs">
       <DependentUpon>Eindscherm.xaml</DependentUpon>
     </Compile>
@@ -123,13 +129,19 @@
     <Resource Include="images\Munchkin_background.jpeg" />
     <Resource Include="images\Munchkin_startscherm.jpg" />
   </ItemGroup>
-
-<ItemGroup>
-    
+  <ItemGroup>
+    <Resource Include="images\Waanzinnig_Dapperheidsdrankje.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\ItemManneke.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\helmslot.jpg" />
+    </ItemGroup>
+<ItemGroup>   
     <Resource Include="images\bergmetgoud.png" />
   </ItemGroup>  
 <ItemGroup>
-    
     <Resource Include="images\Munchkin_manneke_noBackground.png" />
   </ItemGroup>
   <ItemGroup>

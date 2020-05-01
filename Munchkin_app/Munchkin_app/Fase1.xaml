@@ -1,0 +1,104 @@
+﻿<Window x:Class="Munchkin_app.Fase1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Munchkin_app"
+        mc:Ignorable="d"
+        Title="Fase1" Height="800" Width="1280" FontFamily="fonts/#Victoriana">
+    <Window.Background>
+        <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
+    </Window.Background>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="64"></ColumnDefinition>
+            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition Width="88"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="auto" ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Style="{StaticResource CustomButton}" x:Name="btnVervloeking" Content="Vervloeking" Grid.Row="12" Grid.ColumnSpan="4" Height="50" Width="150" FontSize="20"></Button>
+        <Button Style="{StaticResource CustomButton}" x:Name="btnRuilen" Content="Ruilen" Grid.Row="13" Grid.ColumnSpan="4" Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
+        <Button Style="{StaticResource CustomButton}" x:Name="btnVerkopen" Content="Verkopen" Grid.Row="14" Grid.ColumnSpan="4" Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
+        <Button Style="{StaticResource CustomButton}" x:Name="btnSpelers" Content="Spelers" Grid.Row="15" Grid.ColumnSpan="4" Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
+        <StackPanel Grid.Row="19" Grid.Column="17" Grid.ColumnSpan="4">
+            <Label x:Name="lblFase" Content="1/3" HorizontalAlignment="Center" FontSize="20" ></Label>
+            <Button Style="{StaticResource CustomButton}" x:Name="btnVolgendeFase" Content="Volgende fase" HorizontalAlignment="center" Height="50" Width="150" Margin="20,0,20,25" FontSize="20"></Button>
+        </StackPanel>
+        <StackPanel Grid.Row="7" Margin="50,0,0,0" Grid.ColumnSpan="4">
+            <Label x:Name="lblSpeler" Content="speler naam" FontSize="20"></Label>
+            <Label x:Name="lblLevel" Content="Level:" FontSize="20"></Label>
+            <Label x:Name="lblBonus" Content="Bonus:" FontSize="20"></Label>
+        </StackPanel>
+        <Image x:Name="imgExtra1"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="7" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgExtra2"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="8" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgExtra3"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="9" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgExtra4"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="10" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgExtra5"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="11" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgExtra6"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="12" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgExtra7"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="13" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgExtra8"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="14" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgItemManneke" Source="images/ItemManneke.png" Grid.ColumnSpan="7" Margin="59,20,15,36.8" Grid.RowSpan="11" Grid.Column="7" Grid.Row="3"/>
+        <Image x:Name="imgHelmslot" Source="images/helmslot.jpg"  Grid.ColumnSpan="2" Margin="50,10,0,60.6" Grid.Column="6" Grid.Row="6" Grid.RowSpan="2"/>
+
+        <WrapPanel   Grid.ColumnSpan="14" Margin="10,20,61,9.6" Grid.RowSpan="4" Grid.Column="4" Grid.Row="13">
+            <Image x:Name="imgHand1"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgHand2"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgHand3"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgHand4"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgHand5"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" Visibility="Collapsed"/>
+            <Image x:Name="imgHand6"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" Visibility="Collapsed"/>
+            <Image x:Name="imgHand7"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgHand8"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+        </WrapPanel>
+        <WrapPanel   Grid.ColumnSpan="13" Margin="10,9.6,0,3.4" Grid.RowSpan="4" Grid.Column="4" Grid.Row="16">
+            <Image x:Name="imgVeld1"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgVeld2"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgVeld3"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgVeld4"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgVeld5"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgVeld6"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgVeld7"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgVeld8"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+        </WrapPanel>
+    </Grid>
+
+</Window>
