@@ -6,7 +6,7 @@
     <Application.Resources>
         <DropShadowEffect x:Key="dropShadow" />
         <Style x:Key="CustomButton" TargetType="{x:Type Button}">
-            <Setter Property="TextElement.FontSize" Value="50px"/>
+            <Setter Property="TextElement.FontSize" Value="80px"/>
             <Setter Property="Background" Value="#FFFADA9D" />
             <Setter Property="BorderBrush" Value="#FF3C0900"/>
             <Setter Property="BorderThickness" Value="8"/>

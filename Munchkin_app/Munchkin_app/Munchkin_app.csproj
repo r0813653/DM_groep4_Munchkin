@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Eindscherm.xaml">
+    <Page Include="InfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -69,13 +70,22 @@
     </Compile>
     <Compile Include="Eindscherm.xaml.cs">
       <DependentUpon>Eindscherm.xaml</DependentUpon>
+    <Compile Include="InfoWindow.xaml.cs">
+      <DependentUpon>InfoWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NewGameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NewGameWindow.xaml.cs">
+      <DependentUpon>NewGameWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -109,6 +119,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\bergmetgoud.png" />
+    <Resource Include="images\Munchkin_manneke_noBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Munchkin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\newgame.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

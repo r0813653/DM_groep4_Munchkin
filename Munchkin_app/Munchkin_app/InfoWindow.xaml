@@ -1,0 +1,25 @@
+﻿<Window x:Class="Munchkin_app.InfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Munchkin_app"
+        mc:Ignorable="d"
+
+        Title="InfoWindow" Height="800 " Width="1280">
+    <Window.Background>
+        <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
+    </Window.Background>
+    <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+        <Grid>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Style="{StaticResource CustomButton}" Width="300" Margin="20">Spelregels</Button>
+                <Button Style="{StaticResource CustomButton}" Width="580"  Margin="20">Zoek je favoriete kaart</Button>
+                <Button Style="{StaticResource CustomButton}" Width="230" Margin="20">Credits</Button>
+            </StackPanel>
+            <Image Source="images/play.png" Width="766" HorizontalAlignment="Left" Panel.ZIndex="-1" Margin="-153,-58,0,-155.6"></Image>
+            <Image Source="images/Munchkin.png" Width="200" Margin="983,-233,90.6,232.4"></Image>
+        </Grid>
+    </ScrollViewer>
+    
+</Window>
