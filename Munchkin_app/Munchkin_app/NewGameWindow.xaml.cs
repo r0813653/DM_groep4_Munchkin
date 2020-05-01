@@ -25,14 +25,16 @@ namespace Munchkin_app
         }
 
         List<TextBox> lijstNamenTextboxen = new List<TextBox>(); // lijst is nodig om achteraf gegevens op te vragen 
-        List<CheckBox> lijstCheckboxen = new List<CheckBox>();
+        List<RadioButton> lijstRadiobuttons = new List<RadioButton>();
         
         
         private void txt_aantalSpelers_KeyUp(object sender, KeyEventArgs e)
         {
             if (int.TryParse(txt_aantalSpelers.Text, out int aantalSpelers))
             {
-                if (aantalSpelers<=6)
+                lijstNamenTextboxen.Clear();
+                lijstRadiobuttons.Clear();
+                if (aantalSpelers<=6 && aantalSpelers>=3)
                 {
                     stackpanel.Children.Clear();
                     stackpanel.Children.Clear();
@@ -62,29 +64,37 @@ namespace Munchkin_app
 
 
                         //create the checkboxes
-                        CheckBox radiobuttonMan = new CheckBox();
-                        CheckBox radiobuttonVrouw = new CheckBox();
-                        radiobuttonMan.Name = "radiobuttonMan";
-                        radiobuttonMan.Content = "man" + i;
+                        string groupname = "rbGroup" + i;
+                        RadioButton radiobuttonMan = new RadioButton();
+                        RadioButton radiobuttonVrouw = new RadioButton();
+                        radiobuttonMan.Name = "rbMan" +i;
+                        radiobuttonMan.Content = "man";
                         radiobuttonMan.FontSize = 30;
+                        radiobuttonMan.GroupName = groupname;
                         radiobuttonMan.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3C0900"));
                         radiobuttonVrouw.Content = "vrouw";
-                        radiobuttonVrouw.Name = "vrouw" + i;
+                        radiobuttonVrouw.Name = "rbVrouw" + i;
+                        radiobuttonVrouw.GroupName = groupname;
                         radiobuttonVrouw.FontSize = 30;
                         radiobuttonVrouw.Foreground= new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3C0900"));
                         // add checkboxes to list
-                        lijstCheckboxen.Add(radiobuttonMan);
-                        lijstCheckboxen.Add(radiobuttonVrouw);
+                        lijstRadiobuttons.Add(radiobuttonMan);
+                        lijstRadiobuttons.Add(radiobuttonVrouw);
                         // add the radiobuttons to grid
                         stackpanel.Children.Add(radiobuttonMan);
                         stackpanel.Children.Add(radiobuttonVrouw);
 
                     }
                 }
-                else
+                else if (aantalSpelers<3)
+                {
+                    MessageBox.Show("sorry, er is een minimum van 3 spelers.");
+                }
+                else if (aantalSpelers>6)
                 {
                     MessageBox.Show("Sorry, er is een maximum van 6 spelers.");
                 }
+                
             }
             else
             {
