@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Eindscherm.xaml">
     <Page Include="InfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -67,6 +68,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Eindscherm.xaml.cs">
+      <DependentUpon>Eindscherm.xaml</DependentUpon>
     <Compile Include="InfoWindow.xaml.cs">
       <DependentUpon>InfoWindow.xaml</DependentUpon>
     </Compile>
@@ -115,6 +118,7 @@
     <Resource Include="images\Munchkin_startscherm.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\bergmetgoud.png" />
     <Resource Include="images\Munchkin_manneke_noBackground.png" />
   </ItemGroup>
   <ItemGroup>
