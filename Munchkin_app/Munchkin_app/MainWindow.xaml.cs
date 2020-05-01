@@ -22,7 +22,24 @@ namespace Munchkin_app
     {
         public MainWindow()
         {
-            InitializeComponent(); 
+            InitializeComponent();
+            this.WindowState = WindowState.Maximized;
+        }
+
+      
+        private void btn_info_Click(object sender, RoutedEventArgs e)
+        {
+            InfoWindow infoWindow = new InfoWindow();
+            infoWindow.Show();
+            this.Hide();
+        }
+
+       
+        private void btn_startNewGame_Click(object sender, RoutedEventArgs e)
+        {
+            NewGameWindow newGameWindow = new NewGameWindow();
+            newGameWindow.Show();
+            this.Hide();
         }
     }
 }
