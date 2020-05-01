@@ -11,7 +11,7 @@
     <Window.Background>
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
     </Window.Background>
-    <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True" HorizontalScrollBarVisibility="Auto">
     <Grid x:Name="grid1" >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>

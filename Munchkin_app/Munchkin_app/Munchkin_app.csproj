@@ -55,16 +55,64 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-  <Page Include="Fase1.xaml">
+    <Compile Include="CreditsWindow.xaml.cs">
+      <DependentUpon>CreditsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CurseWindow.xaml.cs">
+      <DependentUpon>CurseWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Fase2.xaml.cs">
+      <DependentUpon>Fase2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Fase3.xaml.cs">
+      <DependentUpon>Fase3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RulesWindow.xaml.cs">
+      <DependentUpon>RulesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SearchCard.xaml.cs">
+      <DependentUpon>SearchCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SellWindow.xaml.cs">
+      <DependentUpon>SellWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StartTournamentWindow.xaml.cs">
+      <DependentUpon>StartTournamentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TradeWindow.xaml.cs">
+      <DependentUpon>TradeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UseCardWindow.xaml.cs">
+      <DependentUpon>UseCardWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPlayerWindow.xaml.cs">
+      <DependentUpon>ViewPlayerWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CreditsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-	<Page Include="Eindscherm.xaml">
+    <Page Include="CurseWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Fase1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Eindscherm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Fase2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Fase3.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InfoWindow.xaml">
-
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -79,7 +127,7 @@
     <Compile Include="Fase1.xaml.cs">
       <DependentUpon>Fase1.xaml</DependentUpon>
     </Compile>
-<Compile Include="Eindscherm.xaml.cs">
+    <Compile Include="Eindscherm.xaml.cs">
       <DependentUpon>Eindscherm.xaml</DependentUpon>
     </Compile>
     <Compile Include="InfoWindow.xaml.cs">
@@ -90,6 +138,34 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="NewGameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RulesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SellWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StartTournamentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TradeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UseCardWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewPlayerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -137,11 +213,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\helmslot.jpg" />
-    </ItemGroup>
-<ItemGroup>   
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="images\bergmetgoud.png" />
-  </ItemGroup>  
-<ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="images\Munchkin_manneke_noBackground.png" />
   </ItemGroup>
   <ItemGroup>

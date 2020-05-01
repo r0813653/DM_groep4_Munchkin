@@ -10,7 +10,7 @@
     <Window.Background>
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
     </Window.Background>
-    <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <Grid>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button Style="{StaticResource CustomButton}" Width="300" Margin="20">Spelregels</Button>
