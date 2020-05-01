@@ -9,8 +9,8 @@
     <Window.Background>
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
     </Window.Background>
-    
-        <Grid>
+
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="64"></ColumnDefinition>
             <ColumnDefinition Width="64"></ColumnDefinition>
@@ -68,18 +68,18 @@
             <Label x:Name="lblLevel" Content="Level:" FontSize="20"></Label>
             <Label x:Name="lblBonus" Content="Bonus:" FontSize="20"></Label>
         </StackPanel>
-        <Image x:Name="imgExtra1"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="6" Margin="5" Height="150" Grid.RowSpan="6"/>
-        <Image x:Name="imgExtra2"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="7" Margin="5" Height="150" Grid.RowSpan="6"/>
-        <Image x:Name="imgExtra3"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="8" Margin="5" Height="150" Grid.RowSpan="6"/>
-        <Image x:Name="imgExtra4"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="9" Margin="5" Height="150" Grid.RowSpan="6"/>
-        <Image x:Name="imgExtra5"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="10" Margin="5" Height="150" Grid.RowSpan="6"/>
-        <Image x:Name="imgExtra6"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="11" Margin="5" Height="150" Grid.RowSpan="6"/>
-        <Image x:Name="imgExtra7"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="12" Margin="5" Height="150" Grid.RowSpan="6"/>
-        <Image x:Name="imgExtra8"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="13" Margin="5" Height="150" Grid.RowSpan="6"/>
-        <Image x:Name="imgItemManneke" Source="images/ItemManneke.png" Grid.ColumnSpan="6" Margin="5" Grid.RowSpan="9" Grid.Column="7" Grid.Row="5"/>
-        <Image x:Name="imgHelmslot" Source="images/helmslot.jpg"  Grid.ColumnSpan="2" Margin="25" Grid.Column="5" Grid.Row="7"/>
+        <Image x:Name="imgExtra1"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="7" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgExtra2"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="8" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgExtra3"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="9" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgExtra4"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="10" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgExtra5"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="11" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgExtra6"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="12" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgExtra7"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="13" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgExtra8"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Grid.Column="14" Margin="5" Height="150" Grid.RowSpan="6"/>
+        <Image x:Name="imgItemManneke" Source="images/ItemManneke.png" Grid.ColumnSpan="7" Margin="59,20,15,36.8" Grid.RowSpan="11" Grid.Column="7" Grid.Row="3"/>
+        <Image x:Name="imgHelmslot" Source="images/helmslot.jpg"  Grid.ColumnSpan="2" Margin="50,10,0,60.6" Grid.Column="6" Grid.Row="6" Grid.RowSpan="2"/>
 
-        <WrapPanel Background="LightGray"  Grid.ColumnSpan="13" Margin="7,0.556,0,19.111" Grid.RowSpan="5" Grid.Column="5" Grid.Row="14">
+        <WrapPanel   Grid.ColumnSpan="14" Margin="10,20,61,9.6" Grid.RowSpan="4" Grid.Column="4" Grid.Row="13">
             <Image x:Name="imgHand1"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
             <Image x:Name="imgHand2"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
             <Image x:Name="imgHand3"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
@@ -89,6 +89,16 @@
             <Image x:Name="imgHand7"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
             <Image x:Name="imgHand8"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
         </WrapPanel>
+        <WrapPanel   Grid.ColumnSpan="13" Margin="10,9.6,0,3.4" Grid.RowSpan="4" Grid.Column="4" Grid.Row="16">
+            <Image x:Name="imgVeld1"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgVeld2"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgVeld3"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgVeld4"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgVeld5"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgVeld6"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgVeld7"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+            <Image x:Name="imgVeld8"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+        </WrapPanel>
     </Grid>
-        
+
 </Window>
