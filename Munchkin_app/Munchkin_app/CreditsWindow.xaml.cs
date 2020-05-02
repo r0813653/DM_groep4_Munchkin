@@ -22,6 +22,7 @@ namespace Munchkin_app
         public CreditsWindow()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
         }
     }
 }

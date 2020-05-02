@@ -22,6 +22,7 @@ namespace Munchkin_app
         public RulesWindow()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
         }
     }
 }

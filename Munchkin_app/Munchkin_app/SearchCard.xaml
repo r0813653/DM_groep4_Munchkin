@@ -5,8 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Munchkin_app"
         mc:Ignorable="d"
-        Title="SearchCard" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        FontFamily="fonts/#Victoriana"
+        Foreground="#FF3C0900"
+        Title="SearchCard" Height="800" Width="1280">
+    <Window.Background>
+        <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
+    </Window.Background>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Zoek een kaart" HorizontalAlignment="Center" FontSize="150" Foreground="#FF3C0900"/>
+            <TextBox x:Name="txtZoekKaart" Grid.Row="1" HorizontalAlignment="Center" FontSize="40" Width="800" Foreground="#FF3C0900" BorderBrush="#FF3C0900" BorderThickness="8"
+         Text="Zoek een kaart">
+                <TextBox.Background>
+                    <ImageBrush ImageSource="Images/Search.png" Stretch="Uniform" AlignmentX="Right">
+                        <ImageBrush.Transform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="-3"/>
+                            </TransformGroup>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </TextBox.Background>
+            </TextBox>
+            <ListBox Name="lbZoekKaart" Grid.Row="2" Width="800" Height="350" Margin="20" Background="Transparent" BorderThickness="8" BorderBrush="#FF3C0900" FontSize="40" Foreground="#FF3C0900"/>
+            <Button Style="{StaticResource CustomButton}" Grid.Row="3" FontSize="50" Content="Ga terug" Width="200" Margin="0 37 0 40"/>
+        </Grid>
+    </ScrollViewer>
 </Window>
