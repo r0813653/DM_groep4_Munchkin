@@ -41,5 +41,17 @@ namespace Munchkin_app
             newGameWindow.Show();
             this.Hide();
         }
+
+        private void btn_startTournament_Click(object sender, RoutedEventArgs e)
+        {
+            StartTournamentWindow startTournamentWindow = new StartTournamentWindow();
+            startTournamentWindow.Show();
+            this.Hide();
+        }
+
+        private void btn_exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
