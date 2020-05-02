@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,20 @@ namespace Munchkin_app
         {
             InitializeComponent();
             this.WindowState = WindowState.Maximized;
+        }
+
+        private void btn_terugNaarMainwindow_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainwindow = new MainWindow();
+            mainwindow.Show();
+            this.Hide();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            RulesWindow rulesWindow = new RulesWindow();
+            rulesWindow.Show();
+            this.Hide();
         }
     }
 }
