@@ -18,7 +18,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Label Content="Spelregels" FontSize="150" HorizontalAlignment="Center"/>
+            <Label Content="Spelregels" FontSize="150" HorizontalAlignment="Center" Foreground="#FF3C0900"/>
             <ScrollViewer Grid.Row="1" MaxWidth="1100" MaxHeight="450">
                 <TextBlock TextWrapping="Wrap" Margin="20" FontSize="25" >
                 <Span FontSize="35"><Bold>Introductie</Bold><LineBreak /></Span>

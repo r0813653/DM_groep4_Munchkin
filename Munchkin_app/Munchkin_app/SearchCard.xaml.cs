@@ -22,6 +22,7 @@ namespace Munchkin_app
         public SearchCard()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
         }
     }
 }
