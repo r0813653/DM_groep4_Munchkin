@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Munchkin_app"
         mc:Ignorable="d"
-
+        
         Title="InfoWindow" Height="800 " Width="1280">
     <Window.Background>
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
@@ -13,10 +13,11 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <Grid>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Style="{StaticResource CustomButton}" Width="300" Margin="20">Spelregels</Button>
-                <Button Style="{StaticResource CustomButton}" Width="580"  Margin="20">Zoek je favoriete kaart</Button>
-                <Button Style="{StaticResource CustomButton}" Width="230" Margin="20">Credits</Button>
+                <Button x:Name="btn_spelregels" Click="btn_spelregels_Click" Style="{StaticResource CustomButton}" Width="300" Margin="20">Spelregels</Button>
+                <Button x:Name="btn_zoekFavorieteKaart" Click="btn_zoekFavorieteKaart_Click" Style="{StaticResource CustomButton}" Width="580"  Margin="20">Zoek je favoriete kaart</Button>
+                <Button x:Name="btn_credits" Click="btn_credits_Click" Style="{StaticResource CustomButton}" Width="230" Margin="20">Credits</Button>
             </StackPanel>
+            <Button Click="btn_terugNaarMainwindow_Click" x:Name="btn_terugNaarMainwindow" FontSize="50" Style="{StaticResource CustomButton}" Height="80" Margin="193,621,961,51" Width="120">terug</Button>
             <Image Source="images/play.png" Width="766" HorizontalAlignment="Left" Panel.ZIndex="-1" Margin="-153,-58,0,-155.6"></Image>
             <Image Source="images/Munchkin.png" Width="200" Margin="983,-233,90.6,232.4"></Image>
         </Grid>

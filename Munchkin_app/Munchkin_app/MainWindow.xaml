@@ -35,8 +35,8 @@
         <StackPanel Grid.Row="1" Grid.Column="1"  VerticalAlignment="Center" Margin="454,36,111,31" Height="433" Grid.ColumnSpan="2"  >
 
             <Button x:Name="btn_startNewGame" Click="btn_startNewGame_Click" Margin=" 15" FontSize="80" Style="{StaticResource CustomButton}" Width="280px">Start spel</Button>
-            <Button Margin=" 15" FontSize="80" Style="{StaticResource CustomButton}" Width="370">Start toernooi</Button>
-            <Button Margin=" 15" FontSize="80" Style="{StaticResource CustomButton}" Width="310">Verlaat spel</Button>
+            <Button x:Name="btn_startTournament" Click="btn_startTournament_Click" Margin=" 15" FontSize="80" Style="{StaticResource CustomButton}" Width="370">Start toernooi</Button>
+            <Button x:Name="btn_exit" Click="btn_exit_Click" Margin=" 15" FontSize="80" Style="{StaticResource CustomButton}" Width="310">Verlaat spel</Button>
 
 
         </StackPanel>
