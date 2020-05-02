@@ -5,8 +5,81 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Munchkin_app"
         mc:Ignorable="d"
-        Title="RulesWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        FontFamily="fonts/#Victoriana"
+        Foreground="#FF3C0900"
+        Title="RulesWindow" Height="800" Width="1280">
+    <Window.Background>
+        <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
+    </Window.Background>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Spelregels" FontSize="150" HorizontalAlignment="Center"/>
+            <ScrollViewer Grid.Row="1" MaxWidth="1100" MaxHeight="450">
+                <TextBlock TextWrapping="Wrap" Margin="20" FontSize="25" >
+                <Span FontSize="35"><Bold>Introductie</Bold><LineBreak /></Span>
+Munchkin is een kaartspel voor 3 tot 6 spelers en een parodie op fantasy rollenspellen. Deze rollenspellen worden gespeeld rondom een tafel, af en toe met ondersteuning van miniatuurwezens, waarbij de medespelers als helden proberen monsters te verslaan en hele gemeenschappen te redden. Bij Munchkin is het de bedoeling om zo snel mogelijk het afgesproken level (meestal 10) te bereiken door monsters te verslaan en tegenstanders te helpen als je er beter van kunt worden. Maar het is nog beter ervoor te zorgen dat je tegenstanders helemaal geen hoog level bereiken! Degene die als eerste het afgesproken level bereikt, wint het spel.
+
+                <LineBreak/><LineBreak/><Span FontSize="35"><Bold>Spelverloop</Bold><LineBreak /></Span>
+De kaarten worden onderverdeeld in een stapel met kerkerkaarten (met een deur op de achterkant) en een stapel met schatkaarten (met een berg schatten op de achterkant). Iedere speler krijgt 10 fiches om zijn level mee bij te kunnen houden. Schud de beide stapels en leg deze naast elkaar op tafel. Geef elke speler 2 kaarten van elke stapel.
+<LineBreak /><LineBreak />
+Iedereen start als een level 1 mens zonder klasse. Kijk naar je eerste vier kaarten. Als je een ras of een klasse kaart hebt, mag je een van elk type voor je op tafel te leggen. Als je voorwerp kaarten hebt, mag je deze ook voor je neerleggen. Deze rassen, klassen en voorwerpen zijn van belang in een gevecht tegen een monster.
+ <LineBreak /><LineBreak />
+ 
+Je beurt bestaat uit 4 fasen:<LineBreak />
+Open een deur<LineBreak />
+Zoek problemen<LineBreak />
+Plunder de kamer<LineBreak />
+Liefdadigheid<LineBreak />
+<LineBreak />
+ 
+<LineBreak /><Bold>Fase 1- Open een deur</Bold><LineBreak />
+Neem een kaart van de stapel kerkerkaarten en draai deze om, zodat iedereen de kaart ziet. Er zijn verschillende soorten kaarten die je zo tegen kunt komen.
+ 
+<LineBreak/><LineBreak />Monster<LineBreak />
+Als de kaart een monster is, moet je het bevechten. Om een monster te bevechten kijk je naar het level bovenaan zijn kaart. Als je eigen level tezamen met de bonussen van de diverse voorwerpen die voor je op tafel liggen een totaal heeft dat hoger is dan het level van het monster, dan dood je het. Sommige monsters hebben speciale krachten die het gevecht beïnvloeden. Maar je kunt ook zelf eenmalige kaarten uit je hand inzetten, zoals drankjes, gedurende gevechten. Je kunt geen voorwerpen stelen of verhandelen tijdens het gevecht. Verder kunnen je tegenstanders ervoor zorgen dat andere monsters het gevecht binnenvallen. In dat geval moet je het totale aantal levels verslaan. Als je er eentje uitschakelt met een kaart, maar vlucht voor de ander(en), dan krijg je geen enkele schat. Ook mag je tegenstander een vijandige kaart op je spelen of een speciale kracht gebruiken.
+ <LineBreak/><LineBreak/>
+Als je een monster niet kunt verslaan heb je twee keuzes: hulp vragen of meteen proberen te vluchten. Je mag een andere speler vragen je te helpen. Slechts een speler mag je helpen. Je mag als tegenprestatie voor de hulp voorwerpen aanbieden die je voor je op tafel hebt liggen of enkele schatkaarten die het monster heeft. Als je ze een deel van de schat belooft, moet je afspreken wie als eerste mag kiezen of hoe de verdeling zal zijn. Als iemand je helpt, dan tel je zijn level en bonussen op bij de jouwe. De speciale eigenschappen en kwetsbaarheden van het monster gelden ook voor je helper en andersom.
+ <LineBreak/><LineBreak/>
+Is het monster voor jou onverslaanbaar, dan moeten je vluchten. Je ontsnapt alleen bij een 5 of hoger met de dobbelsteen. Afhankelijk van je ras kun je een Vluchtbonus of Vluchtstraf krijgen. Sommige magische voorwerpen maken het eenvoudiger of lastiger om te vluchten. En sommige monsters zijn snel of geven je een straf bij je worp. Als je ontsnapt, leg je het monster op de aflegstapel. Je krijgt geen schat en sommige monsters geven je nog een trap na! Als het vluchten echter mislukt is, dan krijg je een portie ellende over je heen. Deze staat beschreven op de kaart. Als twee spelers samenwerken en toch het monster niet verslaan, dan moeten ze beiden vluchten. Ze gooien ieder afzonderlijk. De monsters kunnen beiden te pakken krijgen.
+Als je voor meerdere monsters vlucht, dan gooi je afzonderlijk voor elk van hen in een volgorde naar keuze en je krijgt een portie ellende van elk monster dat jou te pakken krijgt.
+<LineBreak/><LineBreak/>
+Als je een monster doodt of op een andere manier verslaat, dan ga je automatisch een of meerdere levels omhoog. Dit is afhankelijk van het monster. Als je meerdere monsterkaarten bevecht, dan stijg je een level voor elk monster dat je doodt! Maar als je een monster verslaat zonder het te doden, dan stijg je NOOIT een level. Verder mag je het aantal schatten van de stapel schatkaarten afpakken die op de monsterkaart staan. Deze schatten hoef je niet aan je tegenstanders te laten zien, behalve als iemand je geholpen heeft. Als iemand je succesvol helpt, dan krijg jij een level voor elk monster dat is verslagen. Je helper stijgt in principe niet, tenzij zijn ras anders aan geeft.
+<LineBreak/>Wanneer je door het monster gedood wordt, dan houdt je je klasse, ras en level. Van de kaarten die je op de hand had en de voorwerpkaarten die je op tafel had liggen, mogen je tegenstanders er ieder één kiezen, de rest word afgelegd. In je volgende beurt begin je met het trekken van kaarten, twee van elke stapel en je mag direct ras, klasse of voorwerpen kaarten spelen als je wilt. Je bent nu weer levend, maar je beurt is voorbij; je mag al wel weer anderen helpen en/of tegenwerken in hun gevecht. De volgende ronde begint je beurt bij fase 1.
+ 
+<LineBreak/><LineBreak/>Vervloeking<LineBreak/>
+Als de kaart een vervloeking is, dan is deze direct van toepassing op je en wordt indien mogelijk uitgevoerd en daarna afgelegd.
+ 
+                <LineBreak/><LineBreak/>Andere kaart (ras, klasse enz.)<LineBreak/>
+Als je een andere kaart trekt, mag je deze in je hand nemen of direct spelen.
+
+                <LineBreak/><LineBreak /><Bold>Fase 2- Zoek problemen</Bold><LineBreak />
+Als je GEEN monster bent tegengekomen toen je de deur opende (de kerkerkaart pakte), dan heb je nu de mogelijkheid een monster uit je hand te spelen (als je er eentje hebt) en er tegen te vechten. Hierdoor kun je toch nog levels winnen.
+
+ 
+                <LineBreak/><LineBreak /><Bold>Fase 3- Plunder de kamer</Bold><LineBreak />
+Als je geen enkel monster bent tegengekomen, dan kun je de lege kamer doorzoeken... trek een tweede kaart van de stapel kerkerkaarten en neem deze in je hand. Een monster kun je in een volgende tweede fase gebruiken om tegen te vechten of als je een "rondzwervend monster"-kaart hebt om met een ander monster mee te laten vechten. Een vloek kun je op een tegenstander of jezelf spelen op elk moment naar keuze. Voorwerpen en rassen- of klasse-kaarten kun je tijdens je beurt op tafel spelen. Eenmalige kaarten kun je in een gevecht van jezelf of van een tegenstander gebruiken.
+
+                <LineBreak/><LineBreak /><Bold>Fase 4- Liefdadigheid</Bold><LineBreak />
+Als je te veel kaarten in je hand hebt (6 voor dwergen, 5 voor ieder ander), geef dan het overschot aan de nog levende speler met het laagste level. Als er meerdere spelers het laagste level hebben, verdeel de kaarten dan zo eerlijk mogelijk tussen hen, maar jij beslist wie het grootste deel krijgt. Als JIJ de laagste bent of gedeeld laagste, leg het overschot dan gewoon af. Nu is de volgende speler aan de beurt.
+ <LineBreak/>
+<LineBreak/>
+Verder zijn er nog de volgende extra regels:<LineBreak/><LineBreak/>
+Kaarten die in het spel zijn mogen niet worden teruggenomen in je hand - ze moeten worden afgelegd of verhandeld als je van ze af wilt.
+<LineBreak/><LineBreak/> Je daalt een level als een kaart dat voorschrijft. Je level kan nooit onder 1 dalen. Je effectieve level in een gevecht kan echter wel negatief zijn, als je vervloekt of verraden bent.
+<LineBreak/><LineBreak/>Mensen hebben geen speciale eigenschappen. Elk ander ras heeft verschillende speciale mogelijkheden en onmogelijkheden (deze staan op de kaarten). Je hebt de eigenschappen van een ras op het moment dat je de kaart voor je speelt en je verliest ze zodra je de kaart aflegt. Je kunt een raskaart op elk moment afleggen, zelfs in een gevecht.
+<LineBreak/><LineBreak/>Een voorwerpkaart in je hand telt niet, totdat je hem in het spel brengt. Hij ligt nu voor je op tafel. Je mag zoveel kleine voorwerpen voor je hebben liggen als je wilt, maar slechts één grote. Elk voorwerp dat niet als groot staat aangemerkt is klein.
+<LineBreak/><LineBreak/>Je mag slechts één hoofddeksel, één harnas, één paar schoeisel en twee “hand” voorwerpen (of één “twee handen” voorwerp) voor je op tafel hebben liggen.
+<LineBreak/><LineBreak/>Gedurende je beurt mag je voorwerpen  inleveren en meteen een level stijgen. Een level kost 1.000 goudstukken aan schatten. Je mag voorwerpen inleveren uit je hand of die je voor je op tafel liggen. Het doet er niet toe of het voor jou bruikbare of onbruikbare voorwerpen zijn. Je krijgt echter geen wisselgeld als je teveel aan waarde inlevert.
+<LineBreak/><LineBreak/>Je mag voorwerpen (maar geen andere kaarten) verhandelen met andere spelers. Je mag alleen voorwerpen van tafel verhandelen - niet vanuit je hand.
+<LineBreak/><LineBreak/>Als de kaarten de regels tegenspreken, dan zijn de kaarten leidend.
+                </TextBlock>
+            </ScrollViewer>
+            <Button Style="{StaticResource CustomButton}" Grid.Row="2" FontSize="50" Content="Ga terug" Width="200" Margin="20"/>
+        </Grid>
+    </ScrollViewer>
 </Window>

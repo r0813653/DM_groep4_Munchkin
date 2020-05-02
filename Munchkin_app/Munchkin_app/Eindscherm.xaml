@@ -14,23 +14,26 @@
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="400"/>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-            <Label HorizontalAlignment="Center" Margin="10" Content="David has won the game!" FontSize="50" Foreground="#FF3C0900"/>
-            <Image Source="images/bergmetgoud.png" Grid.Row="1" Height="400"/>
-            <StackPanel Grid.Row="2">
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label HorizontalAlignment="Center" Margin="10" Content="David heeft gewonnen!" FontSize="150" Grid.ColumnSpan="2" Foreground="#FF3C0900"/>
+            <Image Source="images/bergmetgoud.png" Grid.Row="1" Height="450"/>
+            <StackPanel Grid.Row="1" Grid.Column="1">
                 <WrapPanel HorizontalAlignment="Center">
                     <Label Height="40" Content="Naam" FontSize="35" Margin="150 0"/>
                     <Label Height="40" Content="Level" FontSize="35" Margin="150 0"/>
                 </WrapPanel>
-                <DataGrid AutoGenerateColumns="False" x:Name="datagridScores" IsReadOnly="True" Grid.Row="2"  Margin="200 0 200 10" Background="Transparent" RowBackground="Transparent" HeadersVisibility="None" BorderBrush="#FF3C0900" BorderThickness="8" Height="140"/>
+                <DataGrid AutoGenerateColumns="False" x:Name="datagridScores" IsReadOnly="True"  Margin="20 0 20 10" Background="Transparent" RowBackground="Transparent" HeadersVisibility="None" BorderBrush="#FF3C0900" BorderThickness="8" Height="200"/>
             </StackPanel>
-            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" >
-                <Button Style="{StaticResource CustomButton}" Content="Naar hoofdmenu" FontSize="35" Margin="10 0 100 10"/>
-                <Button Style="{StaticResource CustomButton}" Content="Speel nogmaals" FontSize="35" Margin="100 0 10 10" />
+            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2" >
+                <Button Style="{StaticResource CustomButton}" Content="Naar hoofdmenu" FontSize="50" Margin="10 0 100 40" Padding="10" Width="273"/>
+                <Button Style="{StaticResource CustomButton}" Content="Speel nogmaals" FontSize="50" Margin="100 0 10 40" Width="258" />
             </WrapPanel>
     </Grid>
     </ScrollViewer>
