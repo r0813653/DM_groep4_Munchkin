@@ -230,6 +230,12 @@
     <Resource Include="images\newgame.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\queen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\king.png" />
+    </ItemGroup>
+  <ItemGroup>
     <Resource Include="images\Credits.png" />
   </ItemGroup>
   <ItemGroup>
