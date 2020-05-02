@@ -5,8 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Munchkin_app"
         mc:Ignorable="d"
-        Title="StartTournamentWindow" Height="450" Width="800">
+        FontFamily="fonts/#Victoriana"
+        Title="StartTournamentWindow" Height="800" Width="1280" Loaded="Window_Loaded">
+    <Window.Background>
+        <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
+    </Window.Background>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label FontSize="150" Margin="0 40 0 0 " Foreground="#FF3C0900" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Grid.ColumnSpan="2" BorderBrush="#FF3C0900" Content="Start toernooi"/>
+        <Button x:Name="btn_terugNaarMainWindow" Click="btn_terugNaarMainWindow_Click"  FontSize="50" Style="{StaticResource CustomButton}" Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" Margin="0 0 0 40" Width="200" Height="75" Content="terug"/>
+        <Button FontSize="50" Style="{StaticResource CustomButton}" Grid.Row="3" Grid.Column="2" VerticalAlignment="Bottom" Width="300" Height="75" Margin="0 0 0 40" Content="ga verder"/>
+       
+        <Label Grid.Row="1" HorizontalAlignment="Right" Margin="0 40 0 0" FontSize="40">Naam Toernooi :</Label>
+        <TextBox x:Name="txt_naamToernooi" FontSize="40" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="1" Width="200" HorizontalAlignment="Left" Margin="20 40 0 0" Background="#FCE4B6"></TextBox>
         
+      
+        <Label Grid.Row="2" Grid.Column="0" FontSize="40" HorizontalAlignment="Right" Margin="0 20 0 0"> Aantal spelers :</Label>
+        <ComboBox x:Name="cmb_AantalSpelers" HorizontalContentAlignment="Center" FontSize="40" MinWidth="200" Background="#FCE4B6" Grid.Row="2" Grid.Column="1" Width="20" Height="50" HorizontalAlignment="Left" Margin="20 20 0 0"></ComboBox>
+
+        <Image Source="images/queen.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Panel.ZIndex="-1" Margin="-200 0 0 0"></Image>
+        <Image Source="images/king.png" Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Panel.ZIndex="-1" Margin="200 0 0 0"></Image>
+       
     </Grid>
 </Window>
