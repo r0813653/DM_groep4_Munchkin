@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Munchkin_app"
         mc:Ignorable="d"
-        Title="CreditsWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        FontFamily="fonts/#Victoriana"
+        Foreground="#FF3C0900"
+        Title="CreditsWindow" Height="800" Width="1280">
+    <Window.Background>
+        <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
+    </Window.Background>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Credits" FontSize="150" HorizontalAlignment="Center"/>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                
+                <Label Content="Yoran Aerts" FontSize="60" HorizontalAlignment="Center"/>
+                <Label Content="Jens Van den Akkerveken" FontSize="60" HorizontalAlignment="Center"/>
+                <Label Content="Domien Van Den Heuvel" FontSize="60" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <Image Grid.Row="2" Source="images/Credits.png" Width="1000" />
+            <Button Style="{StaticResource CustomButton}" Grid.Row="3" FontSize="50" Content="Ga terug" Width="200" Margin="20"/>
+        </Grid>
+    </ScrollViewer>
 </Window>
