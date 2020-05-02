@@ -23,19 +23,6 @@ namespace Munchkin_app
         public Fase1()
         {
             InitializeComponent();
-            control();
-        }
-        Image image1;
-        Image image2;
-        Image image3;
-        Button btntest;
-        public void control()
-        {
-            
-            image1 = new Image();
-            image1.Height = 100;
-            image1.Width = 50;
-            
             
         }
 
