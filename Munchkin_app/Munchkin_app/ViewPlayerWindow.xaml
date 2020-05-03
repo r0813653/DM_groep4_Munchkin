@@ -5,8 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Munchkin_app"
         mc:Ignorable="d"
-        Title="ViewPlayerWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        FontFamily="fonts/#Victoriana"
+        Foreground="#FF3C0900"
+        Title="ViewPlayerWindow" Height="800" Width="1280">
+    <Window.Background>
+        <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
+    </Window.Background>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label HorizontalAlignment="Center" Margin="10" Content="Bekijk speler" FontSize="150" Grid.ColumnSpan="5" Foreground="#FF3C0900"/>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" >
+                <ComboBox x:Name="cmbSpeler" Width="100" />
+                <Label x:Name="lblSpeler" Content="speler naam" FontSize="20"></Label>
+                <Label x:Name="lblLevel" Content="Level:" FontSize="20"></Label>
+                <Label x:Name="lblBonus" Content="Bonus:" FontSize="20"></Label>
+                <Label x:Name="lblRas" Content="Ras:" FontSize="20"></Label>
+                <Label x:Name="lblKlasse" Content="Klasse:" FontSize="20"></Label>
+            </StackPanel>
+            <Image x:Name="imgItemManneke" Source="images/ItemManneke.png" Grid.Column="2" Grid.Row="1" Height="400" VerticalAlignment="Top" />
+            <StackPanel Grid.Column="1"  Grid.Row="1" Margin="10">
+                <Image x:Name="imgHand1slot" Source="images/Armour.png" Height="90" Margin="5" />
+                <Image x:Name="imgBodyslot" Source="images/Armour.png" Height="90" Margin="5" />
+                <Image x:Name="imgHelmslot" Source="images/Armour.png" Height="90" Margin="5" />
+            </StackPanel>
+            <StackPanel  Grid.Column="3"  Grid.Row="1" >
+                <Image x:Name="imgHand2slot" Source="images/Armour.png" Height="90" Margin="5" />
+                <Image x:Name="imgFeedslot" Source="images/Armour.png" Height="90" Margin="5" />
+            </StackPanel>
+            <GroupBox Grid.Column="4" Grid.Row="1" BorderBrush="#FF3C0900" Margin="10 -100">
+                <GroupBox.Header>
+                    <Label FontSize="20">Extra items</Label>
+                </GroupBox.Header>
+
+                <WrapPanel Orientation="Horizontal" Margin="10,10,0,0">
+                    <Image x:Name="imgExtra1"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130" />
+                    <Image x:Name="imgExtra2"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130" />
+                    <Image x:Name="imgExtra3"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130" />
+                    <Image x:Name="imgExtra4"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130"/>
+                    <Image x:Name="imgExtra5"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130"/>
+                    <Image x:Name="imgExtra6"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130"/>
+                    <Image x:Name="imgExtra7"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130"/>
+                    <Image x:Name="imgExtra8"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130"/>
+                </WrapPanel>
+            </GroupBox>
+            <Button Style="{StaticResource CustomButton}" Grid.Row="2" FontSize="50" Content="Ga terug" Width="200" Margin="20 40"/>
+        </Grid>
+    </ScrollViewer>
 </Window>
