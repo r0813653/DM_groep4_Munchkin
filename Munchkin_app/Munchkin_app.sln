@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munchkin_app", "Munchkin_ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munchkin_MODELS", "Munchkin_MODELS\Munchkin_MODELS.csproj", "{AB400689-115D-43AE-B029-E79BFB9150CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munckin_DAL", "Munckin_DAL\Munckin_DAL.csproj", "{B5D2C533-189E-491C-A9C1-C33D00CC71B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AB400689-115D-43AE-B029-E79BFB9150CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB400689-115D-43AE-B029-E79BFB9150CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB400689-115D-43AE-B029-E79BFB9150CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5D2C533-189E-491C-A9C1-C33D00CC71B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5D2C533-189E-491C-A9C1-C33D00CC71B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5D2C533-189E-491C-A9C1-C33D00CC71B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5D2C533-189E-491C-A9C1-C33D00CC71B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

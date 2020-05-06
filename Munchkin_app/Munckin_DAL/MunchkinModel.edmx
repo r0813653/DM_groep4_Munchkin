@@ -1,0 +1,1030 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MunchkinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bonussen">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Niet_Bruikbaar_Door" Type="nvarchar" MaxLength="255" />
+          <Property Name="Bruikbaar_Door" Type="nvarchar" MaxLength="255" />
+          <Property Name="Waarde" Type="int" Nullable="false" />
+          <Property Name="Waarop_Effect" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kaart_Bonussen">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kaart_Id" Type="int" Nullable="false" />
+          <Property Name="Bonus_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kaarten">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naam" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Beschrijving" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Afbeelding" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Type_id" Type="int" Nullable="false" />
+          <Property Name="Eenmalig" Type="bit" />
+          <Property Name="Wanneer_Bruikbaar" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Kaarten_Stapels">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kaart_Id" Type="int" Nullable="false" />
+          <Property Name="Stapel_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kerkerkaarten">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Beschrijving_2" Type="nvarchar" MaxLength="255" />
+          <Property Name="Portie_Ellende" Type="nvarchar" MaxLength="255" />
+          <Property Name="Level" Type="int" />
+          <Property Name="Aantal_schatten" Type="int" />
+          <Property Name="Ondood" Type="bit" />
+          <Property Name="Aantal_Levels" Type="int" />
+        </EntityType>
+        <EntityType Name="Schatkaarten">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Schatkaart_Waarde" Type="int" />
+          <Property Name="Is_Groot" Type="bit" />
+        </EntityType>
+        <EntityType Name="Spelers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naam" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Level" Type="int" Nullable="false" />
+          <Property Name="Geslacht" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stapels">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naam" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Toernooien">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naam" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Datum" Type="datetime" />
+          <Property Name="Winnaar_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Types">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Soort" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wedstrijd_Spelers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Speler_Id" Type="int" Nullable="false" />
+          <Property Name="Wedstrijd_Id" Type="int" Nullable="false" />
+          <Property Name="Handkaarten_Id" Type="int" Nullable="false" />
+          <Property Name="Veldkaarten_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wedstrijden">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Winnaar_Id" Type="int" />
+          <Property Name="Toernooi_Id" Type="int" />
+          <Property Name="Kerkerkaarten_Trekstapel_Id" Type="int" Nullable="false" />
+          <Property Name="Kerkerkaarten_Aflegstapel_Id" Type="int" Nullable="false" />
+          <Property Name="Schatkaarten_Trekstapel_Id" Type="int" Nullable="false" />
+          <Property Name="Schatkaarten_Aflegstapel_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Bonus_Id">
+          <End Role="Bonussen" Type="Self.Bonussen" Multiplicity="1" />
+          <End Role="Kaart_Bonussen" Type="Self.Kaart_Bonussen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bonussen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kaart_Bonussen">
+              <PropertyRef Name="Bonus_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Handkaarten_Id">
+          <End Role="Stapels" Type="Self.Stapels" Multiplicity="1" />
+          <End Role="Wedstrijd_Spelers" Type="Self.Wedstrijd_Spelers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stapels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijd_Spelers">
+              <PropertyRef Name="Handkaarten_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kaart_Id">
+          <End Role="Kaarten" Type="Self.Kaarten" Multiplicity="1" />
+          <End Role="Kaart_Bonussen" Type="Self.Kaart_Bonussen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kaarten">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kaart_Bonussen">
+              <PropertyRef Name="Kaart_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kaart_Id_Kaarten_Stapels">
+          <End Role="Kaarten" Type="Self.Kaarten" Multiplicity="1" />
+          <End Role="Kaarten_Stapels" Type="Self.Kaarten_Stapels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kaarten">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kaarten_Stapels">
+              <PropertyRef Name="Kaart_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kerkerkaart_Id">
+          <End Role="Kaarten" Type="Self.Kaarten" Multiplicity="1" />
+          <End Role="Kerkerkaarten" Type="Self.Kerkerkaarten" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Kaarten">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kerkerkaarten">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kerkerkaarten_Aflegstapel_Id">
+          <End Role="Stapels" Type="Self.Stapels" Multiplicity="1" />
+          <End Role="Wedstrijden" Type="Self.Wedstrijden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stapels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijden">
+              <PropertyRef Name="Kerkerkaarten_Aflegstapel_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kerkerkaarten_Trekstapel_Id">
+          <End Role="Stapels" Type="Self.Stapels" Multiplicity="1" />
+          <End Role="Wedstrijden" Type="Self.Wedstrijden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stapels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijden">
+              <PropertyRef Name="Kerkerkaarten_Trekstapel_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schatkaart_Id">
+          <End Role="Kaarten" Type="Self.Kaarten" Multiplicity="1" />
+          <End Role="Schatkaarten" Type="Self.Schatkaarten" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Kaarten">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Schatkaarten">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schatkaarten_Aflegstapel_Id">
+          <End Role="Stapels" Type="Self.Stapels" Multiplicity="1" />
+          <End Role="Wedstrijden" Type="Self.Wedstrijden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stapels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijden">
+              <PropertyRef Name="Schatkaarten_Aflegstapel_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schatkaarten_Trekstapel_Id">
+          <End Role="Stapels" Type="Self.Stapels" Multiplicity="1" />
+          <End Role="Wedstrijden" Type="Self.Wedstrijden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stapels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijden">
+              <PropertyRef Name="Schatkaarten_Trekstapel_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Speler_Id">
+          <End Role="Spelers" Type="Self.Spelers" Multiplicity="1" />
+          <End Role="Wedstrijd_Spelers" Type="Self.Wedstrijd_Spelers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spelers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijd_Spelers">
+              <PropertyRef Name="Speler_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stapel_Id_Kaarten_Stapels">
+          <End Role="Stapels" Type="Self.Stapels" Multiplicity="1" />
+          <End Role="Kaarten_Stapels" Type="Self.Kaarten_Stapels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stapels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kaarten_Stapels">
+              <PropertyRef Name="Stapel_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Toernooi_Id">
+          <End Role="Toernooien" Type="Self.Toernooien" Multiplicity="0..1" />
+          <End Role="Wedstrijden" Type="Self.Wedstrijden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Toernooien">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijden">
+              <PropertyRef Name="Toernooi_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Type_Id">
+          <End Role="Types" Type="Self.Types" Multiplicity="1" />
+          <End Role="Kaarten" Type="Self.Kaarten" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kaarten">
+              <PropertyRef Name="Type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Veldkaarten_Id">
+          <End Role="Stapels" Type="Self.Stapels" Multiplicity="1" />
+          <End Role="Wedstrijd_Spelers" Type="Self.Wedstrijd_Spelers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stapels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijd_Spelers">
+              <PropertyRef Name="Veldkaarten_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wedstrijd_Id">
+          <End Role="Wedstrijden" Type="Self.Wedstrijden" Multiplicity="1" />
+          <End Role="Wedstrijd_Spelers" Type="Self.Wedstrijd_Spelers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wedstrijden">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijd_Spelers">
+              <PropertyRef Name="Wedstrijd_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Winnaar_Id_Toernooi">
+          <End Role="Spelers" Type="Self.Spelers" Multiplicity="1" />
+          <End Role="Toernooien" Type="Self.Toernooien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spelers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Toernooien">
+              <PropertyRef Name="Winnaar_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Winnaar_Id_Wedstrijd">
+          <End Role="Spelers" Type="Self.Spelers" Multiplicity="0..1" />
+          <End Role="Wedstrijden" Type="Self.Wedstrijden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spelers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijden">
+              <PropertyRef Name="Winnaar_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MunchkinModelStoreContainer">
+          <EntitySet Name="Bonussen" EntityType="Self.Bonussen" Schema="Munchkin" store:Type="Tables" />
+          <EntitySet Name="Kaart_Bonussen" EntityType="Self.Kaart_Bonussen" Schema="Munchkin" store:Type="Tables" />
+          <EntitySet Name="Kaarten" EntityType="Self.Kaarten" Schema="Munchkin" store:Type="Tables" />
+          <EntitySet Name="Kaarten_Stapels" EntityType="Self.Kaarten_Stapels" Schema="Munchkin" store:Type="Tables" />
+          <EntitySet Name="Kerkerkaarten" EntityType="Self.Kerkerkaarten" Schema="Munchkin" store:Type="Tables" />
+          <EntitySet Name="Schatkaarten" EntityType="Self.Schatkaarten" Schema="Munchkin" store:Type="Tables" />
+          <EntitySet Name="Spelers" EntityType="Self.Spelers" Schema="Munchkin" store:Type="Tables" />
+          <EntitySet Name="Stapels" EntityType="Self.Stapels" Schema="Munchkin" store:Type="Tables" />
+          <EntitySet Name="Toernooien" EntityType="Self.Toernooien" Schema="Munchkin" store:Type="Tables" />
+          <EntitySet Name="Types" EntityType="Self.Types" Schema="Munchkin" store:Type="Tables" />
+          <EntitySet Name="Wedstrijd_Spelers" EntityType="Self.Wedstrijd_Spelers" Schema="Munchkin" store:Type="Tables" />
+          <EntitySet Name="Wedstrijden" EntityType="Self.Wedstrijden" Schema="Munchkin" store:Type="Tables" />
+          <AssociationSet Name="FK_Bonus_Id" Association="Self.FK_Bonus_Id">
+            <End Role="Bonussen" EntitySet="Bonussen" />
+            <End Role="Kaart_Bonussen" EntitySet="Kaart_Bonussen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Handkaarten_Id" Association="Self.FK_Handkaarten_Id">
+            <End Role="Stapels" EntitySet="Stapels" />
+            <End Role="Wedstrijd_Spelers" EntitySet="Wedstrijd_Spelers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kaart_Id" Association="Self.FK_Kaart_Id">
+            <End Role="Kaarten" EntitySet="Kaarten" />
+            <End Role="Kaart_Bonussen" EntitySet="Kaart_Bonussen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kaart_Id_Kaarten_Stapels" Association="Self.FK_Kaart_Id_Kaarten_Stapels">
+            <End Role="Kaarten" EntitySet="Kaarten" />
+            <End Role="Kaarten_Stapels" EntitySet="Kaarten_Stapels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kerkerkaart_Id" Association="Self.FK_Kerkerkaart_Id">
+            <End Role="Kaarten" EntitySet="Kaarten" />
+            <End Role="Kerkerkaarten" EntitySet="Kerkerkaarten" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kerkerkaarten_Aflegstapel_Id" Association="Self.FK_Kerkerkaarten_Aflegstapel_Id">
+            <End Role="Stapels" EntitySet="Stapels" />
+            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kerkerkaarten_Trekstapel_Id" Association="Self.FK_Kerkerkaarten_Trekstapel_Id">
+            <End Role="Stapels" EntitySet="Stapels" />
+            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schatkaart_Id" Association="Self.FK_Schatkaart_Id">
+            <End Role="Kaarten" EntitySet="Kaarten" />
+            <End Role="Schatkaarten" EntitySet="Schatkaarten" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schatkaarten_Aflegstapel_Id" Association="Self.FK_Schatkaarten_Aflegstapel_Id">
+            <End Role="Stapels" EntitySet="Stapels" />
+            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schatkaarten_Trekstapel_Id" Association="Self.FK_Schatkaarten_Trekstapel_Id">
+            <End Role="Stapels" EntitySet="Stapels" />
+            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Speler_Id" Association="Self.FK_Speler_Id">
+            <End Role="Spelers" EntitySet="Spelers" />
+            <End Role="Wedstrijd_Spelers" EntitySet="Wedstrijd_Spelers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stapel_Id_Kaarten_Stapels" Association="Self.FK_Stapel_Id_Kaarten_Stapels">
+            <End Role="Stapels" EntitySet="Stapels" />
+            <End Role="Kaarten_Stapels" EntitySet="Kaarten_Stapels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Toernooi_Id" Association="Self.FK_Toernooi_Id">
+            <End Role="Toernooien" EntitySet="Toernooien" />
+            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Type_Id" Association="Self.FK_Type_Id">
+            <End Role="Types" EntitySet="Types" />
+            <End Role="Kaarten" EntitySet="Kaarten" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Veldkaarten_Id" Association="Self.FK_Veldkaarten_Id">
+            <End Role="Stapels" EntitySet="Stapels" />
+            <End Role="Wedstrijd_Spelers" EntitySet="Wedstrijd_Spelers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wedstrijd_Id" Association="Self.FK_Wedstrijd_Id">
+            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
+            <End Role="Wedstrijd_Spelers" EntitySet="Wedstrijd_Spelers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Winnaar_Id_Toernooi" Association="Self.FK_Winnaar_Id_Toernooi">
+            <End Role="Spelers" EntitySet="Spelers" />
+            <End Role="Toernooien" EntitySet="Toernooien" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Winnaar_Id_Wedstrijd" Association="Self.FK_Winnaar_Id_Wedstrijd">
+            <End Role="Spelers" EntitySet="Spelers" />
+            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MunchkinModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bonus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Niet_Bruikbaar_Door" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Bruikbaar_Door" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Waarde" Type="Int32" Nullable="false" />
+          <Property Name="Waarop_Effect" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kaart_Bonussen" Relationship="Self.FK_Bonus_Id" FromRole="Bonussen" ToRole="Kaart_Bonussen" />
+        </EntityType>
+        <EntityType Name="Kaart_Bonus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kaart_Id" Type="Int32" Nullable="false" />
+          <Property Name="Bonus_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bonus" Relationship="Self.FK_Bonus_Id" FromRole="Kaart_Bonussen" ToRole="Bonussen" />
+          <NavigationProperty Name="Kaart" Relationship="Self.FK_Kaart_Id" FromRole="Kaart_Bonussen" ToRole="Kaarten" />
+        </EntityType>
+        <EntityType Name="Kaart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naam" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Beschrijving" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Afbeelding" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type_id" Type="Int32" Nullable="false" />
+          <Property Name="Eenmalig" Type="Boolean" />
+          <Property Name="Wanneer_Bruikbaar" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Kaart_Bonussen" Relationship="Self.FK_Kaart_Id" FromRole="Kaarten" ToRole="Kaart_Bonussen" />
+          <NavigationProperty Name="Kaarten_Stapels" Relationship="Self.FK_Kaart_Id_Kaarten_Stapels" FromRole="Kaarten" ToRole="Kaarten_Stapels" />
+          <NavigationProperty Name="Kerkerkaart" Relationship="Self.FK_Kerkerkaart_Id" FromRole="Kaarten" ToRole="Kerkerkaarten" />
+          <NavigationProperty Name="Schatkaart" Relationship="Self.FK_Schatkaart_Id" FromRole="Kaarten" ToRole="Schatkaarten" />
+          <NavigationProperty Name="Type" Relationship="Self.FK_Type_Id" FromRole="Kaarten" ToRole="Types" />
+        </EntityType>
+        <EntityType Name="Kaarten_Stapel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kaart_Id" Type="Int32" Nullable="false" />
+          <Property Name="Stapel_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kaart" Relationship="Self.FK_Kaart_Id_Kaarten_Stapels" FromRole="Kaarten_Stapels" ToRole="Kaarten" />
+          <NavigationProperty Name="Stapel" Relationship="Self.FK_Stapel_Id_Kaarten_Stapels" FromRole="Kaarten_Stapels" ToRole="Stapels" />
+        </EntityType>
+        <EntityType Name="Kerkerkaart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Beschrijving_2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Portie_Ellende" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Level" Type="Int32" />
+          <Property Name="Aantal_schatten" Type="Int32" />
+          <Property Name="Ondood" Type="Boolean" />
+          <Property Name="Aantal_Levels" Type="Int32" />
+          <NavigationProperty Name="Kaart" Relationship="Self.FK_Kerkerkaart_Id" FromRole="Kerkerkaarten" ToRole="Kaarten" />
+        </EntityType>
+        <EntityType Name="Schatkaart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Schatkaart_Waarde" Type="Int32" />
+          <Property Name="Is_Groot" Type="Boolean" />
+          <NavigationProperty Name="Kaart" Relationship="Self.FK_Schatkaart_Id" FromRole="Schatkaarten" ToRole="Kaarten" />
+        </EntityType>
+        <EntityType Name="Speler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naam" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="Geslacht" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Wedstrijd_Spelers" Relationship="Self.FK_Speler_Id" FromRole="Spelers" ToRole="Wedstrijd_Spelers" />
+          <NavigationProperty Name="Toernooien" Relationship="Self.FK_Winnaar_Id_Toernooi" FromRole="Spelers" ToRole="Toernooien" />
+          <NavigationProperty Name="Wedstrijden" Relationship="Self.FK_Winnaar_Id_Wedstrijd" FromRole="Spelers" ToRole="Wedstrijden" />
+        </EntityType>
+        <EntityType Name="Stapel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naam" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kaarten_Stapels" Relationship="Self.FK_Stapel_Id_Kaarten_Stapels" FromRole="Stapels" ToRole="Kaarten_Stapels" />
+          <NavigationProperty Name="Wedstrijd_Speler_Handkaarten" Relationship="Self.FK_Handkaarten_Id" FromRole="Stapels" ToRole="Wedstrijd_Spelers" />
+          <NavigationProperty Name="Wedstrijd_Kerkerkaarten_Aflegstapel" Relationship="Self.FK_Kerkerkaarten_Aflegstapel_Id" FromRole="Stapels" ToRole="Wedstrijden" />
+          <NavigationProperty Name="Wedstrijd_Kerkerkaarten_Trekstapel" Relationship="Self.FK_Kerkerkaarten_Trekstapel_Id" FromRole="Stapels" ToRole="Wedstrijden" />
+          <NavigationProperty Name="Wedstrijd_Schatkaarten_Aflegstapel" Relationship="Self.FK_Schatkaarten_Aflegstapel_Id" FromRole="Stapels" ToRole="Wedstrijden" />
+          <NavigationProperty Name="Wedstrijd_Schatkaarten_Trekstapel" Relationship="Self.FK_Schatkaarten_Trekstapel_Id" FromRole="Stapels" ToRole="Wedstrijden" />
+          <NavigationProperty Name="Wedstrijd_Speler_Veldkaarten" Relationship="Self.FK_Veldkaarten_Id" FromRole="Stapels" ToRole="Wedstrijd_Spelers" />
+        </EntityType>
+        <EntityType Name="Toernooi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naam" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Datum" Type="DateTime" Precision="3" />
+          <Property Name="Winnaar_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Speler" Relationship="Self.FK_Winnaar_Id_Toernooi" FromRole="Toernooien" ToRole="Spelers" />
+          <NavigationProperty Name="Wedstrijden" Relationship="Self.FK_Toernooi_Id" FromRole="Toernooien" ToRole="Wedstrijden" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Soort" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kaarten" Relationship="Self.FK_Type_Id" FromRole="Types" ToRole="Kaarten" />
+        </EntityType>
+        <EntityType Name="Wedstrijd_Speler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Speler_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wedstrijd_Id" Type="Int32" Nullable="false" />
+          <Property Name="Handkaarten_Id" Type="Int32" Nullable="false" />
+          <Property Name="Veldkaarten_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Speler" Relationship="Self.FK_Speler_Id" FromRole="Wedstrijd_Spelers" ToRole="Spelers" />
+          <NavigationProperty Name="Stapel_Handkaarten" Relationship="Self.FK_Handkaarten_Id" FromRole="Wedstrijd_Spelers" ToRole="Stapels" />
+          <NavigationProperty Name="Stapel_Veldkaarten" Relationship="Self.FK_Veldkaarten_Id" FromRole="Wedstrijd_Spelers" ToRole="Stapels" />
+          <NavigationProperty Name="Wedstrijd" Relationship="Self.FK_Wedstrijd_Id" FromRole="Wedstrijd_Spelers" ToRole="Wedstrijden" />
+        </EntityType>
+        <EntityType Name="Wedstrijd">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Winnaar_Id" Type="Int32" />
+          <Property Name="Toernooi_Id" Type="Int32" />
+          <Property Name="Kerkerkaarten_Trekstapel_Id" Type="Int32" Nullable="false" />
+          <Property Name="Kerkerkaarten_Aflegstapel_Id" Type="Int32" Nullable="false" />
+          <Property Name="Schatkaarten_Trekstapel_Id" Type="Int32" Nullable="false" />
+          <Property Name="Schatkaarten_Aflegstapel_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Speler" Relationship="Self.FK_Winnaar_Id_Wedstrijd" FromRole="Wedstrijden" ToRole="Spelers" />
+          <NavigationProperty Name="Kerkerkaarten_Aflegstapel" Relationship="Self.FK_Kerkerkaarten_Aflegstapel_Id" FromRole="Wedstrijden" ToRole="Stapels" />
+          <NavigationProperty Name="Kerkerkaarten_Trekstapel" Relationship="Self.FK_Kerkerkaarten_Trekstapel_Id" FromRole="Wedstrijden" ToRole="Stapels" />
+          <NavigationProperty Name="Schatkaarten_Aflegstapel" Relationship="Self.FK_Schatkaarten_Aflegstapel_Id" FromRole="Wedstrijden" ToRole="Stapels" />
+          <NavigationProperty Name="Schatkaarten_Trekstapel" Relationship="Self.FK_Schatkaarten_Trekstapel_Id" FromRole="Wedstrijden" ToRole="Stapels" />
+          <NavigationProperty Name="Toernooi" Relationship="Self.FK_Toernooi_Id" FromRole="Wedstrijden" ToRole="Toernooien" />
+          <NavigationProperty Name="Wedstrijd_Spelers" Relationship="Self.FK_Wedstrijd_Id" FromRole="Wedstrijden" ToRole="Wedstrijd_Spelers" />
+        </EntityType>
+        <Association Name="FK_Bonus_Id">
+          <End Role="Bonussen" Type="MunchkinModel.Bonus" Multiplicity="1" />
+          <End Role="Kaart_Bonussen" Type="MunchkinModel.Kaart_Bonus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bonussen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kaart_Bonussen">
+              <PropertyRef Name="Bonus_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kaart_Id">
+          <End Role="Kaarten" Type="MunchkinModel.Kaart" Multiplicity="1" />
+          <End Role="Kaart_Bonussen" Type="MunchkinModel.Kaart_Bonus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kaarten">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kaart_Bonussen">
+              <PropertyRef Name="Kaart_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kaart_Id_Kaarten_Stapels">
+          <End Role="Kaarten" Type="MunchkinModel.Kaart" Multiplicity="1" />
+          <End Role="Kaarten_Stapels" Type="MunchkinModel.Kaarten_Stapel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kaarten">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kaarten_Stapels">
+              <PropertyRef Name="Kaart_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kerkerkaart_Id">
+          <End Role="Kaarten" Type="MunchkinModel.Kaart" Multiplicity="1" />
+          <End Role="Kerkerkaarten" Type="MunchkinModel.Kerkerkaart" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Kaarten">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kerkerkaarten">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schatkaart_Id">
+          <End Role="Kaarten" Type="MunchkinModel.Kaart" Multiplicity="1" />
+          <End Role="Schatkaarten" Type="MunchkinModel.Schatkaart" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Kaarten">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Schatkaarten">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Type_Id">
+          <End Role="Types" Type="MunchkinModel.Type" Multiplicity="1" />
+          <End Role="Kaarten" Type="MunchkinModel.Kaart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kaarten">
+              <PropertyRef Name="Type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stapel_Id_Kaarten_Stapels">
+          <End Role="Stapels" Type="MunchkinModel.Stapel" Multiplicity="1" />
+          <End Role="Kaarten_Stapels" Type="MunchkinModel.Kaarten_Stapel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stapels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kaarten_Stapels">
+              <PropertyRef Name="Stapel_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Speler_Id">
+          <End Role="Spelers" Type="MunchkinModel.Speler" Multiplicity="1" />
+          <End Role="Wedstrijd_Spelers" Type="MunchkinModel.Wedstrijd_Speler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spelers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijd_Spelers">
+              <PropertyRef Name="Speler_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Winnaar_Id_Toernooi">
+          <End Role="Spelers" Type="MunchkinModel.Speler" Multiplicity="1" />
+          <End Role="Toernooien" Type="MunchkinModel.Toernooi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spelers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Toernooien">
+              <PropertyRef Name="Winnaar_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Winnaar_Id_Wedstrijd">
+          <End Role="Spelers" Type="MunchkinModel.Speler" Multiplicity="0..1" />
+          <End Role="Wedstrijden" Type="MunchkinModel.Wedstrijd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spelers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijden">
+              <PropertyRef Name="Winnaar_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Handkaarten_Id">
+          <End Role="Stapels" Type="MunchkinModel.Stapel" Multiplicity="1" />
+          <End Role="Wedstrijd_Spelers" Type="MunchkinModel.Wedstrijd_Speler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stapels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijd_Spelers">
+              <PropertyRef Name="Handkaarten_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kerkerkaarten_Aflegstapel_Id">
+          <End Role="Stapels" Type="MunchkinModel.Stapel" Multiplicity="1" />
+          <End Role="Wedstrijden" Type="MunchkinModel.Wedstrijd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stapels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijden">
+              <PropertyRef Name="Kerkerkaarten_Aflegstapel_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kerkerkaarten_Trekstapel_Id">
+          <End Role="Stapels" Type="MunchkinModel.Stapel" Multiplicity="1" />
+          <End Role="Wedstrijden" Type="MunchkinModel.Wedstrijd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stapels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijden">
+              <PropertyRef Name="Kerkerkaarten_Trekstapel_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schatkaarten_Aflegstapel_Id">
+          <End Role="Stapels" Type="MunchkinModel.Stapel" Multiplicity="1" />
+          <End Role="Wedstrijden" Type="MunchkinModel.Wedstrijd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stapels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijden">
+              <PropertyRef Name="Schatkaarten_Aflegstapel_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schatkaarten_Trekstapel_Id">
+          <End Role="Stapels" Type="MunchkinModel.Stapel" Multiplicity="1" />
+          <End Role="Wedstrijden" Type="MunchkinModel.Wedstrijd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stapels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijden">
+              <PropertyRef Name="Schatkaarten_Trekstapel_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Veldkaarten_Id">
+          <End Role="Stapels" Type="MunchkinModel.Stapel" Multiplicity="1" />
+          <End Role="Wedstrijd_Spelers" Type="MunchkinModel.Wedstrijd_Speler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stapels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijd_Spelers">
+              <PropertyRef Name="Veldkaarten_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Toernooi_Id">
+          <End Role="Toernooien" Type="MunchkinModel.Toernooi" Multiplicity="0..1" />
+          <End Role="Wedstrijden" Type="MunchkinModel.Wedstrijd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Toernooien">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijden">
+              <PropertyRef Name="Toernooi_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wedstrijd_Id">
+          <End Role="Wedstrijden" Type="MunchkinModel.Wedstrijd" Multiplicity="1" />
+          <End Role="Wedstrijd_Spelers" Type="MunchkinModel.Wedstrijd_Speler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wedstrijden">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wedstrijd_Spelers">
+              <PropertyRef Name="Wedstrijd_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MunchkinEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bonussen" EntityType="MunchkinModel.Bonus" />
+          <EntitySet Name="Kaart_Bonussen" EntityType="MunchkinModel.Kaart_Bonus" />
+          <EntitySet Name="Kaarten" EntityType="MunchkinModel.Kaart" />
+          <EntitySet Name="Kaarten_Stapels" EntityType="MunchkinModel.Kaarten_Stapel" />
+          <EntitySet Name="Kerkerkaarten" EntityType="MunchkinModel.Kerkerkaart" />
+          <EntitySet Name="Schatkaarten" EntityType="MunchkinModel.Schatkaart" />
+          <EntitySet Name="Spelers" EntityType="MunchkinModel.Speler" />
+          <EntitySet Name="Stapels" EntityType="MunchkinModel.Stapel" />
+          <EntitySet Name="Toernooien" EntityType="MunchkinModel.Toernooi" />
+          <EntitySet Name="Types" EntityType="MunchkinModel.Type" />
+          <EntitySet Name="Wedstrijd_Spelers" EntityType="MunchkinModel.Wedstrijd_Speler" />
+          <EntitySet Name="Wedstrijden" EntityType="MunchkinModel.Wedstrijd" />
+          <AssociationSet Name="FK_Bonus_Id" Association="Self.FK_Bonus_Id">
+            <End Role="Bonussen" EntitySet="Bonussen" />
+            <End Role="Kaart_Bonussen" EntitySet="Kaart_Bonussen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kaart_Id" Association="Self.FK_Kaart_Id">
+            <End Role="Kaarten" EntitySet="Kaarten" />
+            <End Role="Kaart_Bonussen" EntitySet="Kaart_Bonussen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kaart_Id_Kaarten_Stapels" Association="Self.FK_Kaart_Id_Kaarten_Stapels">
+            <End Role="Kaarten" EntitySet="Kaarten" />
+            <End Role="Kaarten_Stapels" EntitySet="Kaarten_Stapels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kerkerkaart_Id" Association="Self.FK_Kerkerkaart_Id">
+            <End Role="Kaarten" EntitySet="Kaarten" />
+            <End Role="Kerkerkaarten" EntitySet="Kerkerkaarten" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schatkaart_Id" Association="Self.FK_Schatkaart_Id">
+            <End Role="Kaarten" EntitySet="Kaarten" />
+            <End Role="Schatkaarten" EntitySet="Schatkaarten" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Type_Id" Association="Self.FK_Type_Id">
+            <End Role="Types" EntitySet="Types" />
+            <End Role="Kaarten" EntitySet="Kaarten" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stapel_Id_Kaarten_Stapels" Association="Self.FK_Stapel_Id_Kaarten_Stapels">
+            <End Role="Stapels" EntitySet="Stapels" />
+            <End Role="Kaarten_Stapels" EntitySet="Kaarten_Stapels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Speler_Id" Association="Self.FK_Speler_Id">
+            <End Role="Spelers" EntitySet="Spelers" />
+            <End Role="Wedstrijd_Spelers" EntitySet="Wedstrijd_Spelers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Winnaar_Id_Toernooi" Association="Self.FK_Winnaar_Id_Toernooi">
+            <End Role="Spelers" EntitySet="Spelers" />
+            <End Role="Toernooien" EntitySet="Toernooien" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Winnaar_Id_Wedstrijd" Association="Self.FK_Winnaar_Id_Wedstrijd">
+            <End Role="Spelers" EntitySet="Spelers" />
+            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Handkaarten_Id" Association="Self.FK_Handkaarten_Id">
+            <End Role="Stapels" EntitySet="Stapels" />
+            <End Role="Wedstrijd_Spelers" EntitySet="Wedstrijd_Spelers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kerkerkaarten_Aflegstapel_Id" Association="Self.FK_Kerkerkaarten_Aflegstapel_Id">
+            <End Role="Stapels" EntitySet="Stapels" />
+            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kerkerkaarten_Trekstapel_Id" Association="Self.FK_Kerkerkaarten_Trekstapel_Id">
+            <End Role="Stapels" EntitySet="Stapels" />
+            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schatkaarten_Aflegstapel_Id" Association="Self.FK_Schatkaarten_Aflegstapel_Id">
+            <End Role="Stapels" EntitySet="Stapels" />
+            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schatkaarten_Trekstapel_Id" Association="Self.FK_Schatkaarten_Trekstapel_Id">
+            <End Role="Stapels" EntitySet="Stapels" />
+            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Veldkaarten_Id" Association="Self.FK_Veldkaarten_Id">
+            <End Role="Stapels" EntitySet="Stapels" />
+            <End Role="Wedstrijd_Spelers" EntitySet="Wedstrijd_Spelers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Toernooi_Id" Association="Self.FK_Toernooi_Id">
+            <End Role="Toernooien" EntitySet="Toernooien" />
+            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wedstrijd_Id" Association="Self.FK_Wedstrijd_Id">
+            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
+            <End Role="Wedstrijd_Spelers" EntitySet="Wedstrijd_Spelers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MunchkinModelStoreContainer" CdmEntityContainer="MunchkinEntities">
+          <EntitySetMapping Name="Bonussen">
+            <EntityTypeMapping TypeName="MunchkinModel.Bonus">
+              <MappingFragment StoreEntitySet="Bonussen">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Niet_Bruikbaar_Door" ColumnName="Niet_Bruikbaar_Door" />
+                <ScalarProperty Name="Bruikbaar_Door" ColumnName="Bruikbaar_Door" />
+                <ScalarProperty Name="Waarde" ColumnName="Waarde" />
+                <ScalarProperty Name="Waarop_Effect" ColumnName="Waarop_Effect" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kaart_Bonussen">
+            <EntityTypeMapping TypeName="MunchkinModel.Kaart_Bonus">
+              <MappingFragment StoreEntitySet="Kaart_Bonussen">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Kaart_Id" ColumnName="Kaart_Id" />
+                <ScalarProperty Name="Bonus_Id" ColumnName="Bonus_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kaarten">
+            <EntityTypeMapping TypeName="MunchkinModel.Kaart">
+              <MappingFragment StoreEntitySet="Kaarten">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+                <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
+                <ScalarProperty Name="Afbeelding" ColumnName="Afbeelding" />
+                <ScalarProperty Name="Type_id" ColumnName="Type_id" />
+                <ScalarProperty Name="Eenmalig" ColumnName="Eenmalig" />
+                <ScalarProperty Name="Wanneer_Bruikbaar" ColumnName="Wanneer_Bruikbaar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kaarten_Stapels">
+            <EntityTypeMapping TypeName="MunchkinModel.Kaarten_Stapel">
+              <MappingFragment StoreEntitySet="Kaarten_Stapels">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Kaart_Id" ColumnName="Kaart_Id" />
+                <ScalarProperty Name="Stapel_Id" ColumnName="Stapel_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kerkerkaarten">
+            <EntityTypeMapping TypeName="MunchkinModel.Kerkerkaart">
+              <MappingFragment StoreEntitySet="Kerkerkaarten">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Beschrijving_2" ColumnName="Beschrijving_2" />
+                <ScalarProperty Name="Portie_Ellende" ColumnName="Portie_Ellende" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Aantal_schatten" ColumnName="Aantal_schatten" />
+                <ScalarProperty Name="Ondood" ColumnName="Ondood" />
+                <ScalarProperty Name="Aantal_Levels" ColumnName="Aantal_Levels" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schatkaarten">
+            <EntityTypeMapping TypeName="MunchkinModel.Schatkaart">
+              <MappingFragment StoreEntitySet="Schatkaarten">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Schatkaart_Waarde" ColumnName="Schatkaart_Waarde" />
+                <ScalarProperty Name="Is_Groot" ColumnName="Is_Groot" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Spelers">
+            <EntityTypeMapping TypeName="MunchkinModel.Speler">
+              <MappingFragment StoreEntitySet="Spelers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Geslacht" ColumnName="Geslacht" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stapels">
+            <EntityTypeMapping TypeName="MunchkinModel.Stapel">
+              <MappingFragment StoreEntitySet="Stapels">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Toernooien">
+            <EntityTypeMapping TypeName="MunchkinModel.Toernooi">
+              <MappingFragment StoreEntitySet="Toernooien">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Winnaar_Id" ColumnName="Winnaar_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="MunchkinModel.Type">
+              <MappingFragment StoreEntitySet="Types">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Soort" ColumnName="Soort" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wedstrijd_Spelers">
+            <EntityTypeMapping TypeName="MunchkinModel.Wedstrijd_Speler">
+              <MappingFragment StoreEntitySet="Wedstrijd_Spelers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Speler_Id" ColumnName="Speler_Id" />
+                <ScalarProperty Name="Wedstrijd_Id" ColumnName="Wedstrijd_Id" />
+                <ScalarProperty Name="Handkaarten_Id" ColumnName="Handkaarten_Id" />
+                <ScalarProperty Name="Veldkaarten_Id" ColumnName="Veldkaarten_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wedstrijden">
+            <EntityTypeMapping TypeName="MunchkinModel.Wedstrijd">
+              <MappingFragment StoreEntitySet="Wedstrijden">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Winnaar_Id" ColumnName="Winnaar_Id" />
+                <ScalarProperty Name="Toernooi_Id" ColumnName="Toernooi_Id" />
+                <ScalarProperty Name="Kerkerkaarten_Trekstapel_Id" ColumnName="Kerkerkaarten_Trekstapel_Id" />
+                <ScalarProperty Name="Kerkerkaarten_Aflegstapel_Id" ColumnName="Kerkerkaarten_Aflegstapel_Id" />
+                <ScalarProperty Name="Schatkaarten_Trekstapel_Id" ColumnName="Schatkaarten_Trekstapel_Id" />
+                <ScalarProperty Name="Schatkaarten_Aflegstapel_Id" ColumnName="Schatkaarten_Aflegstapel_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
