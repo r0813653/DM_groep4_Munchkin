@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d11d97c8e1de48d3bde1222c6d4e5f09" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="MunchkinModel.Bonus" Width="1.5" PointX="0.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MunchkinModel.Kaart_Bonus" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MunchkinModel.Kaart" Width="1.5" PointX="0.75" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="MunchkinModel.Kaarten_Stapel" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MunchkinModel.Kerkerkaart" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MunchkinModel.Schatkaart" Width="1.5" PointX="3" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MunchkinModel.Speler" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MunchkinModel.Stapel" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MunchkinModel.Toernooi" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MunchkinModel.Type" Width="1.5" PointX="1.5" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MunchkinModel.Wedstrijd_Speler" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MunchkinModel.Wedstrijd" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="MunchkinModel.FK_Bonus_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Kaart_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Kaart_Id_Kaarten_Stapels" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Kerkerkaart_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Schatkaart_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Type_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Stapel_Id_Kaarten_Stapels" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Speler_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Winnaar_Id_Toernooi" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Winnaar_Id_Wedstrijd" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Handkaarten_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Kerkerkaarten_Aflegstapel_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Kerkerkaarten_Trekstapel_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Schatkaarten_Aflegstapel_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Schatkaarten_Trekstapel_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Veldkaarten_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Toernooi_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="MunchkinModel.FK_Wedstrijd_Id" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
