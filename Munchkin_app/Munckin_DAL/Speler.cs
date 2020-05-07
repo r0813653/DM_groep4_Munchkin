@@ -24,7 +24,6 @@ namespace Munckin_DAL
     
         public int Id { get; set; }
         public string Naam { get; set; }
-        public int Level { get; set; }
         public string Geslacht { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
