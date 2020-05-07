@@ -81,6 +81,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MunchkinModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="PartialClasses\Kaart.cs" />
+    <Compile Include="PartialClasses\Kerkerkaart.cs" />
+    <Compile Include="PartialClasses\Schatkaart.cs" />
+    <Compile Include="PartialClasses\Speler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schatkaart.cs">
       <DependentUpon>MunchkinModel.tt</DependentUpon>
@@ -131,6 +135,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Munchkin_MODELS\Munchkin_MODELS.csproj">
+      <Project>{AB400689-115D-43AE-B029-E79BFB9150CA}</Project>
+      <Name>Munchkin_MODELS</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
