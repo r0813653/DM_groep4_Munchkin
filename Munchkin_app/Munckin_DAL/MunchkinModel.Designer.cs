@@ -1,4 +1,4 @@
- development
+
 ﻿// T4 code generation is enabled for model 'C:\Users\miene\Desktop\school\Project_Munchkin\DM_groep4_Munchkin\Munchkin_app\Munckin_DAL\MunchkinModel.edmx'. 
 
 ﻿// T4 code generation is enabled for model 'C:\Users\Jensv\OneDrive\Bureaublad\Datamodellering\Datamodellering_projectwerk\DM_groep4_Munchkin\Munchkin_app\Munckin_DAL\MunchkinModel.edmx'. 

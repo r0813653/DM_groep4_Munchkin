@@ -171,7 +171,7 @@ namespace Munchkin_app
                     {
 
                         // overige properties speler toevoegen
-                        speler.Level = 0;
+                        
                         speler.Id = teller;
                         // toevoegen aan database na controle
                         if (speler.IsGeldig())
