@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Munckin_DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -57,7 +58,7 @@ namespace Munchkin_app
                         textbox.FontSize = 40;
                         textbox.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FCE4B6"));
                         textbox.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3C0900"));
-                        textbox.Text = "test";
+                        //textbox.Text = "test";
                         // add textboxes to  list
                         lijstNamenTextboxen.Add(textbox);
                         // add the textbox to grid
@@ -116,6 +117,41 @@ namespace Munchkin_app
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Hide();
+        }
+
+        // list of players
+
+        List<Speler> lijstSpelers = new List<Speler>();
+
+        private void btn_verder_Click(object sender, RoutedEventArgs e)
+        {
+            int teller = 1;
+            // check of er een naam is ingevuld
+            foreach (var item in lijstNamenTextboxen)
+            {
+                
+                if (string.IsNullOrWhiteSpace(item.Text))
+                {
+                    MessageBox.Show("gelieve een naam in te vullen voor speler " + teller );
+                }
+                else
+                {
+                    // nieuwe speler aanmaken
+                    Speler speler = new Speler();
+                    speler.Naam = item.Text;
+
+                    //speler toevoegen aan lijst spelers om achteraf via foreach loop elke speler aan te maken.
+                    lijstSpelers.Add(speler);
+
+                   // MessageBox.Show(speler.Naam,"naam speler"+teller);
+                }
+
+                teller++;
+            }
+
+
+
+
         }
     }
 }
