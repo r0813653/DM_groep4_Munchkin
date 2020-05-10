@@ -261,6 +261,16 @@
   <ItemGroup>
     <Resource Include="images\dice.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Munchkin_MODELS\Munchkin_MODELS.csproj">
+      <Project>{AB400689-115D-43AE-B029-E79BFB9150CA}</Project>
+      <Name>Munchkin_MODELS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Munckin_DAL\Munckin_DAL.csproj">
+      <Project>{B5D2C533-189E-491C-A9C1-C33D00CC71B6}</Project>
+      <Name>Munckin_DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -36,7 +36,7 @@
 
         <WrapPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
                 <Button x:Name="btn_terugMainWindow" Click="btn_terugMainWindow_Click" FontSize="50" Style="{StaticResource CustomButton}" Margin="0 50 200 40" Height="75" Width="200">terug</Button>
-                <Button FontSize="50" Style="{StaticResource CustomButton}" Margin="200 50 0 40" Width="300" Height="75">ga verder</Button>
+                <Button x:Name="btn_verder" Click="btn_verder_Click" FontSize="50" Style="{StaticResource CustomButton}" Margin="200 50 0 40" Width="300" Height="75">ga verder</Button>
         </WrapPanel>
         
     </Grid>

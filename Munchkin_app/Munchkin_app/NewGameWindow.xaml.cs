@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Munckin_DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace Munchkin_app
     /// <summary>
     /// Interaction logic for NewGameWindow.xaml
     /// </summary>
-    public partial class NewGameWindow : Window
+    public partial class NewGameWindow : Window 
     {
         public NewGameWindow()
         {
@@ -57,7 +58,7 @@ namespace Munchkin_app
                         textbox.FontSize = 40;
                         textbox.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FCE4B6"));
                         textbox.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3C0900"));
-                        textbox.Text = "test";
+                        //textbox.Text = "test";
                         // add textboxes to  list
                         lijstNamenTextboxen.Add(textbox);
                         // add the textbox to grid
@@ -116,6 +117,89 @@ namespace Munchkin_app
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Hide();
+        }
+
+        // list of players
+
+        List<Speler> lijstSpelers = new List<Speler>();
+
+        private void btn_verder_Click(object sender, RoutedEventArgs e)
+        {
+           
+            string foutmelding = "";
+            int teller = 1;
+            // check of er een naam is ingevuld
+            foreach (var item in lijstNamenTextboxen)
+            {
+                
+                if (string.IsNullOrWhiteSpace(item.Text))
+                {
+                   foutmelding += "gelieve een naam in te vullen voor speler " + teller;                    
+                }
+                else
+                {
+                    //speler aanmaken
+                    Speler speler = new Speler();
+                    speler.Naam = item.Text;
+
+                    foreach (RadioButton radiobutton in lijstRadiobuttons)
+                    {
+                        if (radiobutton.Name=="rbMan"+teller)
+                        {
+                            if (radiobutton.IsChecked==true)
+                            {
+                                speler.Geslacht = "M";
+                              //  MessageBox.Show(speler.Geslacht,"geslacht");
+                            }
+                            
+                        }
+
+                        if (radiobutton.Name == "rbVrouw"+teller)
+                        {
+                            if (radiobutton.IsChecked==true)
+                            {
+                                speler.Geslacht = "V";
+                              //  MessageBox.Show(speler.Geslacht,"geslacht");
+                            }
+                            
+                        }                       
+                        
+                    }
+
+                    //speler[teller] toevoegen
+                    if (string.IsNullOrWhiteSpace(foutmelding))
+                    {
+
+                        // overige properties speler toevoegen
+                        speler.Level = 0;
+                        speler.Id = teller;
+                        // toevoegen aan database na controle
+                        if (speler.IsGeldig())
+                        {
+                            int ok = DatabaseOperations.ToevoegenSpelers(speler);
+
+                            if (ok<=0)
+                            {
+                                MessageBox.Show("toevoegen speler is niet gelukt");
+                            }
+
+                            else
+                            {
+                                MessageBox.Show("spelers zijn toegevoegd");
+                            }
+                        }
+                        // lijstSpelers.Add(speler);
+                        // MessageBox.Show(speler.Naam,"naam speler"+teller);
+                    }
+
+                }               
+
+                teller++;
+            }
+
+
+
+
         }
     }
 }
