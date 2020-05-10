@@ -81,10 +81,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MunchkinModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="PartialClasses\Toernooi.cs" />
     <Compile Include="PartialClasses\Kaart.cs" />
     <Compile Include="PartialClasses\Kerkerkaart.cs" />
     <Compile Include="PartialClasses\Schatkaart.cs" />
     <Compile Include="PartialClasses\Speler.cs" />
+    <Compile Include="PartialClasses\Wedstrijd.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schatkaart.cs">
       <DependentUpon>MunchkinModel.tt</DependentUpon>
