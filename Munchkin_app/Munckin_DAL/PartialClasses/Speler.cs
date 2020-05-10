@@ -20,10 +20,6 @@ namespace Munckin_DAL
                 {
                      return "Naam moet ingevuld zijn";
                 }
-                if (columnName == "Level" && Level<=0 && Level>10 )
-                {
-                     return "Level moet groter zijn dan 0 en kleiner dan 10";
-                }
                 if (columnName == "Geslacht" && string.IsNullOrWhiteSpace(Geslacht))
                 {
                     return "Geslacht is een verplicht veld";
