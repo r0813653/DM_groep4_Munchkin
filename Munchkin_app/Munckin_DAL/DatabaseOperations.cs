@@ -8,6 +8,13 @@ namespace Munckin_DAL
 {
     public static class DatabaseOperations
     {
-
+        public static int ToevoegenSpelers(Speler speler)
+        {
+            using (MunchkinEntities entities = new MunchkinEntities())
+            {
+                entities.Spelers.Add(speler);
+                return entities.SaveChanges();
+            }
+        }
     }
 }

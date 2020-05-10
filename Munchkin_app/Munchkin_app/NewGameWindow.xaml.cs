@@ -18,7 +18,7 @@ namespace Munchkin_app
     /// <summary>
     /// Interaction logic for NewGameWindow.xaml
     /// </summary>
-    public partial class NewGameWindow : Window
+    public partial class NewGameWindow : Window 
     {
         public NewGameWindow()
         {
@@ -125,6 +125,8 @@ namespace Munchkin_app
 
         private void btn_verder_Click(object sender, RoutedEventArgs e)
         {
+           
+            string foutmelding = "";
             int teller = 1;
             // check of er een naam is ingevuld
             foreach (var item in lijstNamenTextboxen)
@@ -132,19 +134,65 @@ namespace Munchkin_app
                 
                 if (string.IsNullOrWhiteSpace(item.Text))
                 {
-                    MessageBox.Show("gelieve een naam in te vullen voor speler " + teller );
+                   foutmelding += "gelieve een naam in te vullen voor speler " + teller;                    
                 }
                 else
                 {
-                    // nieuwe speler aanmaken
+                    //speler aanmaken
                     Speler speler = new Speler();
                     speler.Naam = item.Text;
 
-                    //speler toevoegen aan lijst spelers om achteraf via foreach loop elke speler aan te maken.
-                    lijstSpelers.Add(speler);
+                    foreach (RadioButton radiobutton in lijstRadiobuttons)
+                    {
+                        if (radiobutton.Name=="rbMan"+teller)
+                        {
+                            if (radiobutton.IsChecked==true)
+                            {
+                                speler.Geslacht = "M";
+                              //  MessageBox.Show(speler.Geslacht,"geslacht");
+                            }
+                            
+                        }
 
-                   // MessageBox.Show(speler.Naam,"naam speler"+teller);
-                }
+                        if (radiobutton.Name == "rbVrouw"+teller)
+                        {
+                            if (radiobutton.IsChecked==true)
+                            {
+                                speler.Geslacht = "V";
+                              //  MessageBox.Show(speler.Geslacht,"geslacht");
+                            }
+                            
+                        }                       
+                        
+                    }
+
+                    //speler[teller] toevoegen
+                    if (string.IsNullOrWhiteSpace(foutmelding))
+                    {
+
+                        // overige properties speler toevoegen
+                        speler.Level = 0;
+                        speler.Id = teller;
+                        // toevoegen aan database na controle
+                        if (speler.IsGeldig())
+                        {
+                            int ok = DatabaseOperations.ToevoegenSpelers(speler);
+
+                            if (ok<=0)
+                            {
+                                MessageBox.Show("toevoegen speler is niet gelukt");
+                            }
+
+                            else
+                            {
+                                MessageBox.Show("spelers zijn toegevoegd");
+                            }
+                        }
+                        // lijstSpelers.Add(speler);
+                        // MessageBox.Show(speler.Naam,"naam speler"+teller);
+                    }
+
+                }               
 
                 teller++;
             }
