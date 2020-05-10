@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MunchkinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MunchkinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bonussen">
           <Key>
             <PropertyRef Name="Id" />
@@ -69,7 +69,6 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Naam" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="Level" Type="int" Nullable="false" />
           <Property Name="Geslacht" Type="char" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="Stapels">
@@ -104,6 +103,7 @@
           <Property Name="Wedstrijd_Id" Type="int" Nullable="false" />
           <Property Name="Handkaarten_Id" Type="int" Nullable="false" />
           <Property Name="Veldkaarten_Id" Type="int" Nullable="false" />
+          <Property Name="Level" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Wedstrijden">
           <Key>
@@ -419,8 +419,7 @@
             <End Role="Wedstrijden" EntitySet="Wedstrijden" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MunchkinModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -500,7 +499,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Naam" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Level" Type="Int32" Nullable="false" />
           <Property Name="Geslacht" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Wedstrijd_Spelers" Relationship="Self.FK_Speler_Id" FromRole="Spelers" ToRole="Wedstrijd_Spelers" />
           <NavigationProperty Name="Toernooien" Relationship="Self.FK_Winnaar_Id_Toernooi" FromRole="Spelers" ToRole="Toernooien" />
@@ -552,6 +550,7 @@
           <NavigationProperty Name="Stapel_Handkaarten" Relationship="Self.FK_Handkaarten_Id" FromRole="Wedstrijd_Spelers" ToRole="Stapels" />
           <NavigationProperty Name="Stapel_Veldkaarten" Relationship="Self.FK_Veldkaarten_Id" FromRole="Wedstrijd_Spelers" ToRole="Stapels" />
           <NavigationProperty Name="Wedstrijd" Relationship="Self.FK_Wedstrijd_Id" FromRole="Wedstrijd_Spelers" ToRole="Wedstrijden" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Wedstrijd">
           <Key>
@@ -949,7 +948,6 @@
               <MappingFragment StoreEntitySet="Spelers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Naam" ColumnName="Naam" />
-                <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="Geslacht" ColumnName="Geslacht" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -983,6 +981,7 @@
           <EntitySetMapping Name="Wedstrijd_Spelers">
             <EntityTypeMapping TypeName="MunchkinModel.Wedstrijd_Speler">
               <MappingFragment StoreEntitySet="Wedstrijd_Spelers">
+                <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Speler_Id" ColumnName="Speler_Id" />
                 <ScalarProperty Name="Wedstrijd_Id" ColumnName="Wedstrijd_Id" />
