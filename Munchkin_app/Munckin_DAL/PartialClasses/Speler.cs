@@ -12,15 +12,11 @@ namespace Munckin_DAL
         public override string this[string columnName]
         {
             get {
-                if (columnName=="Id" && Id <=0 )
-                {
-                    return "Id moet groter dan 0 zijn.";
-                }
+               
                 if (columnName == "Naam" && string.IsNullOrWhiteSpace(Naam))
                 {
                      return "Naam moet ingevuld zijn";
                 }
-
 
                 if (columnName == "Geslacht" && string.IsNullOrWhiteSpace(Geslacht))
                 {
