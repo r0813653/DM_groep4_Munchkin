@@ -13,7 +13,7 @@ namespace Munckin_DAL
             using (MunchkinEntities entities = new MunchkinEntities())
             {
                 entities.Spelers.Add(speler);
-                return entities.SaveChanges();
+                return 0; //entities.SaveChanges();
             }
         }
     }

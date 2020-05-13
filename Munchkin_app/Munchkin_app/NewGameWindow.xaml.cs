@@ -1,6 +1,7 @@
 ﻿using Munckin_DAL;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,6 +73,7 @@ namespace Munchkin_app
                         RadioButton radiobuttonVrouw = new RadioButton();
                         radiobuttonMan.Name = "rbMan" +i;
                         radiobuttonMan.Content = "man";
+                        radiobuttonMan.IsChecked = true;
                         radiobuttonMan.FontSize = 30;
                         radiobuttonMan.GroupName = groupname;
                         radiobuttonMan.VerticalContentAlignment = VerticalAlignment.Center;
@@ -134,7 +136,7 @@ namespace Munchkin_app
                 
                 if (string.IsNullOrWhiteSpace(item.Text))
                 {
-                   foutmelding += "gelieve een naam in te vullen voor speler " + teller;                    
+                   foutmelding += "gelieve een naam in te vullen voor speler " + teller + Environment.NewLine;                    
                 }
                 else
                 {
@@ -144,60 +146,61 @@ namespace Munchkin_app
 
                     foreach (RadioButton radiobutton in lijstRadiobuttons)
                     {
-                        if (radiobutton.Name=="rbMan"+teller)
+                        if (radiobutton.Name == "rbMan"+teller)
                         {
                             if (radiobutton.IsChecked==true)
                             {
                                 speler.Geslacht = "M";
-                              //  MessageBox.Show(speler.Geslacht,"geslacht");
+                                break;
                             }
-                            
-                        }
-
-                        if (radiobutton.Name == "rbVrouw"+teller)
-                        {
-                            if (radiobutton.IsChecked==true)
-                            {
-                                speler.Geslacht = "V";
-                              //  MessageBox.Show(speler.Geslacht,"geslacht");
-                            }
-                            
-                        }                       
-                        
-                    }
-
-                    //speler[teller] toevoegen
-                    if (string.IsNullOrWhiteSpace(foutmelding))
-                    {
-
-                        // overige properties speler toevoegen
-                        
-                        speler.Id = teller;
-                        // toevoegen aan database na controle
-                        if (speler.IsGeldig())
-                        {
-                            int ok = DatabaseOperations.ToevoegenSpelers(speler);
-
-                            if (ok<=0)
-                            {
-                                MessageBox.Show("toevoegen speler is niet gelukt");
-                            }
-
                             else
                             {
-                                MessageBox.Show("spelers zijn toegevoegd");
+                                speler.Geslacht = "V";
+                                break;
                             }
-                        }
-                        // lijstSpelers.Add(speler);
-                        // MessageBox.Show(speler.Naam,"naam speler"+teller);
+                        }                                                              
+                        
                     }
 
-                }               
+                    lijstSpelers.Add(speler);
+                }
 
-                teller++;
+
+            // check of elke speler in lijst geldig is
+            if (string.IsNullOrWhiteSpace(foutmelding))
+            {
+                int counter = 1;
+                        foreach (Speler speler in lijstSpelers)
+                        {
+                            if (speler.IsGeldig())
+                            {
+                                int ok = DatabaseOperations.ToevoegenSpelers(speler);
+
+                                if (ok <= 0)
+                                {
+                                    foutmelding+="toevoegen speler "+counter+" is niet gelukt omdat deze methode nog in commentaar staat" + Environment.NewLine;
+                                }
+
+                                else
+                                {
+                                    MessageBox.Show("speler is toegevoegd");
+                                }
+                            }
+                            else
+                            {
+                                foutmelding += "de spelers properties zijn niet correct" + Environment.NewLine;
+                            }
+                            counter++;
+                        }
+
+            }
+            else
+            {
+                MessageBox.Show("Zolang alle velden niet correct zijn ingevuld kan het spel niet gestart worden");
             }
 
-
+            MessageBox.Show(foutmelding);
+            /////next line of code
 
 
         }
