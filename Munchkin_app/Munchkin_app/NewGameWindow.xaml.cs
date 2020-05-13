@@ -165,9 +165,6 @@ namespace Munchkin_app
                     lijstSpelers.Add(speler);
                 }
 
-                
-                teller++;
-            }
 
             // check of elke speler in lijst geldig is
             if (string.IsNullOrWhiteSpace(foutmelding))

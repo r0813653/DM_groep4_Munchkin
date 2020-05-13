@@ -18,6 +18,7 @@ namespace Munckin_DAL
                      return "Naam moet ingevuld zijn";
                 }
 
+
                 if (columnName == "Geslacht" && string.IsNullOrWhiteSpace(Geslacht))
                 {
                     return "Geslacht is een verplicht veld";
