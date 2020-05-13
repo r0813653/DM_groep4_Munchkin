@@ -133,10 +133,10 @@ namespace Munchkin_app
             // check of er een naam is ingevuld
             foreach (var item in lijstNamenTextboxen)
             {
-                
+
                 if (string.IsNullOrWhiteSpace(item.Text))
                 {
-                   foutmelding += "gelieve een naam in te vullen voor speler " + teller + Environment.NewLine;                    
+                    foutmelding += "gelieve een naam in te vullen voor speler " + teller + Environment.NewLine;
                 }
                 else
                 {
@@ -146,9 +146,9 @@ namespace Munchkin_app
 
                     foreach (RadioButton radiobutton in lijstRadiobuttons)
                     {
-                        if (radiobutton.Name == "rbMan"+teller)
+                        if (radiobutton.Name == "rbMan" + teller)
                         {
-                            if (radiobutton.IsChecked==true)
+                            if (radiobutton.IsChecked == true)
                             {
                                 speler.Geslacht = "M";
                                 break;
@@ -158,14 +158,14 @@ namespace Munchkin_app
                                 speler.Geslacht = "V";
                                 break;
                             }
-                        }                                                              
-                        
+                        }
+
                     }
 
                     lijstSpelers.Add(speler);
                 }
-
-
+                teller++;
+            }
             // check of elke speler in lijst geldig is
             if (string.IsNullOrWhiteSpace(foutmelding))
             {
