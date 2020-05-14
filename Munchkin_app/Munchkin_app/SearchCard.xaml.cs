@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Munckin_DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace Munchkin_app
 {
     /// <summary>
@@ -23,6 +25,28 @@ namespace Munchkin_app
         {
             InitializeComponent();
             this.WindowState = WindowState.Maximized;
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            string ZoekKaart = txtZoekKaart.Text;
+            
+                
+                List<Kaart> ZoekKaarten = DatabaseOperations.OphalenKaartenViaNaam(ZoekKaart);
+                dgZoekKaart.ItemsSource = ZoekKaarten;
+                
+            //if (string.IsNullOrWhiteSpace(ZoekKaart))
+            //{
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Zoekbalk is nog leeg");
+            //}
+        }
+
+        private void txtZoekKaart_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtZoekKaart.Text = "";
         }
     }
 }
