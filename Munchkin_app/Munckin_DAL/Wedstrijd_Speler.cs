@@ -19,7 +19,11 @@ namespace Munckin_DAL
         public int Wedstrijd_Id { get; set; }
         public int Handkaarten_Id { get; set; }
         public int Veldkaarten_Id { get; set; }
-        public int Level { get; set; }
+        public Nullable<int> Level { get; set; }
+        public string Ras { get; set; }
+        public Nullable<int> Vluchtbonus { get; set; }
+        public Nullable<int> Gevechtsbonus { get; set; }
+        public Nullable<int> Tijdelijke_Bonus { get; set; }
     
         public virtual Speler Speler { get; set; }
         public virtual Stapel Stapel_Handkaarten { get; set; }

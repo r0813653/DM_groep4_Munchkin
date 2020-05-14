@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Munckin_DAL;
 
 namespace Munchkin_app
 {
@@ -29,9 +30,13 @@ namespace Munchkin_app
       
         private void btn_info_Click(object sender, RoutedEventArgs e)
         {
-            InfoWindow infoWindow = new InfoWindow();
-            infoWindow.Show();
-            this.Hide();
+            //InfoWindow infoWindow = new InfoWindow();
+            //infoWindow.Show();
+            //this.Hide();
+            Kaart testkaart = DatabaseOperations.OphalenKaartViaId(149);
+            Wedstrijd_Speler wedstrijd_Speler = DatabaseOperations.OphalenWedstrijd_SpelerViaId(2);
+            string teststring = testkaart.SpeelKaart(testkaart.Id, wedstrijd_Speler);
+            MessageBox.Show(teststring);
         }
 
        

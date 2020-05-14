@@ -103,7 +103,11 @@
           <Property Name="Wedstrijd_Id" Type="int" Nullable="false" />
           <Property Name="Handkaarten_Id" Type="int" Nullable="false" />
           <Property Name="Veldkaarten_Id" Type="int" Nullable="false" />
-          <Property Name="Level" Type="int" Nullable="false" />
+          <Property Name="Level" Type="int" />
+          <Property Name="Ras" Type="nvarchar" MaxLength="50" />
+          <Property Name="Vluchtbonus" Type="int" />
+          <Property Name="Gevechtsbonus" Type="int" />
+          <Property Name="Tijdelijke_Bonus" Type="int" />
         </EntityType>
         <EntityType Name="Wedstrijden">
           <Key>
@@ -126,18 +130,6 @@
             </Principal>
             <Dependent Role="Kaart_Bonussen">
               <PropertyRef Name="Bonus_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Handkaarten_Id">
-          <End Role="Stapels" Type="Self.Stapels" Multiplicity="1" />
-          <End Role="Wedstrijd_Spelers" Type="Self.Wedstrijd_Spelers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stapels">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Wedstrijd_Spelers">
-              <PropertyRef Name="Handkaarten_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -237,18 +229,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Speler_Id">
-          <End Role="Spelers" Type="Self.Spelers" Multiplicity="1" />
-          <End Role="Wedstrijd_Spelers" Type="Self.Wedstrijd_Spelers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Spelers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Wedstrijd_Spelers">
-              <PropertyRef Name="Speler_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Stapel_Id_Kaarten_Stapels">
           <End Role="Stapels" Type="Self.Stapels" Multiplicity="1" />
           <End Role="Kaarten_Stapels" Type="Self.Kaarten_Stapels" Multiplicity="*" />
@@ -282,30 +262,6 @@
             </Principal>
             <Dependent Role="Kaarten">
               <PropertyRef Name="Type_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Veldkaarten_Id">
-          <End Role="Stapels" Type="Self.Stapels" Multiplicity="1" />
-          <End Role="Wedstrijd_Spelers" Type="Self.Wedstrijd_Spelers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stapels">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Wedstrijd_Spelers">
-              <PropertyRef Name="Veldkaarten_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Wedstrijd_Id">
-          <End Role="Wedstrijden" Type="Self.Wedstrijden" Multiplicity="1" />
-          <End Role="Wedstrijd_Spelers" Type="Self.Wedstrijd_Spelers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Wedstrijden">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Wedstrijd_Spelers">
-              <PropertyRef Name="Wedstrijd_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -350,10 +306,6 @@
             <End Role="Bonussen" EntitySet="Bonussen" />
             <End Role="Kaart_Bonussen" EntitySet="Kaart_Bonussen" />
           </AssociationSet>
-          <AssociationSet Name="FK_Handkaarten_Id" Association="Self.FK_Handkaarten_Id">
-            <End Role="Stapels" EntitySet="Stapels" />
-            <End Role="Wedstrijd_Spelers" EntitySet="Wedstrijd_Spelers" />
-          </AssociationSet>
           <AssociationSet Name="FK_Kaart_Id" Association="Self.FK_Kaart_Id">
             <End Role="Kaarten" EntitySet="Kaarten" />
             <End Role="Kaart_Bonussen" EntitySet="Kaart_Bonussen" />
@@ -386,10 +338,6 @@
             <End Role="Stapels" EntitySet="Stapels" />
             <End Role="Wedstrijden" EntitySet="Wedstrijden" />
           </AssociationSet>
-          <AssociationSet Name="FK_Speler_Id" Association="Self.FK_Speler_Id">
-            <End Role="Spelers" EntitySet="Spelers" />
-            <End Role="Wedstrijd_Spelers" EntitySet="Wedstrijd_Spelers" />
-          </AssociationSet>
           <AssociationSet Name="FK_Stapel_Id_Kaarten_Stapels" Association="Self.FK_Stapel_Id_Kaarten_Stapels">
             <End Role="Stapels" EntitySet="Stapels" />
             <End Role="Kaarten_Stapels" EntitySet="Kaarten_Stapels" />
@@ -401,14 +349,6 @@
           <AssociationSet Name="FK_Type_Id" Association="Self.FK_Type_Id">
             <End Role="Types" EntitySet="Types" />
             <End Role="Kaarten" EntitySet="Kaarten" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Veldkaarten_Id" Association="Self.FK_Veldkaarten_Id">
-            <End Role="Stapels" EntitySet="Stapels" />
-            <End Role="Wedstrijd_Spelers" EntitySet="Wedstrijd_Spelers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Wedstrijd_Id" Association="Self.FK_Wedstrijd_Id">
-            <End Role="Wedstrijden" EntitySet="Wedstrijden" />
-            <End Role="Wedstrijd_Spelers" EntitySet="Wedstrijd_Spelers" />
           </AssociationSet>
           <AssociationSet Name="FK_Winnaar_Id_Toernooi" Association="Self.FK_Winnaar_Id_Toernooi">
             <End Role="Spelers" EntitySet="Spelers" />
@@ -550,7 +490,11 @@
           <NavigationProperty Name="Stapel_Handkaarten" Relationship="Self.FK_Handkaarten_Id" FromRole="Wedstrijd_Spelers" ToRole="Stapels" />
           <NavigationProperty Name="Stapel_Veldkaarten" Relationship="Self.FK_Veldkaarten_Id" FromRole="Wedstrijd_Spelers" ToRole="Stapels" />
           <NavigationProperty Name="Wedstrijd" Relationship="Self.FK_Wedstrijd_Id" FromRole="Wedstrijd_Spelers" ToRole="Wedstrijden" />
-          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="Level" Type="Int32" />
+          <Property Name="Ras" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vluchtbonus" Type="Int32" />
+          <Property Name="Gevechtsbonus" Type="Int32" />
+          <Property Name="Tijdelijke_Bonus" Type="Int32" />
         </EntityType>
         <EntityType Name="Wedstrijd">
           <Key>
@@ -981,6 +925,10 @@
           <EntitySetMapping Name="Wedstrijd_Spelers">
             <EntityTypeMapping TypeName="MunchkinModel.Wedstrijd_Speler">
               <MappingFragment StoreEntitySet="Wedstrijd_Spelers">
+                <ScalarProperty Name="Tijdelijke_Bonus" ColumnName="Tijdelijke_Bonus" />
+                <ScalarProperty Name="Gevechtsbonus" ColumnName="Gevechtsbonus" />
+                <ScalarProperty Name="Vluchtbonus" ColumnName="Vluchtbonus" />
+                <ScalarProperty Name="Ras" ColumnName="Ras" />
                 <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Speler_Id" ColumnName="Speler_Id" />
