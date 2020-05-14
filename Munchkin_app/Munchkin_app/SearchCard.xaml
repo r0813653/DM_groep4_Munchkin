@@ -9,9 +9,16 @@
         Foreground="#FF3C0900"
         Title="SearchCard" Height="800" Width="1280">
     <Window.Resources>
-        <Style x:Key="HeaderStyle" TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="Yellow"></Setter>
+        <Style x:Key="datagrid1" TargetType="DataGrid">
+            <Setter Property="ColumnHeaderStyle" Value="{DynamicResource blabla}" ></Setter>
         </Style>
+
+        <Style x:Key="blabla" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+        </Style>
+
     </Window.Resources>
     <Window.Background>
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
@@ -34,7 +41,7 @@
                 </Button>
             </StackPanel>
 
-            <DataGrid x:Name="dgZoekKaart" Grid.Row="2" Width="800" Height="350" Margin="20" Background="Transparent" RowBackground="Transparent"  BorderThickness="8" BorderBrush="#FF3C0900" FontSize="40" Foreground="#FF3C0900" IsReadOnly="True" AutoGenerateColumns="False" >
+            <DataGrid Style="{DynamicResource datagrid1}" x:Name="dgZoekKaart" Grid.Row="2" Width="800" Height="350" Margin="20" Background="Transparent" RowBackground="Transparent"  BorderThickness="8" BorderBrush="#FF3C0900" FontSize="40" Foreground="#FF3C0900" IsReadOnly="True" AutoGenerateColumns="False" >
                 <DataGrid.Columns >
                     <DataGridTextColumn Header="Naam" Binding="{Binding Naam}"  />
                     <DataGridTextColumn Header="Beschrijving" Binding="{Binding Beschrijving}"/>
