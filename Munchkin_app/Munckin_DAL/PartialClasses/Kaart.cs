@@ -1,6 +1,7 @@
 ﻿using Munchkin_MODELS;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -60,6 +61,19 @@ namespace Munckin_DAL
                 return "Je kan deze kaart nu niet gebruiken";
             }
         }
+        public string SpeelKaart(int kaartId, Wedstrijd_Speler gebruiker, Wedstrijd_Speler slachtoffer)
+        {
+            Kaart kaart = DatabaseOperations.OphalenKaartViaKaartIdMetType(kaartId);
+            if (kaart.Type.Soort.ToUpper() == "Vervloeking")
+            {
+                string ret = SpeelVervloeking(kaart, gebruiker, slachtoffer);
+                return ret;
+            }
+            else
+            {
+                return "Je kan deze kaart nu niet gebruiken";
+            }
+        }
 
         public string SpeelRas(Kaart kaart, Wedstrijd_Speler gebruiker)
         {
@@ -75,35 +89,39 @@ namespace Munckin_DAL
                 nieuweKaartenStapel.Kaart_Id = kaart.Id;
                 nieuweKaartenStapel.Stapel_Id = veldkaarten.Id;
                 //pas wedstrijd speler aan
-                //eerst bonussen op 0 zetten, we berekenen alle bonussen van veldkaarten terug opnieuw omdat er met de verrandering miss sommige wegvallen
-                gebruiker.Vluchtbonus = 0;
-                gebruiker.Gevechtsbonus = 0;
                 gebruiker.Ras = kaart.Naam;
-                if (gebruiker.Ras.ToUpper() == "ELF")
-                {
-                    gebruiker.Vluchtbonus += 1;
-                }
-                //checken of hij kaarten heeft die een bonus geven op een bepaald ras. Als hij dat ras nu niet meer heeft dan gaat de bonus weg
-                foreach (Kaarten_Stapel kaarten_Stapel1 in veldkaarten.Kaarten_Stapels)
-                {
-                    List<Bonus> lijstBonussen = DatabaseOperations.OphalenBonussenViaKaartId(kaarten_Stapel1.Kaart_Id);
-                    foreach (var bonus in lijstBonussen)
-                    {
-                        if (bonus.Bruikbaar_Door.ToUpper() == gebruiker.Ras.ToUpper() || bonus.Bruikbaar_Door.ToUpper() == "IEDEREEN")
-                        {
-                            if (bonus.Waarop_Effect.ToUpper() == "GEVECHTSWAARDE")
-                            {
-                                //Bonus toevoegen aan gevechtswaarde
-                                gebruiker.Gevechtsbonus += bonus.Waarde;
-                            }
-                            else if (bonus.Waarop_Effect.ToUpper() == "VLUCHTEN")
-                            {
-                                //Bonus toevoegen aan vluchtbonus
-                                gebruiker.Vluchtbonus += bonus.Waarde;
-                            }
-                        }
-                    }
-                }
+
+                gebruiker = HerberekenBonussenVeldkaarten(gebruiker, veldkaarten);
+                //Functie voor onderstaande code geschreven, ook nodig bij vervloeking. Nog testen.
+                //gebruiker.Vluchtbonus = 0;
+                //gebruiker.Gevechtsbonus = 0;
+                
+                //if (gebruiker.Ras.ToUpper() == "ELF")
+                //{
+                //    gebruiker.Vluchtbonus += 1;
+                //}
+                ////checken of hij kaarten heeft die een bonus geven op een bepaald ras. Als hij dat ras nu niet meer heeft dan gaat de bonus weg
+                //foreach (Kaarten_Stapel kaarten_Stapel1 in veldkaarten.Kaarten_Stapels)
+                //{
+                //    List<Bonus> lijstBonussen = DatabaseOperations.OphalenBonussenViaKaartId(kaarten_Stapel1.Kaart_Id);
+                //    foreach (var bonus in lijstBonussen)
+                //    {
+                //        if (bonus.Bruikbaar_Door.ToUpper() == gebruiker.Ras.ToUpper() || bonus.Bruikbaar_Door.ToUpper() == "IEDEREEN")
+                //        {
+                //            if (bonus.Waarop_Effect.ToUpper() == "GEVECHTSWAARDE")
+                //            {
+                //                //Bonus toevoegen aan gevechtswaarde
+                //                gebruiker.Gevechtsbonus += bonus.Waarde;
+                //            }
+                //            else if (bonus.Waarop_Effect.ToUpper() == "VLUCHTEN")
+                //            {
+                //                //Bonus toevoegen aan vluchtbonus
+                //                gebruiker.Vluchtbonus += bonus.Waarde;
+                //            }
+                //        }
+                //    }
+                //}
+
                 //als de nieuwe kaartenstapel en de wedstrijdspeler geldig zijn, gaan we aanpassing doorvoeren in db
                 if (nieuweKaartenStapel.IsGeldig() && gebruiker.IsGeldig())
                 {
@@ -495,6 +513,210 @@ namespace Munckin_DAL
                 return foutmelding;
             }
         }
+        public string SpeelVervloeking(Kaart kaart, Wedstrijd_Speler gebruiker, Wedstrijd_Speler slachtoffer)
+        {
+            string foutmelding = "";
+            //kaartenstapel ophalen om later de kaart te verwijderen uit hand
+            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, kaart.Id);
+            //voor als slachtoffer een voorwerp verliest
+            Stapel veldkaartenSlachtoffer = DatabaseOperations.OphalenStapelViaVeldkaartenId(slachtoffer.Veldkaarten_Id);
+            //bonus kaart ophalen
+            List<Bonus> lijstBonussen = DatabaseOperations.OphalenBonussenViaKaartId(kaart.Id);
+            //checken waarop (negatieve)bonus en juiste actie doen
+            foreach (var bonus in lijstBonussen)
+            {
+                if (bonus.Waarop_Effect.ToUpper() == "LEVEL")
+                {
+                    //level aftrekken
+                    slachtoffer.Level += bonus.Waarde;
+                    if (slachtoffer.Level <= 0)
+                    {
+                        slachtoffer.Level = 1; 
+                    }
+                }
+            }
+            //checken of je iets moet verliezen
+            if (kaart.Naam.ToUpper().Contains("VERLIES"))
+            {
+                //Ras verliezen
+                if (kaart.Naam.ToUpper().Contains("RAS"))
+                {
+                    slachtoffer.Ras = "Mens";
+                    //Checken of alle bonussen nog gelden en gevechtswaarde herberekenen
+                    slachtoffer.Vluchtbonus = 0;
+                    slachtoffer.Gevechtsbonus = 0;
+                    Stapel veldkaarten = DatabaseOperations.OphalenStapelViaVeldkaartenId(slachtoffer.Veldkaarten_Id);
+                    foreach (Kaarten_Stapel kaarten_Stapel1 in veldkaarten.Kaarten_Stapels)
+                    {
+                        List<Bonus> lijstBonussen2 = DatabaseOperations.OphalenBonussenViaKaartId(kaarten_Stapel1.Kaart_Id);
+                        foreach (var bonus in lijstBonussen2)
+                        {
+                            if (bonus.Bruikbaar_Door.ToUpper() == slachtoffer.Ras.ToUpper() || bonus.Bruikbaar_Door.ToUpper() == "IEDEREEN")
+                            {
+                                if (bonus.Waarop_Effect.ToUpper() == "GEVECHTSWAARDE")
+                                {
+                                    //Bonus toevoegen aan gevechtswaarde
+                                    slachtoffer.Gevechtsbonus += bonus.Waarde;
+                                }
+                                else if (bonus.Waarop_Effect.ToUpper() == "VLUCHTEN")
+                                {
+                                    //Bonus toevoegen aan vluchtbonus
+                                    gebruiker.Vluchtbonus += bonus.Waarde;
+                                }
+                            }
+                        }
+                    }
+                }
+                //Als je harnas moet verliezen
+                else if (kaart.Naam.ToUpper().Contains("HARNAS"))
+                {
+                    foreach (var kaarten_Stapel1 in veldkaartenSlachtoffer.Kaarten_Stapels)
+                    {
+                        //check of er al een kaart van dit type in veldkaarten zit
+                        if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains("HARNAS"))
+                        {
+                            //Kaart verwijderen
+                            int ok = DatabaseOperations.VerwijderenKaarten_Stapel(kaarten_Stapel1);
+                            if (ok > 0)
+                            {
+                                //bonus van de kaart aftrekken
+                                slachtoffer = HerberekenBonussenVeldkaarten(slachtoffer, veldkaartenSlachtoffer);
 
+                            }
+                            else
+                            {
+                                foutmelding += "Kaart niet uit de veldkaarten kunnen halen\n";
+                            }
+                        }
+                    }
+                }
+                //Als je hoofddeksel moet verliezen
+                else if (kaart.Naam.ToUpper().Contains("HOOFDDEKSEL"))
+                {
+                    foreach (var kaarten_Stapel1 in veldkaartenSlachtoffer.Kaarten_Stapels)
+                    {
+                        //check of er al een kaart van dit type in veldkaarten zit
+                        if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains("HOOFDDEKSEL"))
+                        {
+                            //Kaart verwijderen
+                            int ok = DatabaseOperations.VerwijderenKaarten_Stapel(kaarten_Stapel1);
+                            if (ok > 0)
+                            {
+                                //bonus van de kaart aftrekken
+                                slachtoffer = HerberekenBonussenVeldkaarten(slachtoffer, veldkaartenSlachtoffer);
+
+                            }
+                            else
+                            {
+                                foutmelding += "Kaart niet uit de veldkaarten kunnen halen\n";
+                            }
+                        }
+                    }
+                }
+                //als je je schoeisel moet verliezen
+                else if (kaart.Naam.ToUpper().Contains("SCHOEISEL"))
+                {
+                    foreach (var kaarten_Stapel1 in veldkaartenSlachtoffer.Kaarten_Stapels)
+                    {
+                        //check of er al een kaart van dit type in veldkaarten zit
+                        if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains("SCHOEISEL"))
+                        {
+                            //Kaart verwijderen
+                            int ok = DatabaseOperations.VerwijderenKaarten_Stapel(kaarten_Stapel1);
+                            if (ok > 0)
+                            {
+                                //bonus van de kaart aftrekken
+                                slachtoffer = HerberekenBonussenVeldkaarten(slachtoffer, veldkaartenSlachtoffer);
+
+                            }
+                            else
+                            {
+                                foutmelding += "Kaart niet uit de veldkaarten kunnen halen\n";
+                            }
+                        }
+                    }
+                }
+            }
+            //kaart naar aflegstapel doen
+            Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
+            nieuweKaartenStapel.Kaart_Id = kaart.Id;
+            //schat dat ik hiervoor een dbOperations functie OphalenWedstrijd ga moeten maken
+            nieuweKaartenStapel.Stapel_Id = gebruiker.Wedstrijd.Kerkerkaarten_Aflegstapel_Id;
+            //als de nieuwe kaartenstapel en de wedstrijdspeler geldig zijn, gaan we aanpassing doorvoeren in db
+            if (nieuweKaartenStapel.IsGeldig() && slachtoffer.IsGeldig())
+            {
+                //nieuwe kaartenstapel toevoegen
+                int ok = DatabaseOperations.ToevoegenKaarten_Stapel(nieuweKaartenStapel);
+                if (ok > 0)
+                {
+                    //oude kaartenstapel verwijderen
+                    int ok2 = DatabaseOperations.VerwijderenKaarten_Stapel(oudeKaartenStapel);
+                    if (ok2 > 0)
+                    {
+                        //wedstrijd_Speler aanpassen
+                        int ok3 = DatabaseOperations.AanpassenWedstrijd_Speler(slachtoffer);
+                        if (ok3 <= 0)
+                        {
+                            foutmelding += "Bonussen speler niet aangepast\n";
+                        }
+                    }
+                    else
+                    {
+                        foutmelding += "Kaart niet uit je hand kunnen halen\n";
+                    }
+                }
+                else
+                {
+                    foutmelding += "Kaart niet in aflegstapel kunnen plaatsen\n";
+                }
+            }
+            else
+            {
+                foutmelding += nieuweKaartenStapel.Error + Environment.NewLine;
+                foutmelding += slachtoffer.Error + Environment.NewLine;
+            }
+            if (string.IsNullOrEmpty(foutmelding))
+            {
+                return $"Je hebt {kaart.Naam} gebruikt!";
+            }
+            else
+            {
+                return foutmelding;
+            }
+        }
+
+        public Wedstrijd_Speler HerberekenBonussenVeldkaarten(Wedstrijd_Speler speler, Stapel veldkaarten)
+        {
+            speler.Vluchtbonus = 0;
+            speler.Gevechtsbonus = 0;
+            if (speler.Ras.ToUpper() == "ELF")
+            {
+                speler.Vluchtbonus += 1;
+            }
+            //checken of hij kaarten heeft die een bonus geven op een bepaald ras. Als hij dat ras nu niet meer heeft dan gaat de bonus weg
+            foreach (Kaarten_Stapel kaarten_Stapel1 in veldkaarten.Kaarten_Stapels)
+            {
+                //bonussen ophalen
+                List<Bonus> lijstBonussen = DatabaseOperations.OphalenBonussenViaKaartId(kaarten_Stapel1.Kaart_Id);
+                foreach (var bonus in lijstBonussen)
+                {
+                    //checken of je bonus mag gebruiken
+                    if (bonus.Bruikbaar_Door.ToUpper() == speler.Ras.ToUpper() || bonus.Bruikbaar_Door.ToUpper() == "IEDEREEN")
+                    {
+                        if (bonus.Waarop_Effect.ToUpper() == "GEVECHTSWAARDE")
+                        {
+                            //Bonus toevoegen aan gevechtswaarde
+                            speler.Gevechtsbonus += bonus.Waarde;
+                        }
+                        else if (bonus.Waarop_Effect.ToUpper() == "VLUCHTEN")
+                        {
+                            //Bonus toevoegen aan vluchtbonus
+                            speler.Vluchtbonus += bonus.Waarde;
+                        }
+                    }
+                }
+            }
+            return speler;
+        }
     }
 }
