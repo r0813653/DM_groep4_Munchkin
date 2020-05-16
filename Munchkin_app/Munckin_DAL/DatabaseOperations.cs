@@ -53,6 +53,7 @@ namespace Munckin_DAL
             {
                 var query = entities.Kaarten
                               .Include(x => x.Type)
+                              .Include(x => x.Schatkaart)
                               .Where(x => x.Id == kaartId);
                 return query.SingleOrDefault();
             }
@@ -155,6 +156,7 @@ namespace Munckin_DAL
                 return query.SingleOrDefault();
             }
         }
+
 
 
         //Voorlopig niet nodig, ff in commentaar ipv weg voor de zekerheid

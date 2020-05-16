@@ -33,7 +33,7 @@ namespace Munchkin_app
             //InfoWindow infoWindow = new InfoWindow();
             //infoWindow.Show();
             //this.Hide();
-            Kaart testkaart = DatabaseOperations.OphalenKaartViaId(149);
+            Kaart testkaart = DatabaseOperations.OphalenKaartViaId(178);
             Wedstrijd_Speler wedstrijd_Speler = DatabaseOperations.OphalenWedstrijd_SpelerViaId(2);
             string teststring = testkaart.SpeelKaart(testkaart.Id, wedstrijd_Speler);
             MessageBox.Show(teststring);
