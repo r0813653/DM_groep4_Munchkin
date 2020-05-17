@@ -47,17 +47,18 @@ namespace Munckin_DAL
         //    }
         //}
 
-        public static Kaart OphalenKaartViaKaartIdMetType(int kaartId)
-        {
-            using (MunchkinEntities entities = new MunchkinEntities())
-            {
-                var query = entities.Kaarten
-                              .Include(x => x.Type)
-                              .Include(x => x.Schatkaart)
-                              .Where(x => x.Id == kaartId);
-                return query.SingleOrDefault();
-            }
-        }
+        //Voorlopig niet nodig denk ik
+        //public static Kaart OphalenKaartViaKaartIdMetType(int kaartId)
+        //{
+        //    using (MunchkinEntities entities = new MunchkinEntities())
+        //    {
+        //        var query = entities.Kaarten
+        //                      .Include(x => x.Type)
+        //                      .Include(x => x.Schatkaart)
+        //                      .Where(x => x.Id == kaartId);
+        //        return query.SingleOrDefault();
+        //    }
+        //}
 
         public static Stapel OphalenStapelViaVeldkaartenId(int veldKaartenId)
         {
@@ -69,7 +70,6 @@ namespace Munckin_DAL
                 return query.SingleOrDefault();
             }
         }
-
 
         public static Kaart OphalenKaartViaId(int id)
         {
@@ -156,8 +156,6 @@ namespace Munckin_DAL
                 return query.SingleOrDefault();
             }
         }
-
-
 
         //Voorlopig niet nodig, ff in commentaar ipv weg voor de zekerheid
         //public static List<Kaart_Bonus> OphalenKaart_BonusViaKaart_Id(int kaartId)

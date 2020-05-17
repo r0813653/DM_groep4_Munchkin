@@ -12,48 +12,51 @@ namespace Munckin_DAL
 {
     public partial class Kaart
     {
-        public string SpeelKaart(int kaartId, Wedstrijd_Speler gebruiker)
+        public string SpeelKaart(Wedstrijd_Speler gebruiker)
         {
-            Kaart kaart = DatabaseOperations.OphalenKaartViaKaartIdMetType(kaartId);
-            if (kaart.Type.Soort.ToUpper() == "RAS")
+
+            Type type = DatabaseOperations.OphalenType(Type_id);
+            if (type.Soort.ToUpper() == "RAS")
             {
-                string ret = SpeelRas(kaart, gebruiker);
+                string ret = SpeelRas(gebruiker);
                 return ret;
             }
-            else if (kaart.Type.Soort.ToUpper() == "HOOFDDEKSEL")
+            else if (type.Soort.ToUpper() == "HOOFDDEKSEL")
             {
-                string type = "HOOFDDEKSEL";
                 string bericht1 = "je hebt al een hoofddeksel op. Namelijk een ";
-                string ret = SpeelHoofddekselOfHarnasOfSchoeisel(kaart, gebruiker, type, bericht1);
+                string ret = SpeelHoofddekselOfHarnasOfSchoeisel(gebruiker, type, bericht1);
                 return ret;
             }
-            else if (kaart.Type.Soort.ToUpper() == "HARNAS")
+            else if (type.Soort.ToUpper() == "HARNAS")
             {
-                string type = "HARNAS";
                 string bericht1 = "je hebt al een harnas aan. Namelijk een ";
-                string ret = SpeelHoofddekselOfHarnasOfSchoeisel(kaart, gebruiker, type, bericht1);
+                string ret = SpeelHoofddekselOfHarnasOfSchoeisel(gebruiker, type, bericht1);
                 return ret;
             }
-            else if (kaart.Type.Soort.ToUpper() == "SCHOEISEL")
+            else if (type.Soort.ToUpper() == "SCHOEISEL")
             {
-                string type = "SCHOEISEL";
                 string bericht1 = "je hebt al schoeisel aan. Namelijk ";
-                string ret = SpeelHoofddekselOfHarnasOfSchoeisel(kaart, gebruiker, type, bericht1);
+                string ret = SpeelHoofddekselOfHarnasOfSchoeisel(gebruiker, type, bericht1);
                 return ret;
             }
-            else if (kaart.Type.Soort.ToUpper() == "EXTRA")
+            else if (type.Soort.ToUpper() == "EXTRA")
             {
-                string ret = SpeelExtra(kaart, gebruiker);
+                string ret = SpeelExtra(gebruiker);
                 return ret;
             }
-            else if (kaart.Type.Soort.ToUpper() == "1HAND")
+            else if (type.Soort.ToUpper() == "1HAND")
             {
-                string ret = Speel1Hand(kaart, gebruiker);
+                string ret = Speel1Hand(gebruiker);
                 return ret;
             }
-            else if (kaart.Type.Soort.ToUpper() == "2HANDEN")
+            else if (type.Soort.ToUpper() == "2HANDEN")
             {
-                string ret = Speel2Handen(kaart, gebruiker);
+                string ret = Speel2Handen(gebruiker);
+                return ret;
+            }
+            else if (type.Soort.ToUpper() == "GEBRUIKSKAARTEN")
+            {
+                string ret = SpeelGebruikskaart(gebruiker);
                 return ret;
             }
             else
@@ -61,12 +64,12 @@ namespace Munckin_DAL
                 return "Je kan deze kaart nu niet gebruiken";
             }
         }
-        public string SpeelKaart(int kaartId, Wedstrijd_Speler gebruiker, Wedstrijd_Speler slachtoffer)
+        public string SpeelKaart(Wedstrijd_Speler gebruiker, Wedstrijd_Speler slachtoffer)
         {
-            Kaart kaart = DatabaseOperations.OphalenKaartViaKaartIdMetType(kaartId);
-            if (kaart.Type.Soort.ToUpper() == "Vervloeking")
+            Type type = DatabaseOperations.OphalenType(Type_id);
+            if (type.Soort.ToUpper() == "Vervloeking")
             {
-                string ret = SpeelVervloeking(kaart, gebruiker, slachtoffer);
+                string ret = SpeelVervloeking(gebruiker, slachtoffer);
                 return ret;
             }
             else
@@ -75,23 +78,23 @@ namespace Munckin_DAL
             }
         }
 
-        public string SpeelRas(Kaart kaart, Wedstrijd_Speler gebruiker)
+        public string SpeelRas(Wedstrijd_Speler gebruiker)
         {
             string foutmelding = "";
             Stapel veldkaarten = DatabaseOperations.OphalenStapelViaVeldkaartenId(gebruiker.Veldkaarten_Id);
             //check if speler al een ras heeft
             if (gebruiker.Ras.ToUpper() == "MENS")
             {
-                Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, kaart.Id);
+                Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
 
                 //Voeg kaart toe in veldkaarten
                 Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-                nieuweKaartenStapel.Kaart_Id = kaart.Id;
+                nieuweKaartenStapel.Kaart_Id = Id;
                 nieuweKaartenStapel.Stapel_Id = veldkaarten.Id;
                 //pas wedstrijd speler aan
-                gebruiker.Ras = kaart.Naam;
+                gebruiker.Ras = Naam;
 
-                gebruiker = HerberekenBonussenVeldkaarten(gebruiker, veldkaarten);
+                gebruiker.HerberekenBonussenVeldkaarten(veldkaarten);
                 //Functie voor onderstaande code geschreven, ook nodig bij vervloeking. Nog testen.
                 //gebruiker.Vluchtbonus = 0;
                 //gebruiker.Gevechtsbonus = 0;
@@ -169,7 +172,7 @@ namespace Munckin_DAL
                 return foutmelding;
             }
         }
-        public string SpeelHoofddekselOfHarnasOfSchoeisel(Kaart kaart, Wedstrijd_Speler gebruiker, string type, string bericht1)
+        public string SpeelHoofddekselOfHarnasOfSchoeisel(Wedstrijd_Speler gebruiker, Type type, string bericht1)
         {
             Stapel veldkaarten = DatabaseOperations.OphalenStapelViaVeldkaartenId(gebruiker.Veldkaarten_Id);
             string foutmelding = "";
@@ -177,7 +180,7 @@ namespace Munckin_DAL
             foreach (var kaarten_Stapel1 in veldkaarten.Kaarten_Stapels)
             {
                 //check of er al een kaart van dit type zit in de veldkaarten
-                if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains(type.ToUpper()))
+                if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains(type.Soort.ToUpper()))
                 {
                     return bericht1 + kaarten_Stapel1.Kaart.Naam;
                 }
@@ -189,15 +192,15 @@ namespace Munckin_DAL
                 //TOT HIER
             }
 
-            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, kaart.Id);
+            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
 
             //Voeg kaart toe in veldkaarten
             Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-            nieuweKaartenStapel.Kaart_Id = kaart.Id;
+            nieuweKaartenStapel.Kaart_Id = Id;
             nieuweKaartenStapel.Stapel_Id = veldkaarten.Id;
 
             //Bonus van kaart opvragen
-            List<Bonus> lijstBonusssen = DatabaseOperations.OphalenBonussenViaKaartId(kaart.Id);
+            List<Bonus> lijstBonusssen = DatabaseOperations.OphalenBonussenViaKaartId(Id);
             foreach (var bonus in lijstBonusssen)
             {
                 //Checken of hij dit kan gebruiken (hij equipt het sowieso want dat mag maar hij krijgt de bonus niet
@@ -247,14 +250,14 @@ namespace Munckin_DAL
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
-                return $"Je hebt {kaart.Naam} gebruikt!";
+                return $"Je hebt {Naam} gebruikt!";
             }
             else
             {
                 return foutmelding;
             }
         }
-        public string SpeelExtra(Kaart kaart, Wedstrijd_Speler gebruiker)
+        public string SpeelExtra(Wedstrijd_Speler gebruiker)
         {
             Stapel veldkaarten = DatabaseOperations.OphalenStapelViaVeldkaartenId(gebruiker.Veldkaarten_Id);
             string foutmelding = "";
@@ -269,15 +272,15 @@ namespace Munckin_DAL
                 //TOT HIER
             }
 
-            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, kaart.Id);
+            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
 
             //Voeg kaart toe in veldkaarten
             Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-            nieuweKaartenStapel.Kaart_Id = kaart.Id;
+            nieuweKaartenStapel.Kaart_Id = Id;
             nieuweKaartenStapel.Stapel_Id = veldkaarten.Id;
 
             //Bonus van kaart opvragen
-            List<Bonus> lijstBonusssen = DatabaseOperations.OphalenBonussenViaKaartId(kaart.Id);
+            List<Bonus> lijstBonusssen = DatabaseOperations.OphalenBonussenViaKaartId(Id);
             foreach (var bonus in lijstBonusssen)
             {
                 //Checken of hij dit kan gebruiken (hij equipt het sowieso want dat mag maar hij krijgt de bonus niet
@@ -327,14 +330,14 @@ namespace Munckin_DAL
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
-                return $"Je bent nu uitgerust met een {kaart.Naam}";
+                return $"Je bent nu uitgerust met een {Naam}";
             }
             else
             {
                 return foutmelding;
             }
         }
-        public string Speel1Hand(Kaart kaart, Wedstrijd_Speler gebruiker)
+        public string Speel1Hand(Wedstrijd_Speler gebruiker)
         {
             Stapel veldkaarten = DatabaseOperations.OphalenStapelViaVeldkaartenId(gebruiker.Veldkaarten_Id);
             string foutmelding = "";
@@ -363,15 +366,15 @@ namespace Munckin_DAL
                 //TOT HIER
             }
 
-            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, kaart.Id);
+            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
 
             //Voeg kaart toe in veldkaarten
             Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-            nieuweKaartenStapel.Kaart_Id = kaart.Id;
+            nieuweKaartenStapel.Kaart_Id = Id;
             nieuweKaartenStapel.Stapel_Id = veldkaarten.Id;
 
             //Bonus van kaart opvragen
-            List<Bonus> lijstBonusssen = DatabaseOperations.OphalenBonussenViaKaartId(kaart.Id);
+            List<Bonus> lijstBonusssen = DatabaseOperations.OphalenBonussenViaKaartId(Id);
             foreach (var bonus in lijstBonusssen)
             {
                 //Checken of hij dit kan gebruiken (hij equipt het sowieso want dat mag maar hij krijgt de bonus niet
@@ -421,14 +424,14 @@ namespace Munckin_DAL
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
-                return $"Je hebt nu een {kaart.Naam} in je hand!";
+                return $"Je hebt nu een {Naam} in je hand!";
             }
             else
             {
                 return foutmelding;
             }
         }
-        public string Speel2Handen(Kaart kaart, Wedstrijd_Speler gebruiker)
+        public string Speel2Handen(Wedstrijd_Speler gebruiker)
         {
             Stapel veldkaarten = DatabaseOperations.OphalenStapelViaVeldkaartenId(gebruiker.Veldkaarten_Id);
             string foutmelding = "";
@@ -448,15 +451,15 @@ namespace Munckin_DAL
                 //TOT HIER
             }
 
-            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, kaart.Id);
+            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
 
             //Voeg kaart toe in veldkaarten
             Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-            nieuweKaartenStapel.Kaart_Id = kaart.Id;
+            nieuweKaartenStapel.Kaart_Id = Id;
             nieuweKaartenStapel.Stapel_Id = veldkaarten.Id;
 
             //Bonus van kaart opvragen
-            List<Bonus> lijstBonusssen = DatabaseOperations.OphalenBonussenViaKaartId(kaart.Id);
+            List<Bonus> lijstBonusssen = DatabaseOperations.OphalenBonussenViaKaartId(Id);
             foreach (var bonus in lijstBonusssen)
             {
                 //Checken of hij dit kan gebruiken (hij equipt het sowieso want dat mag maar hij krijgt de bonus niet
@@ -506,22 +509,22 @@ namespace Munckin_DAL
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
-                return $"Je hebt nu een {kaart.Naam} in je handen!";
+                return $"Je hebt nu een {Naam} in je handen!";
             }
             else
             {
                 return foutmelding;
             }
         }
-        public string SpeelVervloeking(Kaart kaart, Wedstrijd_Speler gebruiker, Wedstrijd_Speler slachtoffer)
+        public string SpeelVervloeking(Wedstrijd_Speler gebruiker, Wedstrijd_Speler slachtoffer)
         {
             string foutmelding = "";
             //kaartenstapel ophalen om later de kaart te verwijderen uit hand
-            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, kaart.Id);
+            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
             //voor als slachtoffer een voorwerp verliest
             Stapel veldkaartenSlachtoffer = DatabaseOperations.OphalenStapelViaVeldkaartenId(slachtoffer.Veldkaarten_Id);
             //bonus kaart ophalen
-            List<Bonus> lijstBonussen = DatabaseOperations.OphalenBonussenViaKaartId(kaart.Id);
+            List<Bonus> lijstBonussen = DatabaseOperations.OphalenBonussenViaKaartId(Id);
             //checken waarop (negatieve)bonus en juiste actie doen
             foreach (var bonus in lijstBonussen)
             {
@@ -536,10 +539,10 @@ namespace Munckin_DAL
                 }
             }
             //checken of je iets moet verliezen
-            if (kaart.Naam.ToUpper().Contains("VERLIES"))
+            if (Naam.ToUpper().Contains("VERLIES"))
             {
                 //Ras verliezen
-                if (kaart.Naam.ToUpper().Contains("RAS"))
+                if (Naam.ToUpper().Contains("RAS"))
                 {
                     slachtoffer.Ras = "Mens";
                     //Checken of alle bonussen nog gelden en gevechtswaarde herberekenen
@@ -568,7 +571,7 @@ namespace Munckin_DAL
                     }
                 }
                 //Als je harnas moet verliezen
-                else if (kaart.Naam.ToUpper().Contains("HARNAS"))
+                else if (Naam.ToUpper().Contains("HARNAS"))
                 {
                     foreach (var kaarten_Stapel1 in veldkaartenSlachtoffer.Kaarten_Stapels)
                     {
@@ -580,7 +583,7 @@ namespace Munckin_DAL
                             if (ok > 0)
                             {
                                 //bonus van de kaart aftrekken
-                                slachtoffer = HerberekenBonussenVeldkaarten(slachtoffer, veldkaartenSlachtoffer);
+                                slachtoffer.HerberekenBonussenVeldkaarten(veldkaartenSlachtoffer);
 
                             }
                             else
@@ -591,7 +594,7 @@ namespace Munckin_DAL
                     }
                 }
                 //Als je hoofddeksel moet verliezen
-                else if (kaart.Naam.ToUpper().Contains("HOOFDDEKSEL"))
+                else if (Naam.ToUpper().Contains("HOOFDDEKSEL"))
                 {
                     foreach (var kaarten_Stapel1 in veldkaartenSlachtoffer.Kaarten_Stapels)
                     {
@@ -603,7 +606,7 @@ namespace Munckin_DAL
                             if (ok > 0)
                             {
                                 //bonus van de kaart aftrekken
-                                slachtoffer = HerberekenBonussenVeldkaarten(slachtoffer, veldkaartenSlachtoffer);
+                                slachtoffer.HerberekenBonussenVeldkaarten(veldkaartenSlachtoffer);
 
                             }
                             else
@@ -614,7 +617,7 @@ namespace Munckin_DAL
                     }
                 }
                 //als je je schoeisel moet verliezen
-                else if (kaart.Naam.ToUpper().Contains("SCHOEISEL"))
+                else if (Naam.ToUpper().Contains("SCHOEISEL"))
                 {
                     foreach (var kaarten_Stapel1 in veldkaartenSlachtoffer.Kaarten_Stapels)
                     {
@@ -626,7 +629,7 @@ namespace Munckin_DAL
                             if (ok > 0)
                             {
                                 //bonus van de kaart aftrekken
-                                slachtoffer = HerberekenBonussenVeldkaarten(slachtoffer, veldkaartenSlachtoffer);
+                                slachtoffer.HerberekenBonussenVeldkaarten(veldkaartenSlachtoffer);
 
                             }
                             else
@@ -639,7 +642,7 @@ namespace Munckin_DAL
             }
             //kaart naar aflegstapel doen
             Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-            nieuweKaartenStapel.Kaart_Id = kaart.Id;
+            nieuweKaartenStapel.Kaart_Id = Id;
             //schat dat ik hiervoor een dbOperations functie OphalenWedstrijd ga moeten maken
             nieuweKaartenStapel.Stapel_Id = gebruiker.Wedstrijd.Kerkerkaarten_Aflegstapel_Id;
             //als de nieuwe kaartenstapel en de wedstrijdspeler geldig zijn, gaan we aanpassing doorvoeren in db
@@ -677,46 +680,19 @@ namespace Munckin_DAL
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
-                return $"Je hebt {kaart.Naam} gebruikt!";
+                return $"Je hebt {Naam} gebruikt!";
             }
             else
             {
                 return foutmelding;
             }
         }
-
-        public Wedstrijd_Speler HerberekenBonussenVeldkaarten(Wedstrijd_Speler speler, Stapel veldkaarten)
+        public string SpeelGebruikskaart(Wedstrijd_Speler gebruiker)
         {
-            speler.Vluchtbonus = 0;
-            speler.Gevechtsbonus = 0;
-            if (speler.Ras.ToUpper() == "ELF")
-            {
-                speler.Vluchtbonus += 1;
-            }
-            //checken of hij kaarten heeft die een bonus geven op een bepaald ras. Als hij dat ras nu niet meer heeft dan gaat de bonus weg
-            foreach (Kaarten_Stapel kaarten_Stapel1 in veldkaarten.Kaarten_Stapels)
-            {
-                //bonussen ophalen
-                List<Bonus> lijstBonussen = DatabaseOperations.OphalenBonussenViaKaartId(kaarten_Stapel1.Kaart_Id);
-                foreach (var bonus in lijstBonussen)
-                {
-                    //checken of je bonus mag gebruiken
-                    if (bonus.Bruikbaar_Door.ToUpper() == speler.Ras.ToUpper() || bonus.Bruikbaar_Door.ToUpper() == "IEDEREEN")
-                    {
-                        if (bonus.Waarop_Effect.ToUpper() == "GEVECHTSWAARDE")
-                        {
-                            //Bonus toevoegen aan gevechtswaarde
-                            speler.Gevechtsbonus += bonus.Waarde;
-                        }
-                        else if (bonus.Waarop_Effect.ToUpper() == "VLUCHTEN")
-                        {
-                            //Bonus toevoegen aan vluchtbonus
-                            speler.Vluchtbonus += bonus.Waarde;
-                        }
-                    }
-                }
-            }
-            return speler;
+            return "";
         }
+
+
+
     }
 }
