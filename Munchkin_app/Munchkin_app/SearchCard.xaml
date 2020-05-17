@@ -34,7 +34,7 @@
                         </ImageBrush.Transform>
                     </ImageBrush>
                 </TextBox.Background>
-            </TextBox>
+            </TextBox>           
             <ListBox Name="lbZoekKaart" Grid.Row="2" Width="800" Height="350" Margin="20" Background="Transparent" BorderThickness="8" BorderBrush="#FF3C0900" FontSize="40" Foreground="#FF3C0900"/>
             <Button Style="{StaticResource CustomButton}" Grid.Row="3" FontSize="50" Content="Ga terug" Width="200" Margin="0 37 0 40"/>
         </Grid>
