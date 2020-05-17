@@ -34,19 +34,18 @@ namespace Munchkin_app
                 
                 List<Kaart> ZoekKaarten = DatabaseOperations.OphalenKaartenViaNaam(ZoekKaart);
                 dgZoekKaart.ItemsSource = ZoekKaarten;
-                
-            //if (string.IsNullOrWhiteSpace(ZoekKaart))
-            //{
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Zoekbalk is nog leeg");
-            //}
         }
 
         private void txtZoekKaart_GotFocus(object sender, RoutedEventArgs e)
         {
             txtZoekKaart.Text = "";
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            InfoWindow infoWindow = new InfoWindow();
+            infoWindow.Show();
+            this.Close();
         }
     }
 }

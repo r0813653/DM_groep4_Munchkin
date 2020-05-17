@@ -43,12 +43,12 @@
 
             <DataGrid Style="{DynamicResource datagrid1}" x:Name="dgZoekKaart" Grid.Row="2" Width="800" Height="350" Margin="20" Background="Transparent" RowBackground="Transparent"  BorderThickness="8" BorderBrush="#FF3C0900" FontSize="40" Foreground="#FF3C0900" IsReadOnly="True" AutoGenerateColumns="False" >
                 <DataGrid.Columns >
-                    <DataGridTextColumn Header="Naam" Binding="{Binding Naam}"  />
-                    <DataGridTextColumn Header="Beschrijving" Binding="{Binding Beschrijving}"/>
+                    <DataGridTextColumn Header=" Naam " Binding="{Binding Naam}"  />
+                    <DataGridTextColumn Header=" Beschrijving " Binding="{Binding Beschrijving}"/>
                 </DataGrid.Columns>
              
             </DataGrid>
-            <Button Style="{StaticResource CustomButton}" Grid.Row="3" FontSize="50" Content="Ga terug" Width="200" Margin="0 37 0 40"/>
+            <Button Style="{StaticResource CustomButton}" Grid.Row="3" FontSize="50" Content="Ga terug" Width="200" Margin="0 37 0 40" Click="Button_Click"/>
         </Grid>
     </ScrollViewer>
 </Window>

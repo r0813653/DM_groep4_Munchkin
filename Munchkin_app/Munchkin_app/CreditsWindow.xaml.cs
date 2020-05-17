@@ -24,5 +24,12 @@ namespace Munchkin_app
             InitializeComponent();
             this.WindowState = WindowState.Maximized;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            InfoWindow infoWindow = new InfoWindow();
+            infoWindow.Show();
+            this.Close();
+        }
     }
 }
