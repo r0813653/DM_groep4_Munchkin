@@ -30,13 +30,9 @@ namespace Munchkin_app
       
         private void btn_info_Click(object sender, RoutedEventArgs e)
         {
-            //InfoWindow infoWindow = new InfoWindow();
-            //infoWindow.Show();
-            //this.Hide();
-            Kaart testkaart = DatabaseOperations.OphalenKaartViaId(149);
-            Wedstrijd_Speler wedstrijd_Speler = DatabaseOperations.OphalenWedstrijd_SpelerViaId(2);
-            string teststring = testkaart.SpeelKaart(wedstrijd_Speler);
-            MessageBox.Show(teststring);
+            InfoWindow infoWindow = new InfoWindow();
+            infoWindow.Show();
+            this.Hide();
         }
 
        

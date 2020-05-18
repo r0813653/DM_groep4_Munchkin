@@ -13,7 +13,7 @@ namespace Munckin_DAL
         {
             get
             {
-                if (columnName == "Id" && Id >= 0)
+                if (columnName == "Id" && Id <= 0)
                 {
                     return "Id mag niet kleiner of gelijk zijn aan 0";
                 }

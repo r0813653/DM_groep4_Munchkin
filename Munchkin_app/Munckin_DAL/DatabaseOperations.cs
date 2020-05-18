@@ -76,20 +76,23 @@ namespace Munckin_DAL
             using (MunchkinEntities entities = new MunchkinEntities())
             {
                 var query = entities.Kaarten
+                               .Include(x=> x.Schatkaart)
+                               .Include(x=> x.Kerkerkaart)
                               .Where(x => x.Id == id);
                 return query.SingleOrDefault();
             }
         }
 
-        public static Wedstrijd_Speler OphalenWedstrijd_SpelerViaId(int id)
-        {
-            using (MunchkinEntities entities = new MunchkinEntities())
-            {
-                var query = entities.Wedstrijd_Spelers
-                              .Where(x => x.Id == id);
-                return query.SingleOrDefault();
-            }
-        }
+        //voorlopig niet nodig, laat nog ff staan voor de zekerheid
+        //public static Wedstrijd_Speler OphalenWedstrijd_SpelerViaId(int id)
+        //{
+        //    using (MunchkinEntities entities = new MunchkinEntities())
+        //    {
+        //        var query = entities.Wedstrijd_Spelers
+        //                      .Where(x => x.Id == id);
+        //        return query.SingleOrDefault();
+        //    }
+        //}
 
         public static Type OphalenType(int typeId)
         {
@@ -166,7 +169,7 @@ namespace Munckin_DAL
         //        return query.ToList();
         //    }
         //}
-        public static int AanpassenKaart(Kaart kaart)
+        public static int AanpassenKerkerkaart(Kerkerkaart kaart)
         {
             try
             {
