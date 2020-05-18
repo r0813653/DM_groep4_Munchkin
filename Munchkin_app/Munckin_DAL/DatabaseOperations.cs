@@ -60,13 +60,13 @@ namespace Munckin_DAL
         //    }
         //}
 
-        public static Stapel OphalenStapelViaVeldkaartenId(int veldKaartenId)
+        public static Stapel OphalenStapelViaId(int Id)
         {
             using (MunchkinEntities entities = new MunchkinEntities())
             {
                 var query = entities.Stapels
                             .Include(x => x.Kaarten_Stapels.Select(sub => sub.Kaart))
-                            .Where(x => x.Id == veldKaartenId);
+                            .Where(x => x.Id == Id);
                 return query.SingleOrDefault();
             }
         }
@@ -154,6 +154,59 @@ namespace Munckin_DAL
                 var query = entities.Kaarten_Stapels
                             .Where(x => x.Kaart_Id == kaartId && x.Stapel_Id == stapelId);
                 return query.SingleOrDefault();
+            }
+        }
+        //Voorlopig niet meer nodig, voor de zekerheid ff commentaar
+        //public static List<Wedstrijd_Speler> OphalenWedstrijd_SpelerViaWedstrijd_Id(int wedstrijdId)
+        //{
+        //    using (MunchkinEntities entities = new MunchkinEntities())
+        //    {
+        //        var query = entities.Wedstrijd_Spelers
+        //                      .Where(x => x.Wedstrijd_Id == wedstrijdId);
+        //        return query.ToList();
+        //    }
+        //}
+        public static int AanpassenKaart(Kaart kaart)
+        {
+            try
+            {
+                using (MunchkinEntities entities = new MunchkinEntities())
+                {
+                    entities.Entry(kaart).State = EntityState.Modified;
+                    return entities.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                FileOperations.FoutLoggen(ex);
+                return 0;
+            }
+        }
+        public static Wedstrijd OphalenWedstrijdViaId(int Id)
+        {
+            using (MunchkinEntities entities = new MunchkinEntities())
+            {
+                var query = entities.Wedstrijden
+                            .Where(x => x.Id == Id);
+                return query.SingleOrDefault();
+            }
+        }
+        public static List<Kaarten_Stapel> OphalenKaarten_StapelsViaStapelId(int stapelId)
+        {
+            using (MunchkinEntities entities = new MunchkinEntities())
+            {
+                return entities.Kaarten_Stapels
+                   .Where(p => p.Stapel_Id == stapelId)
+                    .ToList();
+            }
+        }
+        public static List<Wedstrijd_Speler> OphalenWedstrijd_SpelersViaWedstrijdId(int wedstrijdId)
+        {
+            using (MunchkinEntities entities = new MunchkinEntities())
+            {
+                return entities.Wedstrijd_Spelers
+                   .Where(p => p.Wedstrijd_Id == wedstrijdId)
+                    .ToList();
             }
         }
 

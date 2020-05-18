@@ -16,7 +16,7 @@ namespace Munckin_DAL
     {
         public int Id { get; set; }
         public int Speler_Id { get; set; }
-        public int Wedstrijd_Id { get; set; }
+        public Nullable<int> Wedstrijd_Id { get; set; }
         public int Handkaarten_Id { get; set; }
         public int Veldkaarten_Id { get; set; }
         public Nullable<int> Level { get; set; }
