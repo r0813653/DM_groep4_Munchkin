@@ -54,6 +54,7 @@
       <DependentUpon>MunchkinModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseOperations.cs" />
+    <Compile Include="FileOperations.cs" />
     <Compile Include="Kaart.cs">
       <DependentUpon>MunchkinModel.tt</DependentUpon>
     </Compile>
@@ -81,12 +82,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MunchkinModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="PartialClasses\Kaarten_Stapel.cs" />
     <Compile Include="PartialClasses\Toernooi.cs" />
     <Compile Include="PartialClasses\Kaart.cs" />
     <Compile Include="PartialClasses\Kerkerkaart.cs" />
     <Compile Include="PartialClasses\Schatkaart.cs" />
     <Compile Include="PartialClasses\Speler.cs" />
     <Compile Include="PartialClasses\Wedstrijd.cs" />
+    <Compile Include="PartialClasses\Wedstrijd_Speler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schatkaart.cs">
       <DependentUpon>MunchkinModel.tt</DependentUpon>
