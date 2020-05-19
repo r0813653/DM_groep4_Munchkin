@@ -19,7 +19,6 @@ namespace Munckin_DAL
                 return entities.SaveChanges();
             }
         }
-      //vanaf hier
         public static int AanpassenWedstrijd_Speler(Wedstrijd_Speler wedstrijd_Speler)
         {
             try
@@ -225,7 +224,6 @@ namespace Munckin_DAL
         //        return query.ToList();
         //    }
         //}
-      //tot hier
         public static List<Kerkerkaart> OphalenKerkerkaarten()
         {
             using (MunchkinEntities entities = new MunchkinEntities())
@@ -259,16 +257,16 @@ namespace Munckin_DAL
         }
 
       
+        //Van de Jens, veranderd naar functie die Domien had geschreven, ff in commentaar voor het geval er toch iets anders in de functie is
+        //public static int ToevoegenKaartenStapel(Kaarten_Stapel kaarten_Stapel)
+        //{
+        //    using (MunchkinEntities entities = new MunchkinEntities())
+        //    {
+        //        entities.Kaarten_Stapels.Add(kaarten_Stapel);
 
-        public static int ToevoegenKaartenStapel(Kaarten_Stapel kaarten_Stapel)
-        {
-            using (MunchkinEntities entities = new MunchkinEntities())
-            {
-                entities.Kaarten_Stapels.Add(kaarten_Stapel);
-
-                return entities.SaveChanges();
-            }
-        }
+        //        return entities.SaveChanges();
+        //    }
+        //}
 
         public static int ToevoegenWedstrijd(Wedstrijd wedstrijd)
         {
@@ -289,7 +287,7 @@ namespace Munckin_DAL
                 return entities.SaveChanges();
             }
         }
-      //en hier
+      
 
     }
 }

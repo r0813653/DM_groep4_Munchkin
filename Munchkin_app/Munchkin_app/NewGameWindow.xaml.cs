@@ -269,7 +269,7 @@ namespace Munchkin_app
                             kerkerkaartenLijst.RemoveAt(0);
 
                             // Kaarten_stapel effectief toevoegen aan database
-                            DatabaseOperations.ToevoegenKaartenStapel(kerkerkaarten_Stapel);
+                            DatabaseOperations.ToevoegenKaarten_Stapel(kerkerkaarten_Stapel);
 
 
 
@@ -284,7 +284,7 @@ namespace Munchkin_app
                             schatkaartenLijst.RemoveAt(0);
 
                             // Kaarten_stapel  toevoegen in database
-                            DatabaseOperations.ToevoegenKaartenStapel(schatkaarten_Stapel);
+                            DatabaseOperations.ToevoegenKaarten_Stapel(schatkaarten_Stapel);
 
                         }
 
@@ -322,14 +322,14 @@ namespace Munchkin_app
                     Kaarten_Stapel kaarten_Stapel = new Kaarten_Stapel();
                     kaarten_Stapel.Stapel_Id = trekstapel_kerker.Id;
                     kaarten_Stapel.Kaart_Id = kerkerkaart.Id;
-                    DatabaseOperations.ToevoegenKaartenStapel(kaarten_Stapel);
+                    DatabaseOperations.ToevoegenKaarten_Stapel(kaarten_Stapel);
                 }
                 foreach (var schatkaart in schatkaartenLijst)
                 {
                     Kaarten_Stapel kaarten_Stapel = new Kaarten_Stapel();
                     kaarten_Stapel.Stapel_Id = trekstapel_schat.Id;
                     kaarten_Stapel.Kaart_Id = schatkaart.Id;
-                    DatabaseOperations.ToevoegenKaartenStapel(kaarten_Stapel);
+                    DatabaseOperations.ToevoegenKaarten_Stapel(kaarten_Stapel);
                 }
 
                 //next line of code
