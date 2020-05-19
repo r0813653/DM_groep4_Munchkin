@@ -208,7 +208,7 @@ namespace Munchkin_app
             // MessageBox.Show(foutmelding);
 
             List<int> lijstIdSpelerHandkaarten = new List<int>();
-            List<int> lijstIdSpelerSchatkaarten = new List<int>();
+            List<int> lijstIdSpelerVeldkaarten = new List<int>();
 
 
             //enkel verdergaan en kaarten ophalen wanneer er nog steeds geen foutmelding is
@@ -223,12 +223,12 @@ namespace Munchkin_app
                 kerkerkaartenLijst.Shuffle();
                 schatkaartenLijst.Shuffle();
 
-                
 
+                int tellerke = 1;
                 //voor elke speler 2 stapels( 1 handkaartstapel + 1 veldkaartstapel )
                 foreach (Speler speler in lijstSpelers)
                 {
-                    int tellerke = 1;
+                    
 
                     Stapel handkaarten = new Stapel();
                     Stapel veldkaarten = new Stapel();
@@ -242,7 +242,7 @@ namespace Munchkin_app
 
                     //id toevoegen aan lijst om hierbuiten te gebruiken.
                     lijstIdSpelerHandkaarten.Add(handkaarten.Id);
-                    lijstIdSpelerSchatkaarten.Add(handkaarten.Id);
+                    lijstIdSpelerVeldkaarten.Add(veldkaarten.Id);
 
                     if (okey<=0)
                     {
@@ -289,6 +289,8 @@ namespace Munchkin_app
                         }
 
                     }
+
+                    tellerke++;
                 }
 
                 /////next line of code after foreach speler
@@ -302,12 +304,18 @@ namespace Munchkin_app
                 Stapel aflegstapel_schat = new Stapel();
                 Stapel trekstapel_kerker = new Stapel();
                 Stapel trekstapel_schat = new Stapel();
+                //4 stapels naam geven
+                aflegstapel_kerker.Naam = "aflegstapel_kerkerkaarten";
+                aflegstapel_schat.Naam = "aflegstapel_schatkaarten";
+                trekstapel_kerker.Naam = "trekstapel_kerkerkaarten";
+                trekstapel_schat.Naam = "aflegstapel_schatkaarten";
 
                 // 4 stapels toevoegen in database
                 DatabaseOperations.ToevoegenStapel(aflegstapel_kerker);
                 DatabaseOperations.ToevoegenStapel(aflegstapel_schat);
                 DatabaseOperations.ToevoegenStapel(trekstapel_kerker);
-                DatabaseOperations.ToevoegenStapel(aflegstapel_schat);
+                DatabaseOperations.ToevoegenStapel(trekstapel_schat);
+                
 
                 foreach (var kerkerkaart in kerkerkaartenLijst)
                 {
@@ -348,26 +356,24 @@ namespace Munchkin_app
                         Wedstrijd_Speler wedstrijd_Speler = new Wedstrijd_Speler();
                         wedstrijd_Speler.Speler_Id = speler.Id;
                         wedstrijd_Speler.Wedstrijd_Id = wedstrijd.Id;
-                        wedstrijd_Speler.Handkaarten_Id = lijstIdSpelerHandkaarten[0];
-                       
-
-                        lijstIdSpelerSchatkaarten.Remove(lijstIdSpelerHandkaarten[0]);
+                        wedstrijd_Speler.Handkaarten_Id = lijstIdSpelerHandkaarten[0] ;                   
 
 
-                    }
-
-                    
+                        lijstIdSpelerHandkaarten.Remove(lijstIdSpelerHandkaarten[0]);
 
 
-
-                    
+                        wedstrijd_Speler.Veldkaarten_Id = lijstIdSpelerVeldkaarten[0];
+                        lijstIdSpelerVeldkaarten.Remove(lijstIdSpelerVeldkaarten[0]);
+                        DatabaseOperations.ToevoegenWedstrijdSpelers(wedstrijd_Speler);
+                    }                 
+     
                 }
                 
             }
 
-
-
-
+            Fase1 fase1 = new Fase1();
+            fase1.Show();
+            this.Close();
         }
     }
 }
