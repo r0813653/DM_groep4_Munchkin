@@ -54,7 +54,7 @@
           <Property Name="Aantal_schatten" Type="int" />
           <Property Name="Ondood" Type="bit" />
           <Property Name="Aantal_Levels" Type="int" />
-          <Property Name="Tijdelijke_Bonus" Type="int" />
+          <Property Name="Tijdelijke_Bonus" Type="int" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Schatkaarten">
           <Key>
@@ -104,11 +104,11 @@
           <Property Name="Wedstrijd_Id" Type="int" />
           <Property Name="Handkaarten_Id" Type="int" Nullable="false" />
           <Property Name="Veldkaarten_Id" Type="int" Nullable="false" />
-          <Property Name="Level" Type="int" />
-          <Property Name="Ras" Type="nvarchar" MaxLength="50" />
-          <Property Name="Vluchtbonus" Type="int" />
-          <Property Name="Gevechtsbonus" Type="int" />
-          <Property Name="Tijdelijke_Bonus" Type="int" />
+          <Property Name="Level" Type="int" StoreGeneratedPattern="Computed" />
+          <Property Name="Ras" Type="nvarchar" MaxLength="50" StoreGeneratedPattern="Computed" />
+          <Property Name="Vluchtbonus" Type="int" StoreGeneratedPattern="Computed" />
+          <Property Name="Gevechtsbonus" Type="int" StoreGeneratedPattern="Computed" />
+          <Property Name="Tijdelijke_Bonus" Type="int" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Wedstrijden">
           <Key>
@@ -488,7 +488,7 @@
           <Property Name="Ondood" Type="Boolean" />
           <Property Name="Aantal_Levels" Type="Int32" />
           <NavigationProperty Name="Kaart" Relationship="Self.FK_Kerkerkaart_Id" FromRole="Kerkerkaarten" ToRole="Kaarten" />
-          <Property Name="Tijdelijke_Bonus" Type="Int32" />
+          <Property Name="Tijdelijke_Bonus" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Schatkaart">
           <Key>
@@ -556,11 +556,11 @@
           <NavigationProperty Name="Stapel_Handkaarten" Relationship="Self.FK_Handkaarten_Id" FromRole="Wedstrijd_Spelers" ToRole="Stapels" />
           <NavigationProperty Name="Stapel_Veldkaarten" Relationship="Self.FK_Veldkaarten_Id" FromRole="Wedstrijd_Spelers" ToRole="Stapels" />
           <NavigationProperty Name="Wedstrijd" Relationship="Self.FK_Wedstrijd_Id" FromRole="Wedstrijd_Spelers" ToRole="Wedstrijden" />
-          <Property Name="Level" Type="Int32" />
-          <Property Name="Ras" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Vluchtbonus" Type="Int32" />
-          <Property Name="Gevechtsbonus" Type="Int32" />
-          <Property Name="Tijdelijke_Bonus" Type="Int32" />
+          <Property Name="Level" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Ras" Type="String" MaxLength="50" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Vluchtbonus" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Gevechtsbonus" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Tijdelijke_Bonus" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Wedstrijd">
           <Key>

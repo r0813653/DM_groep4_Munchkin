@@ -174,7 +174,7 @@ namespace Munckin_DAL
                 int wedstrijdId = vechter.Wedstrijd_Id ?? default;
                 Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId);
                 List<Kaarten_Stapel> trekstapelSchatkaartenKaarten_Stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(wedstrijd.Schatkaarten_Trekstapel_Id);
-                //default checken, weet niet of dit werkt
+                Stapel vechterHandkaarten = DatabaseOperations.OphalenStapelViaId(vechter.Handkaarten_Id);
                 int aantalSchattenTrekken = Kerkerkaart.Aantal_schatten ?? default;
                 if (vechter.Ras.ToUpper().Contains("ELF") && Naam.ToUpper() == "WIETPLANT")
                 {
@@ -182,22 +182,7 @@ namespace Munckin_DAL
                 }
                 for (int i = 0; i < aantalSchattenTrekken; i++)
                 {
-                    Kaarten_Stapel kaarten_Stapel = new Kaarten_Stapel();
-                    kaarten_Stapel.Kaart_Id = trekstapelSchatkaartenKaarten_Stapels[i].Kaart_Id;
-                    kaarten_Stapel.Stapel_Id = vechter.Handkaarten_Id;
-                    //toevoegen kaartenstapel
-                    if (kaarten_Stapel.IsGeldig())
-                    {
-                        int ok = DatabaseOperations.ToevoegenKaarten_Stapel(kaarten_Stapel);
-                        if (ok <= 0)
-                        {
-                            foutmelding += "Kaart niet in hand kunnen plaatsen\n";
-                        }
-                    }
-                    else
-                    {
-                        foutmelding += kaarten_Stapel.Error + Environment.NewLine;
-                    }
+                    foutmelding += trekstapelSchatkaartenKaarten_Stapels[i].KaartVanStapelWisselen(vechterHandkaarten);
 
                 }
                 //kaart naar aflegstapel doen
@@ -258,42 +243,21 @@ namespace Munckin_DAL
             //checken of je wint
             if (spelersterkte > monsterSterkte)
             {
-                //levels omhoog, waars dboperations
+                //levels omhoog
                 vechter.Level += Kerkerkaart.Aantal_Levels;
-                if (vechter.IsGeldig())
-                {
-                    int ok2 = DatabaseOperations.AanpassenWedstrijd_Speler(vechter);
-                    if (ok2 <= 0)
-                    {
-                        foutmelding += "Je level is niet gestegen\n";
-                    }
-                }
-                else
-                {
-                    foutmelding += vechter.Error + Environment.NewLine;
-                }
+                foutmelding += vechter.PasWedstrijd_SpelerAan();
 
                 if (helper.Ras.ToUpper() == "ELF")
                 {
                     helper.Level += 1;
-                    if (helper.IsGeldig())
-                    {
-                        int ok3 = DatabaseOperations.AanpassenWedstrijd_Speler(vechter);
-                        if (ok3 <= 0)
-                        {
-                            foutmelding += "level van de helper is niet gestegen\n";
-                        }
-                    }
-                    else
-                    {
-                        foutmelding += helper.Error + Environment.NewLine;
-                    }
+                    foutmelding += helper.PasWedstrijd_SpelerAan();
                 }
                 //schatkaarten trekken
                 int wedstrijdId = vechter.Wedstrijd_Id ?? default;
                 Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId);
                 List<Kaarten_Stapel> trekstapelSchatkaartenKaarten_Stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(wedstrijd.Schatkaarten_Trekstapel_Id);
-                //default checken, weet niet of dit werkt
+                Stapel vechterHandkaarten = DatabaseOperations.OphalenStapelViaId(vechter.Handkaarten_Id);
+                Stapel helperHandkaarten = DatabaseOperations.OphalenStapelViaId(helper.Handkaarten_Id);
                 int aantalSchattenTrekken = Kerkerkaart.Aantal_schatten ?? default;
                 if (vechter.Ras.ToUpper().Contains("ELF") && Naam.ToUpper() == "WIETPLANT")
                 {
@@ -307,43 +271,11 @@ namespace Munckin_DAL
                 {
                     if (i % 2 == 0)
                     {
-                        Kaarten_Stapel kaarten_Stapel = new Kaarten_Stapel();
-                        kaarten_Stapel.Kaart_Id = trekstapelSchatkaartenKaarten_Stapels[i].Kaart_Id;
-                        kaarten_Stapel.Stapel_Id = helper.Handkaarten_Id;
-                        //toevoegen kaartenstapel
-                        if (kaarten_Stapel.IsGeldig())
-                        {
-                            int ok = DatabaseOperations.ToevoegenKaarten_Stapel(kaarten_Stapel);
-                            if (ok <= 0)
-                            {
-                                foutmelding += "Kaart niet in hand kunnen plaatsen\n";
-                            }
-                        }
-                        else
-                        {
-                            foutmelding += kaarten_Stapel.Error + Environment.NewLine;
-                        }
-
+                        foutmelding += trekstapelSchatkaartenKaarten_Stapels[i].KaartVanStapelWisselen(helperHandkaarten);
                     }
                     else
                     {
-                        Kaarten_Stapel kaarten_Stapel = new Kaarten_Stapel();
-                        kaarten_Stapel.Kaart_Id = trekstapelSchatkaartenKaarten_Stapels[i].Kaart_Id;
-                        kaarten_Stapel.Stapel_Id = vechter.Handkaarten_Id;
-                        //toevoegen kaartenstapel
-                        if (kaarten_Stapel.IsGeldig())
-                        {
-                            int ok = DatabaseOperations.ToevoegenKaarten_Stapel(kaarten_Stapel);
-                            if (ok <= 0)
-                            {
-                                foutmelding += "Kaart niet in hand kunnen plaatsen\n";
-                            }
-                        }
-                        else
-                        {
-                            foutmelding += kaarten_Stapel.Error + Environment.NewLine;
-                        }
-
+                        foutmelding += trekstapelSchatkaartenKaarten_Stapels[i].KaartVanStapelWisselen(vechterHandkaarten);
                     }
                 }
                 //kaart naar aflegstapel doen
@@ -379,6 +311,12 @@ namespace Munckin_DAL
         public string VluchtMonster(Wedstrijd_Speler vluchter, int dobbelsteenworp)
         {
             string foutmelding = "";
+            Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(vluchter.Veldkaarten_Id);
+            Stapel handkaarten = DatabaseOperations.OphalenStapelViaId(vluchter.Handkaarten_Id);
+            int wedstrijdId = vluchter.Wedstrijd_Id ?? default;
+            Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId);
+            Stapel kerkerkaartenAflegstapel = DatabaseOperations.OphalenStapelViaId(wedstrijd.Kerkerkaarten_Aflegstapel_Id);
+            Stapel schatkaartenAflegstapel = DatabaseOperations.OphalenStapelViaId(wedstrijd.Schatkaarten_Aflegstapel_Id);
             int spelersterkte;
             List<Bonus> lijstBonusssen = DatabaseOperations.OphalenBonussenViaKaartId(Id);
             dobbelsteenworp += vluchter.Vluchtbonus ?? default;
@@ -389,7 +327,6 @@ namespace Munckin_DAL
                     dobbelsteenworp -= bonus.Waarde;
                 }
             }
-            //Waars dbOperation
             int monsterSterkte = Kerkerkaart.Level + Kerkerkaart.Tijdelijke_Bonus ?? default;
             //speciale gevallen sterkte berekenen
             if (Naam.ToUpper().Contains("VAMPIEREN"))
@@ -415,8 +352,6 @@ namespace Munckin_DAL
                 if (Naam.ToUpper().Contains("KWELROG") && vluchter.Level <= 4)
                 {
                     //kaart naar aflegstapel doen
-                    int wedstrijdId = vluchter.Wedstrijd_Id ?? default;
-                    Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId);
                     Kaarten_Stapel kaarten_Stapel1 = new Kaarten_Stapel();
                     kaarten_Stapel1.Kaart_Id = Id;
                     kaarten_Stapel1.Stapel_Id = wedstrijd.Kerkerkaarten_Aflegstapel_Id;
@@ -441,13 +376,11 @@ namespace Munckin_DAL
                     {
                         return foutmelding;
                     }
-                    
+
                 }
                 else if (Naam.ToUpper().Contains("GEBROEDERS WIGHT") && vluchter.Level <= 3)
                 {
                     //kaart naar aflegstapel doen
-                    int wedstrijdId = vluchter.Wedstrijd_Id ?? default;
-                    Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId);
                     Kaarten_Stapel kaarten_Stapel1 = new Kaarten_Stapel();
                     kaarten_Stapel1.Kaart_Id = Id;
                     kaarten_Stapel1.Stapel_Id = wedstrijd.Kerkerkaarten_Aflegstapel_Id;
@@ -476,8 +409,6 @@ namespace Munckin_DAL
                 else if (Naam.ToUpper().Contains("PLUTONIUM DRAAK") && vluchter.Level <= 5)
                 {
                     //kaart naar aflegstapel doen
-                    int wedstrijdId = vluchter.Wedstrijd_Id ?? default;
-                    Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId);
                     Kaarten_Stapel kaarten_Stapel1 = new Kaarten_Stapel();
                     kaarten_Stapel1.Kaart_Id = Id;
                     kaarten_Stapel1.Stapel_Id = wedstrijd.Kerkerkaarten_Aflegstapel_Id;
@@ -506,8 +437,6 @@ namespace Munckin_DAL
                 else if (Naam.ToUpper().Contains("KONING TOET") && vluchter.Level <= 3)
                 {
                     //kaart naar aflegstapel doen
-                    int wedstrijdId = vluchter.Wedstrijd_Id ?? default;
-                    Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId);
                     Kaarten_Stapel kaarten_Stapel1 = new Kaarten_Stapel();
                     kaarten_Stapel1.Kaart_Id = Id;
                     kaarten_Stapel1.Stapel_Id = wedstrijd.Kerkerkaarten_Aflegstapel_Id;
@@ -563,116 +492,33 @@ namespace Munckin_DAL
                     }
                     if (Naam.ToUpper() == "SCHAAMLUIS")
                     {
-                        Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(vluchter.Veldkaarten_Id);
                         foreach (Kaarten_Stapel veldkaart in veldkaarten.Kaarten_Stapels)
                         {
                             //check of er al een kaart van dit type zit in de veldkaarten
                             string type = DatabaseOperations.OphalenType(veldkaart.Kaart.Type_id).Soort.ToUpper();
-                            if (type.Contains("HARNAS"))
+                            if (type.ToUpper().Contains("HARNAS") || type.ToUpper().Contains("SCHOEISEL"))
                             {
-                                //Harnas uit veldkaarten halen
-                                int ok = DatabaseOperations.VerwijderenKaarten_Stapel(veldkaart);
-                                if (ok > 0)
-                                {
-                                    //kaart in aflegstapel steken
-                                    int wedstrijdId1 = vluchter.Wedstrijd_Id ?? default;
-                                    Wedstrijd wedstrijd1 = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId1);
-                                    Kaarten_Stapel kaarten_Stapel2 = new Kaarten_Stapel();
-                                    kaarten_Stapel2.Kaart_Id = Id;
-                                    kaarten_Stapel2.Stapel_Id = wedstrijd1.Kerkerkaarten_Aflegstapel_Id;
-                                    if (kaarten_Stapel2.IsGeldig())
-                                    {
-                                        int ok1 = DatabaseOperations.ToevoegenKaarten_Stapel(kaarten_Stapel2);
-                                        if (ok1 <= 0)
-                                        {
-                                            foutmelding += "Harnas niet in aflegstapel kunnen plaatsen.\n";
-                                        }
-                                    }
-                                    else
-                                    {
-                                        foutmelding += kaarten_Stapel2.Error + Environment.NewLine;
-                                    }
-                                }
-                                else
-                                {
-                                    foutmelding += "Harnas niet uit veldkaarten kunnen halen";
-                                }
-                            }
-                            if (type.Contains("SCHOEISEL"))
-                            {
-                                //Harnas uit veldkaarten halen
-                                int ok = DatabaseOperations.VerwijderenKaarten_Stapel(veldkaart);
-                                if (ok > 0)
-                                {
-                                    //kaart in aflegstapel steken
-                                    int wedstrijdId1 = vluchter.Wedstrijd_Id ?? default;
-                                    Wedstrijd wedstrijd1 = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId1);
-                                    Kaarten_Stapel kaarten_Stapel2 = new Kaarten_Stapel();
-                                    kaarten_Stapel2.Kaart_Id = Id;
-                                    kaarten_Stapel2.Stapel_Id = wedstrijd1.Kerkerkaarten_Aflegstapel_Id;
-                                    if (kaarten_Stapel2.IsGeldig())
-                                    {
-                                        int ok1 = DatabaseOperations.ToevoegenKaarten_Stapel(kaarten_Stapel2);
-                                        if (ok1 <= 0)
-                                        {
-                                            foutmelding += "Schoeisel niet in aflegstapel kunnen plaatsen.\n";
-                                        }
-                                    }
-                                    else
-                                    {
-                                        foutmelding += kaarten_Stapel2.Error + Environment.NewLine;
-                                    }
-                                }
-                                else
-                                {
-                                    foutmelding += "Schoeisel niet uit veldkaarten kunnen halen";
-                                }
+                                //Harnas of schoeisel uit veldkaarten halen
+                                foutmelding += veldkaart.KaartVanStapelWisselen(kerkerkaartenAflegstapel);
                             }
                         }
                     }
                     if (Naam.ToUpper() == "PLATVOET")
                     {
-                        Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(vluchter.Veldkaarten_Id);
                         foreach (Kaarten_Stapel veldkaart in veldkaarten.Kaarten_Stapels)
                         {
                             //check of er al een kaart van dit type zit in de veldkaarten
                             string type = DatabaseOperations.OphalenType(veldkaart.Kaart.Type_id).Soort.ToUpper();
-                            if (type.Contains("HOOFDDEKSEL"))
+                            if (type.ToUpper().Contains("HOOFDDEKSEL"))
                             {
                                 //hoofddeksel uit veldkaarten halen
-                                int ok = DatabaseOperations.VerwijderenKaarten_Stapel(veldkaart);
-                                if (ok > 0)
-                                {
-                                    //kaart in aflegstapel steken
-                                    int wedstrijdId1 = vluchter.Wedstrijd_Id ?? default;
-                                    Wedstrijd wedstrijd1 = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId1);
-                                    Kaarten_Stapel kaarten_Stapel2 = new Kaarten_Stapel();
-                                    kaarten_Stapel2.Kaart_Id = Id;
-                                    kaarten_Stapel2.Stapel_Id = wedstrijd1.Kerkerkaarten_Aflegstapel_Id;
-                                    if (kaarten_Stapel2.IsGeldig())
-                                    {
-                                        int ok1 = DatabaseOperations.ToevoegenKaarten_Stapel(kaarten_Stapel2);
-                                        if (ok1 <= 0)
-                                        {
-                                            foutmelding += "Hoofddeksel niet in aflegstapel kunnen plaatsen.\n";
-                                        }
-                                    }
-                                    else
-                                    {
-                                        foutmelding += kaarten_Stapel2.Error + Environment.NewLine;
-                                    }
-                                }
-                                else
-                                {
-                                    foutmelding += "Hoofddeksel niet uit veldkaarten kunnen halen";
-                                }
+                                foutmelding += veldkaart.KaartVanStapelWisselen(kerkerkaartenAflegstapel);
                             }
                         }
                     }
                     if (Naam.ToUpper() == "KWIJLEND SLIJM")
                     {
                         bool schoeiselVerloren = false;
-                        Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(vluchter.Veldkaarten_Id);
                         foreach (Kaarten_Stapel veldkaart in veldkaarten.Kaarten_Stapels)
                         {
                             //check of er al een kaart van dit type zit in de veldkaarten
@@ -680,32 +526,7 @@ namespace Munckin_DAL
                             if (type.Contains("SCHOEISEL"))
                             {
                                 //schoeisel uit veldkaarten halen
-                                int ok = DatabaseOperations.VerwijderenKaarten_Stapel(veldkaart);
-                                if (ok > 0)
-                                {
-                                    //kaart in aflegstapel steken
-                                    int wedstrijdId1 = vluchter.Wedstrijd_Id ?? default;
-                                    Wedstrijd wedstrijd1 = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId1);
-                                    Kaarten_Stapel kaarten_Stapel2 = new Kaarten_Stapel();
-                                    kaarten_Stapel2.Kaart_Id = Id;
-                                    kaarten_Stapel2.Stapel_Id = wedstrijd1.Kerkerkaarten_Aflegstapel_Id;
-                                    if (kaarten_Stapel2.IsGeldig())
-                                    {
-                                        int ok1 = DatabaseOperations.ToevoegenKaarten_Stapel(kaarten_Stapel2);
-                                        if (ok1 <= 0)
-                                        {
-                                            foutmelding += "Schoeisel niet in aflegstapel kunnen plaatsen.\n";
-                                        }
-                                    }
-                                    else
-                                    {
-                                        foutmelding += kaarten_Stapel2.Error + Environment.NewLine;
-                                    }
-                                }
-                                else
-                                {
-                                    foutmelding += "Schoeisel niet uit veldkaarten kunnen halen";
-                                }
+                                foutmelding += veldkaart.KaartVanStapelWisselen(kerkerkaartenAflegstapel);
                                 schoeiselVerloren = true;
                             }
                         }
@@ -717,7 +538,6 @@ namespace Munckin_DAL
                     if (Naam.ToUpper() == "SNOETZUIGER")
                     {
                         bool hoofddekselVerloren = false;
-                        Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(vluchter.Veldkaarten_Id);
                         foreach (Kaarten_Stapel veldkaart in veldkaarten.Kaarten_Stapels)
                         {
                             //check of er al een kaart van dit type zit in de veldkaarten
@@ -725,32 +545,7 @@ namespace Munckin_DAL
                             if (type.Contains("HOOFDDEKSEL"))
                             {
                                 //Hoofddeksel uit veldkaarten halen
-                                int ok = DatabaseOperations.VerwijderenKaarten_Stapel(veldkaart);
-                                if (ok > 0)
-                                {
-                                    //kaart in aflegstapel steken
-                                    int wedstrijdId1 = vluchter.Wedstrijd_Id ?? default;
-                                    Wedstrijd wedstrijd1 = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId1);
-                                    Kaarten_Stapel kaarten_Stapel2 = new Kaarten_Stapel();
-                                    kaarten_Stapel2.Kaart_Id = Id;
-                                    kaarten_Stapel2.Stapel_Id = wedstrijd1.Kerkerkaarten_Aflegstapel_Id;
-                                    if (kaarten_Stapel2.IsGeldig())
-                                    {
-                                        int ok1 = DatabaseOperations.ToevoegenKaarten_Stapel(kaarten_Stapel2);
-                                        if (ok1 <= 0)
-                                        {
-                                            foutmelding += "Hoofddeksel niet in aflegstapel kunnen plaatsen.\n";
-                                        }
-                                    }
-                                    else
-                                    {
-                                        foutmelding += kaarten_Stapel2.Error + Environment.NewLine;
-                                    }
-                                }
-                                else
-                                {
-                                    foutmelding += "Hoofddeksel niet uit veldkaarten kunnen halen";
-                                }
+                                foutmelding += veldkaart.KaartVanStapelWisselen(kerkerkaartenAflegstapel);
                                 hoofddekselVerloren = true;
                             }
                         }
@@ -761,39 +556,13 @@ namespace Munckin_DAL
                     }
                     if (Naam.ToUpper() == "ACHTZIJDIGE DRILPUDDING")
                     {
-                        Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(vluchter.Veldkaarten_Id);
                         foreach (Kaarten_Stapel veldkaart in veldkaarten.Kaarten_Stapels)
                         {
                             //check of er al een grote kaart zit in de veldkaarten
                             if (veldkaart.Kaart.Schatkaart.Is_Groot == true)
                             {
-                                //Harnas uit veldkaarten halen
-                                int ok = DatabaseOperations.VerwijderenKaarten_Stapel(veldkaart);
-                                if (ok > 0)
-                                {
-                                    //kaart in aflegstapel steken
-                                    int wedstrijdId1 = vluchter.Wedstrijd_Id ?? default;
-                                    Wedstrijd wedstrijd1 = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId1);
-                                    Kaarten_Stapel kaarten_Stapel2 = new Kaarten_Stapel();
-                                    kaarten_Stapel2.Kaart_Id = Id;
-                                    kaarten_Stapel2.Stapel_Id = wedstrijd1.Kerkerkaarten_Aflegstapel_Id;
-                                    if (kaarten_Stapel2.IsGeldig())
-                                    {
-                                        int ok1 = DatabaseOperations.ToevoegenKaarten_Stapel(kaarten_Stapel2);
-                                        if (ok1 <= 0)
-                                        {
-                                            foutmelding += "groot voorwerp niet in aflegstapel kunnen plaatsen.\n";
-                                        }
-                                    }
-                                    else
-                                    {
-                                        foutmelding += kaarten_Stapel2.Error + Environment.NewLine;
-                                    }
-                                }
-                                else
-                                {
-                                    foutmelding += "groot voorwerp niet uit veldkaarten kunnen halen";
-                                }
+                                //groot voorwerp uit veldkaarten halen
+                                foutmelding += veldkaart.KaartVanStapelWisselen(kerkerkaartenAflegstapel);
                             }
                         }
                     }
@@ -803,88 +572,74 @@ namespace Munckin_DAL
                     }
                     if (Naam.ToUpper() == "KONING TOET")
                     {
-                        Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(vluchter.Veldkaarten_Id);
-                        Stapel handkaarten = DatabaseOperations.OphalenStapelViaId(vluchter.Handkaarten_Id);
+
                         foreach (Kaarten_Stapel veldkaart in veldkaarten.Kaarten_Stapels)
                         {
-
-                            int ok = DatabaseOperations.VerwijderenKaarten_Stapel(veldkaart);
-                            if (ok > 0)
+                            //om aan shatkaarten en kerkerkaarten te kunnen
+                            Kaart kaart = DatabaseOperations.OphalenKaartViaId(veldkaart.Kaart_Id);
+                            if (kaart.Kerkerkaart == null)
                             {
-                                if (true)// checken of het een kerker of schatkaart is om in juiste aflegstapel te doen
-                                {
-                                    //checken voor kerkerkaart
-                                    ////kaart naar aflegstapel doen
-                                    //Kaarten_Stapel nieuweKaartenStapel2 = new Kaarten_Stapel();
-                                    //nieuweKaartenStapel2.Kaart_Id = Id;
-                                    //Wedstrijd wedstrijd1 = DatabaseOperations.OphalenWedstrijdViaId(gebruiker.Wedstrijd_Id ?? default);
-                                    //nieuweKaartenStapel2.Stapel_Id = wedstrijd1.Kerkerkaarten_Aflegstapel_Id;
-                                    ////hier moet gekeken worden of het een schatkaart of kerkerkaart is
-                                    //if (Kerkerkaart == null)
-                                    //{
-                                    //    nieuweKaartenStapel2.Stapel_Id = wedstrijd1.Schatkaarten_Aflegstapel_Id;
-                                    //}
-                                    //else
-                                    //{
-                                    //    nieuweKaartenStapel2.Stapel_Id = wedstrijd1.Kerkerkaarten_Aflegstapel_Id;
-                                    //}
-                                    //kaart in aflegstapel steken kerkerkaart
-                                    int wedstrijdId1 = vluchter.Wedstrijd_Id ?? default;
-                                    Wedstrijd wedstrijd1 = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId1);
-                                    Kaarten_Stapel kaarten_Stapel2 = new Kaarten_Stapel();
-                                    kaarten_Stapel2.Kaart_Id = Id;
-                                    kaarten_Stapel2.Stapel_Id = wedstrijd1.Kerkerkaarten_Aflegstapel_Id;
-                                    if (kaarten_Stapel2.IsGeldig())
-                                    {
-                                        int ok1 = DatabaseOperations.ToevoegenKaarten_Stapel(kaarten_Stapel2);
-                                        if (ok1 <= 0)
-                                        {
-                                            foutmelding += "groot voorwerp niet in aflegstapel kunnen plaatsen.\n";
-                                        }
-                                    }
-                                    else
-                                    {
-                                        foutmelding += kaarten_Stapel2.Error + Environment.NewLine;
-                                    }
-                                }
-                                else
-                                {
-                                    //anders is andere aflegstapel schatkaartenaflegstapel
-                                }
+                                foutmelding += veldkaart.KaartVanStapelWisselen(schatkaartenAflegstapel);
                             }
                             else
                             {
-                                foutmelding += "groot voorwerp niet uit veldkaarten kunnen halen";
+                                foutmelding += veldkaart.KaartVanStapelWisselen(kerkerkaartenAflegstapel);
                             }
-
                         }
-                        //foreach hierboven kopieren voor handkaarten
+                        foreach (Kaarten_Stapel handkaart in handkaarten.Kaarten_Stapels)
+                        {
+                            //om aan shatkaarten en kerkerkaarten te kunnen
+                            Kaart kaart = DatabaseOperations.OphalenKaartViaId(handkaart.Kaart_Id);
+                            if (kaart.Kerkerkaart == null)
+                            {
+                                foutmelding += handkaart.KaartVanStapelWisselen(schatkaartenAflegstapel);
+                            }
+                            else
+                            {
+                                foutmelding += handkaart.KaartVanStapelWisselen(kerkerkaartenAflegstapel);
+                            }
+                        }
                     }
                     if (Naam.ToUpper() == "PLUTONIUM DRAAK" || Naam.ToUpper() == "KWELROG")
                     {
                         vluchter.Level = 1;
-                        //Alle hand en veldkaarten wegdoen zie boven + dood
+                        //Alle hand en veldkaarten wegdoen
+                        foreach (Kaarten_Stapel veldkaart in veldkaarten.Kaarten_Stapels)
+                        {
+                            //om aan shatkaarten en kerkerkaarten te kunnen
+                            Kaart kaart = DatabaseOperations.OphalenKaartViaId(veldkaart.Kaart_Id);
+                            if (kaart.Kerkerkaart == null)
+                            {
+                                foutmelding += veldkaart.KaartVanStapelWisselen(schatkaartenAflegstapel);
+                            }
+                            else
+                            {
+                                foutmelding += veldkaart.KaartVanStapelWisselen(kerkerkaartenAflegstapel);
+                            }
+                        }
+                        foreach (Kaarten_Stapel handkaart in handkaarten.Kaarten_Stapels)
+                        {
+                            //om aan shatkaarten en kerkerkaarten te kunnen
+                            Kaart kaart = DatabaseOperations.OphalenKaartViaId(handkaart.Kaart_Id);
+                            if (kaart.Kerkerkaart == null)
+                            {
+                                foutmelding += handkaart.KaartVanStapelWisselen(schatkaartenAflegstapel);
+                            }
+                            else
+                            {
+                                foutmelding += handkaart.KaartVanStapelWisselen(kerkerkaartenAflegstapel);
+                            }
+                        }
                     }
 
                     //kaart naar aflegstapel doen
-                    int wedstrijdId = vluchter.Wedstrijd_Id ?? default;
-                    Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId);
                     Kaarten_Stapel kaarten_Stapel1 = new Kaarten_Stapel();
                     kaarten_Stapel1.Kaart_Id = Id;
                     kaarten_Stapel1.Stapel_Id = wedstrijd.Kerkerkaarten_Aflegstapel_Id;
-                    if (kaarten_Stapel1.IsGeldig() && vluchter.IsGeldig())
+                    if (kaarten_Stapel1.IsGeldig())
                     {
                         int ok = DatabaseOperations.ToevoegenKaarten_Stapel(kaarten_Stapel1);
-                        if (ok > 0)
-                        {
-                            //aanpassen speler
-                            int ok2 = DatabaseOperations.AanpassenWedstrijd_Speler(vluchter);
-                            if (ok2 <= 0)
-                            {
-                                foutmelding += "Nadelen zijn niet uitgevoerd\n";
-                            }
-                        }
-                        else
+                        if (ok <= 0)
                         {
                             foutmelding += "Monster niet in aflegstapel kunnen plaatsen.\n";
                         }
@@ -892,8 +647,9 @@ namespace Munckin_DAL
                     else
                     {
                         foutmelding += kaarten_Stapel1.Error + Environment.NewLine;
-                        foutmelding += vluchter.Error + Environment.NewLine;
                     }
+                    //aanpassen speler
+                    foutmelding += vluchter.PasWedstrijd_SpelerAan();
                     //return
                     if (string.IsNullOrEmpty(foutmelding))
                     {
@@ -906,7 +662,7 @@ namespace Munckin_DAL
                 }
                 else
                 {
-                    //vluchten
+                    //vluchten succesvol
                     //if statements voor nadelen die je krijgt van bepaalde monsters zelfs als je kan vluchten
                     if (Naam.ToUpper() == "KONING TOET" || Naam.ToUpper() == "GEBROEDERS WIGHT")
                     {
@@ -917,24 +673,14 @@ namespace Munckin_DAL
                         vluchter.Level -= 1;
                     }
                     //kaart naar aflegstapel doen
-                    int wedstrijdId = vluchter.Wedstrijd_Id ?? default;
-                    Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId);
+                    //kaart naar aflegstapel doen
                     Kaarten_Stapel kaarten_Stapel1 = new Kaarten_Stapel();
                     kaarten_Stapel1.Kaart_Id = Id;
                     kaarten_Stapel1.Stapel_Id = wedstrijd.Kerkerkaarten_Aflegstapel_Id;
-                    if (kaarten_Stapel1.IsGeldig() && vluchter.IsGeldig())
+                    if (kaarten_Stapel1.IsGeldig())
                     {
                         int ok = DatabaseOperations.ToevoegenKaarten_Stapel(kaarten_Stapel1);
-                        if (ok > 0)
-                        {
-                            //aanpassen speler
-                            int ok2 = DatabaseOperations.AanpassenWedstrijd_Speler(vluchter);
-                            if (ok2 <= 0)
-                            {
-                                foutmelding += "Nadelen zijn niet uitgevoerd\n";
-                            }
-                        }
-                        else
+                        if (ok <= 0)
                         {
                             foutmelding += "Monster niet in aflegstapel kunnen plaatsen.\n";
                         }
@@ -942,8 +688,9 @@ namespace Munckin_DAL
                     else
                     {
                         foutmelding += kaarten_Stapel1.Error + Environment.NewLine;
-                        foutmelding += vluchter.Error + Environment.NewLine;
                     }
+                    //aanpassen speler
+                    foutmelding += vluchter.PasWedstrijd_SpelerAan();
                     //return
                     if (string.IsNullOrEmpty(foutmelding))
                     {
@@ -963,87 +710,27 @@ namespace Munckin_DAL
         public string SpeelRas(Wedstrijd_Speler gebruiker)
         {
             string foutmelding = "";
-            Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(gebruiker.Veldkaarten_Id);
             //check if speler al een ras heeft
             if (gebruiker.Ras.ToUpper() == "MENS")
             {
+                // haal huidige kaartenstapel van de kaart op en haal de veldkaarten van de Speler op.
                 Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
-
-                //Voeg kaart toe in veldkaarten
-                Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-                nieuweKaartenStapel.Kaart_Id = Id;
-                nieuweKaartenStapel.Stapel_Id = veldkaarten.Id;
-                //pas wedstrijd speler aan
+                Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(gebruiker.Veldkaarten_Id);
+                //pas ras wedstrijd_speler aan
                 gebruiker.Ras = Naam;
-
+                // herbereken de bonussen van de speler (miss geeft een item nu geen bonus meer door verandering van ras
                 gebruiker.HerberekenBonussenVeldkaarten(veldkaarten);
-                //Functie voor onderstaande code geschreven, ook nodig bij vervloeking. Nog testen.
-                //gebruiker.Vluchtbonus = 0;
-                //gebruiker.Gevechtsbonus = 0;
-
-                //if (gebruiker.Ras.ToUpper() == "ELF")
-                //{
-                //    gebruiker.Vluchtbonus += 1;
-                //}
-                ////checken of hij kaarten heeft die een bonus geven op een bepaald ras. Als hij dat ras nu niet meer heeft dan gaat de bonus weg
-                //foreach (Kaarten_Stapel kaarten_Stapel1 in veldkaarten.Kaarten_Stapels)
-                //{
-                //    List<Bonus> lijstBonussen = DatabaseOperations.OphalenBonussenViaKaartId(kaarten_Stapel1.Kaart_Id);
-                //    foreach (var bonus in lijstBonussen)
-                //    {
-                //        if (bonus.Bruikbaar_Door.ToUpper() == gebruiker.Ras.ToUpper() || bonus.Bruikbaar_Door.ToUpper() == "IEDEREEN")
-                //        {
-                //            if (bonus.Waarop_Effect.ToUpper() == "GEVECHTSWAARDE")
-                //            {
-                //                //Bonus toevoegen aan gevechtswaarde
-                //                gebruiker.Gevechtsbonus += bonus.Waarde;
-                //            }
-                //            else if (bonus.Waarop_Effect.ToUpper() == "VLUCHTEN")
-                //            {
-                //                //Bonus toevoegen aan vluchtbonus
-                //                gebruiker.Vluchtbonus += bonus.Waarde;
-                //            }
-                //        }
-                //    }
-                //}
-
-                //als de nieuwe kaartenstapel en de wedstrijdspeler geldig zijn, gaan we aanpassing doorvoeren in db
-                if (nieuweKaartenStapel.IsGeldig() && gebruiker.IsGeldig())
+                //Kaart van handkaarten naar veldkaarten wisselen
+                foutmelding += oudeKaartenStapel.KaartVanStapelWisselen(veldkaarten);
+                //als het wisselen van de stapel goed gelukt is mag de speler aanpassing worden doorgevoerd
+                if (foutmelding == "")
                 {
-                    //nieuwe kaartenstapel toevoegen
-                    int ok = DatabaseOperations.ToevoegenKaarten_Stapel(nieuweKaartenStapel);
-                    if (ok > 0)
-                    {
-                        //oude kaartenstapel verwijderen
-                        int ok2 = DatabaseOperations.VerwijderenKaarten_Stapel(oudeKaartenStapel);
-                        if (ok2 > 0)
-                        {
-                            //wedstrijd_Speler aanpassen
-                            int ok3 = DatabaseOperations.AanpassenWedstrijd_Speler(gebruiker);
-                            if (ok3 <= 0)
-                            {
-                                foutmelding += "Bonussen speler niet aangepast\n";
-                            }
-                        }
-                        else
-                        {
-                            foutmelding += "Kaart niet uit je hand kunnen halen\n";
-                        }
-                    }
-                    else
-                    {
-                        foutmelding += "Kaart niet op het veld kunnen plaatsen\n";
-                    }
-                }
-                else
-                {
-                    foutmelding += nieuweKaartenStapel.Error + Environment.NewLine;
-                    foutmelding += gebruiker.Error + Environment.NewLine;
+                    foutmelding += gebruiker.PasWedstrijd_SpelerAan();
                 }
             }
             else
             {
-                foutmelding += "Je hebt al een ras, leg deze eerst af indien je een nieuw ras wil gebruiken";
+                foutmelding += "Je hebt al een ras, leg deze eerst af indien je een nieuw ras wil gebruiken\n";
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
@@ -1056,79 +743,33 @@ namespace Munckin_DAL
         }
         public string SpeelHoofddekselOfHarnasOfSchoeisel(Wedstrijd_Speler gebruiker, Type type, string bericht1)
         {
-            Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(gebruiker.Veldkaarten_Id);
             string foutmelding = "";
+            //haal veldkaarten van de speler op en huidige kaartenstapel van de kaart
+            Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(gebruiker.Veldkaarten_Id);
+            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
             //loop daar alle kaartenstapels van veldkaarten
-            foreach (var kaarten_Stapel1 in veldkaarten.Kaarten_Stapels)
+            foreach (var kaarten_Stapel in veldkaarten.Kaarten_Stapels)
             {
                 //check of er al een kaart van dit type zit in de veldkaarten
-                if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains(type.Soort.ToUpper()))
+                if (DatabaseOperations.OphalenType(kaarten_Stapel.Kaart.Type_id).Soort.ToUpper().Contains(type.Soort.ToUpper()))
                 {
-                    return bericht1 + kaarten_Stapel1.Kaart.Naam;
-                }
-                //NOG TE TESTEN!!!!!!!! WERKT NIET MISS MET GETTYPE om te checken of het een schar-tkaart is?
-                //if (kaart.Schatkaart.Is_Groot == true && kaarten_Stapel1.Kaart.Schatkaart.Is_Groot == true)
-                //{
-                //    return "je kan geen 2 grote voorwerpen dragen";
-                //}
-                //TOT HIER
-            }
-
-            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
-
-            //Voeg kaart toe in veldkaarten
-            Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-            nieuweKaartenStapel.Kaart_Id = Id;
-            nieuweKaartenStapel.Stapel_Id = veldkaarten.Id;
-
-            //Bonus van kaart opvragen
-            List<Bonus> lijstBonusssen = DatabaseOperations.OphalenBonussenViaKaartId(Id);
-            foreach (var bonus in lijstBonusssen)
-            {
-                //Checken of hij dit kan gebruiken (hij equipt het sowieso want dat mag maar hij krijgt de bonus niet
-                if (bonus.Bruikbaar_Door.ToUpper() == gebruiker.Ras.ToUpper() || bonus.Bruikbaar_Door.ToUpper() == "IEDEREEN")
-                {
-                    if (bonus.Waarop_Effect.ToUpper() == "GEVECHTSWAARDE")
-                    {
-                        //Bonus toevoegen aan gevechtswaarde
-                        gebruiker.Gevechtsbonus += bonus.Waarde;
-                    }
-                    else if (bonus.Waarop_Effect.ToUpper() == "VLUCHTEN")
-                    {
-                        //Bonus toevoegen aan vluchtbonus
-                        gebruiker.Vluchtbonus += bonus.Waarde;
-                    }
+                    return bericht1 + kaarten_Stapel.Kaart.Naam;
                 }
             }
-            //check of de nieuwe kaartenstapel geldig is en de aanpassing in wedstrijdSpeler
-            if (nieuweKaartenStapel.IsGeldig() && gebruiker.IsGeldig())
+            //controleer op grote voorwerpen
+            string groot = ControleerGroteVoorwerpen(veldkaarten);
+            if (groot != "")
             {
-                int ok = DatabaseOperations.ToevoegenKaarten_Stapel(nieuweKaartenStapel);
-                if (ok > 0)
-                {
-                    int ok2 = DatabaseOperations.VerwijderenKaarten_Stapel(oudeKaartenStapel);
-                    if (ok2 > 0)
-                    {
-                        int ok3 = DatabaseOperations.AanpassenWedstrijd_Speler(gebruiker);
-                        if (ok3 <= 0)
-                        {
-                            foutmelding += "Bonussen zijn niet toegevoegd\n";
-                        }
-                    }
-                    else
-                    {
-                        foutmelding += "Kaart niet uit je hand kunnen halen\n";
-                    }
-                }
-                else
-                {
-                    foutmelding += "Kaart niet op het veld kunnen plaatsen\n";
-                }
+                return "je kan geen 2 grote voorwerpen dragen";
             }
-            else
+            //kaart van handkaarten naar veldkaarten wisselen
+            foutmelding += oudeKaartenStapel.KaartVanStapelWisselen(veldkaarten);
+            //Bonussen bij gebruiker optellen
+            BonussenItemToevoegen(gebruiker);
+            // als alles tot nu toe gelukt is dan wedstrijd speler aanpassen
+            if (foutmelding == "")
             {
-                foutmelding += nieuweKaartenStapel.Error + Environment.NewLine;
-                foutmelding += gebruiker.Error + Environment.NewLine;
+                foutmelding += gebruiker.PasWedstrijd_SpelerAan();
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
@@ -1141,74 +782,24 @@ namespace Munckin_DAL
         }
         public string SpeelExtra(Wedstrijd_Speler gebruiker)
         {
-            Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(gebruiker.Veldkaarten_Id);
             string foutmelding = "";
-            //loop daar alle kaartenstapels van veldkaarten
-            foreach (var kaarten_Stapel1 in veldkaarten.Kaarten_Stapels)
-            {
-                //NOG TE TESTEN!!!!!!!! WERKT NIET MISS MET GETTYPE om te checken of het een schar-tkaart is?
-                //if (kaart.Schatkaart.Is_Groot == true && kaarten_Stapel1.Kaart.Schatkaart.Is_Groot == true)
-                //{
-                //    return "je kan geen 2 grote voorwerpen dragen";
-                //}
-                //TOT HIER
-            }
-
+            //huidige kaartenstapel en veldkaarten opvragen
+            Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(gebruiker.Veldkaarten_Id);
             Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
-
-            //Voeg kaart toe in veldkaarten
-            Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-            nieuweKaartenStapel.Kaart_Id = Id;
-            nieuweKaartenStapel.Stapel_Id = veldkaarten.Id;
-
-            //Bonus van kaart opvragen
-            List<Bonus> lijstBonusssen = DatabaseOperations.OphalenBonussenViaKaartId(Id);
-            foreach (var bonus in lijstBonusssen)
+            //Controleer op grote voorwerpen
+            string groot = ControleerGroteVoorwerpen(veldkaarten);
+            if (groot != "")
             {
-                //Checken of hij dit kan gebruiken (hij equipt het sowieso want dat mag maar hij krijgt de bonus niet
-                if (bonus.Bruikbaar_Door.ToUpper() == gebruiker.Ras.ToUpper() || bonus.Bruikbaar_Door.ToUpper() == "IEDEREEN")
-                {
-                    if (bonus.Waarop_Effect.ToUpper() == "GEVECHTSWAARDE")
-                    {
-                        //Bonus toevoegen aan gevechtswaarde
-                        gebruiker.Gevechtsbonus += bonus.Waarde;
-                    }
-                    else if (bonus.Waarop_Effect.ToUpper() == "VLUCHTEN")
-                    {
-                        //Bonus toevoegen aan vluchtbonus
-                        gebruiker.Vluchtbonus += bonus.Waarde;
-                    }
-                }
+                return "je kan geen 2 grote voorwerpen dragen";
             }
-            //check of de nieuwe kaartenstapel geldig is en de aanpassing in wedstrijdSpeler
-            if (nieuweKaartenStapel.IsGeldig() && gebruiker.IsGeldig())
+            //kaart van handkaarten naar veldkaarten wisselen
+            foutmelding += oudeKaartenStapel.KaartVanStapelWisselen(veldkaarten);
+            //Bonussen bij gebruiker optellen
+            BonussenItemToevoegen(gebruiker);
+            // als alles tot nu toe gelukt is dan wedstrijd speler aanpassen
+            if (foutmelding == "")
             {
-                int ok = DatabaseOperations.ToevoegenKaarten_Stapel(nieuweKaartenStapel);
-                if (ok > 0)
-                {
-                    int ok2 = DatabaseOperations.VerwijderenKaarten_Stapel(oudeKaartenStapel);
-                    if (ok2 > 0)
-                    {
-                        int ok3 = DatabaseOperations.AanpassenWedstrijd_Speler(gebruiker);
-                        if (ok3 <= 0)
-                        {
-                            foutmelding += "Bonussen zijn niet toegevoegd\n";
-                        }
-                    }
-                    else
-                    {
-                        foutmelding += "Kaart niet uit je hand kunnen halen\n";
-                    }
-                }
-                else
-                {
-                    foutmelding += "Kaart niet op het veld kunnen plaatsen\n";
-                }
-            }
-            else
-            {
-                foutmelding += nieuweKaartenStapel.Error + Environment.NewLine;
-                foutmelding += gebruiker.Error + Environment.NewLine;
+                foutmelding += gebruiker.PasWedstrijd_SpelerAan();
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
@@ -1221,10 +812,13 @@ namespace Munckin_DAL
         }
         public string Speel1Hand(Wedstrijd_Speler gebruiker)
         {
-            Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(gebruiker.Veldkaarten_Id);
             string foutmelding = "";
+            //Huidige kaartenstapel en veldkaarten opvragen
+            Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(gebruiker.Veldkaarten_Id);
+            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
+
             int handenVol = 0;
-            //loop daar alle kaartenstapels van veldkaarten
+            //loop daar alle kaartenstapels van veldkaarten om te kijken of er genoeg handen vrij zijn
             foreach (var kaarten_Stapel1 in veldkaarten.Kaarten_Stapels)
             {
                 //check of er al een hoofddeksel zit in de veldkaarten
@@ -1240,69 +834,21 @@ namespace Munckin_DAL
                 {
                     return "je hebt je 2 handen al vol.";
                 }
-                //NOG TE TESTEN!!!!!!!! WERKT NIET MISS MET GETTYPE om te checken of het een schar-tkaart is?
-                //if (kaart.Schatkaart.Is_Groot == true && kaarten_Stapel1.Kaart.Schatkaart.Is_Groot == true)
-                //{
-                //    return "je kan geen 2 grote voorwerpen dragen";
-                //}
-                //TOT HIER
             }
-
-            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
-
-            //Voeg kaart toe in veldkaarten
-            Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-            nieuweKaartenStapel.Kaart_Id = Id;
-            nieuweKaartenStapel.Stapel_Id = veldkaarten.Id;
-
-            //Bonus van kaart opvragen
-            List<Bonus> lijstBonusssen = DatabaseOperations.OphalenBonussenViaKaartId(Id);
-            foreach (var bonus in lijstBonusssen)
+            //Controleer op grote voorwerpen
+            string groot = ControleerGroteVoorwerpen(veldkaarten);
+            if (groot != "")
             {
-                //Checken of hij dit kan gebruiken (hij equipt het sowieso want dat mag maar hij krijgt de bonus niet
-                if (bonus.Bruikbaar_Door.ToUpper() == gebruiker.Ras.ToUpper() || bonus.Bruikbaar_Door.ToUpper() == "IEDEREEN")
-                {
-                    if (bonus.Waarop_Effect.ToUpper() == "GEVECHTSWAARDE")
-                    {
-                        //Bonus toevoegen aan gevechtswaarde
-                        gebruiker.Gevechtsbonus += bonus.Waarde;
-                    }
-                    else if (bonus.Waarop_Effect.ToUpper() == "VLUCHTEN")
-                    {
-                        //Bonus toevoegen aan vluchtbonus
-                        gebruiker.Vluchtbonus += bonus.Waarde;
-                    }
-                }
+                return "je kan geen 2 grote voorwerpen dragen";
             }
-            //check of de nieuwe kaartenstapel geldig is en de aanpassing in wedstrijdSpeler
-            if (nieuweKaartenStapel.IsGeldig() && gebruiker.IsGeldig())
+            //kaart van handkaarten naar veldkaarten wisselen
+            foutmelding += oudeKaartenStapel.KaartVanStapelWisselen(veldkaarten);
+            //Bonussen bij gebruiker optellen
+            BonussenItemToevoegen(gebruiker);
+            // als alles tot nu toe gelukt is dan wedstrijd speler aanpassen
+            if (foutmelding == "")
             {
-                int ok = DatabaseOperations.ToevoegenKaarten_Stapel(nieuweKaartenStapel);
-                if (ok > 0)
-                {
-                    int ok2 = DatabaseOperations.VerwijderenKaarten_Stapel(oudeKaartenStapel);
-                    if (ok2 > 0)
-                    {
-                        int ok3 = DatabaseOperations.AanpassenWedstrijd_Speler(gebruiker);
-                        if (ok3 <= 0)
-                        {
-                            foutmelding += "Bonussen zijn niet toegevoegd\n";
-                        }
-                    }
-                    else
-                    {
-                        foutmelding += "Kaart niet uit je hand kunnen halen\n";
-                    }
-                }
-                else
-                {
-                    foutmelding += "Kaart niet op het veld kunnen plaatsen\n";
-                }
-            }
-            else
-            {
-                foutmelding += nieuweKaartenStapel.Error + Environment.NewLine;
-                foutmelding += gebruiker.Error + Environment.NewLine;
+                foutmelding += gebruiker.PasWedstrijd_SpelerAan();
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
@@ -1315,79 +861,33 @@ namespace Munckin_DAL
         }
         public string Speel2Handen(Wedstrijd_Speler gebruiker)
         {
-            Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(gebruiker.Veldkaarten_Id);
             string foutmelding = "";
+            //huidige kaartenstapel en veldkaarten ophalen
+            Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(gebruiker.Veldkaarten_Id);
+            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
             //loop daar alle kaartenstapels van veldkaarten
             foreach (var kaarten_Stapel1 in veldkaarten.Kaarten_Stapels)
             {
                 //check of er al een hoofddeksel zit in de veldkaarten
                 if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains("1HAND") || DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains("2HANDEN"))
                 {
-                    return "je hebt je 2 handen al vol.";
-                }
-                //NOG TE TESTEN!!!!!!!! WERKT NIET MISS MET GETTYPE om te checken of het een schar-tkaart is?
-                //if (kaart.Schatkaart.Is_Groot == true && kaarten_Stapel1.Kaart.Schatkaart.Is_Groot == true)
-                //{
-                //    return "je kan geen 2 grote voorwerpen dragen";
-                //}
-                //TOT HIER
-            }
-
-            Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
-
-            //Voeg kaart toe in veldkaarten
-            Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-            nieuweKaartenStapel.Kaart_Id = Id;
-            nieuweKaartenStapel.Stapel_Id = veldkaarten.Id;
-
-            //Bonus van kaart opvragen
-            List<Bonus> lijstBonusssen = DatabaseOperations.OphalenBonussenViaKaartId(Id);
-            foreach (var bonus in lijstBonusssen)
-            {
-                //Checken of hij dit kan gebruiken (hij equipt het sowieso want dat mag maar hij krijgt de bonus niet
-                if (bonus.Bruikbaar_Door.ToUpper() == gebruiker.Ras.ToUpper() || bonus.Bruikbaar_Door.ToUpper() == "IEDEREEN")
-                {
-                    if (bonus.Waarop_Effect.ToUpper() == "GEVECHTSWAARDE")
-                    {
-                        //Bonus toevoegen aan gevechtswaarde
-                        gebruiker.Gevechtsbonus += bonus.Waarde;
-                    }
-                    else if (bonus.Waarop_Effect.ToUpper() == "VLUCHTEN")
-                    {
-                        //Bonus toevoegen aan vluchtbonus
-                        gebruiker.Vluchtbonus += bonus.Waarde;
-                    }
+                    return "je hebt niet genoeg handen vrij.";
                 }
             }
-            //check of de nieuwe kaartenstapel geldig is en de aanpassing in wedstrijdSpeler
-            if (nieuweKaartenStapel.IsGeldig() && gebruiker.IsGeldig())
+            //Controleer op grote voorwerpen
+            string groot = ControleerGroteVoorwerpen(veldkaarten);
+            if (groot != "")
             {
-                int ok = DatabaseOperations.ToevoegenKaarten_Stapel(nieuweKaartenStapel);
-                if (ok > 0)
-                {
-                    int ok2 = DatabaseOperations.VerwijderenKaarten_Stapel(oudeKaartenStapel);
-                    if (ok2 > 0)
-                    {
-                        int ok3 = DatabaseOperations.AanpassenWedstrijd_Speler(gebruiker);
-                        if (ok3 <= 0)
-                        {
-                            foutmelding += "Bonussen zijn niet toegevoegd\n";
-                        }
-                    }
-                    else
-                    {
-                        foutmelding += "Kaart niet uit je hand kunnen halen\n";
-                    }
-                }
-                else
-                {
-                    foutmelding += "Kaart niet op het veld kunnen plaatsen\n";
-                }
+                return "je kan geen 2 grote voorwerpen dragen";
             }
-            else
+            //kaart van handkaarten naar veldkaarten wisselen
+            foutmelding += oudeKaartenStapel.KaartVanStapelWisselen(veldkaarten);
+            //Bonussen bij gebruiker optellen
+            BonussenItemToevoegen(gebruiker);
+            // als alles tot nu toe gelukt is dan wedstrijd speler aanpassen
+            if (foutmelding == "")
             {
-                foutmelding += nieuweKaartenStapel.Error + Environment.NewLine;
-                foutmelding += gebruiker.Error + Environment.NewLine;
+                foutmelding += gebruiker.PasWedstrijd_SpelerAan();
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
@@ -1406,9 +906,13 @@ namespace Munckin_DAL
         public string SpeelVervloeking(Wedstrijd_Speler gebruiker, Wedstrijd_Speler slachtoffer)
         {
             string foutmelding = "";
+            //aflegstapels ophalen
+            Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(gebruiker.Wedstrijd_Id ?? default);
+            Stapel aflegstapelKerkerkaarten = DatabaseOperations.OphalenStapelViaId(wedstrijd.Kerkerkaarten_Aflegstapel_Id);
+            Stapel aflegstapelSchatkaarten = DatabaseOperations.OphalenStapelViaId(wedstrijd.Schatkaarten_Aflegstapel_Id);
             //kaartenstapel ophalen om later de kaart te verwijderen uit hand
             Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
-            //voor als slachtoffer een voorwerp verliest
+            //veldkaarten slachtoffer voor herberekenen bonussen
             Stapel veldkaartenSlachtoffer = DatabaseOperations.OphalenStapelViaId(slachtoffer.Veldkaarten_Id);
             //bonus kaart ophalen
             List<Bonus> lijstBonussen = DatabaseOperations.OphalenBonussenViaKaartId(Id);
@@ -1424,10 +928,12 @@ namespace Munckin_DAL
                         slachtoffer.Level = 1;
                     }
                 }
+                //voorlopig alleen negatieve bonussen op level
             }
             //checken of je iets moet verliezen
             if (Naam.ToUpper().Contains("VERLIES"))
             {
+
                 //Ras verliezen
                 if (Naam.ToUpper().Contains("RAS"))
                 {
@@ -1436,39 +942,14 @@ namespace Munckin_DAL
                     foreach (var kaarten_Stapel1 in veldkaartenSlachtoffer.Kaarten_Stapels)
                     {
                         int rasweg = 0;
-                        //check of er al een kaart van dit type in veldkaarten zit
+                        //check of er een raskaart in veldkaarten zit
                         if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains("RAS"))
                         {
-                            //Kaart verwijderen
-                            int ok = DatabaseOperations.VerwijderenKaarten_Stapel(kaarten_Stapel1);
-                            if (ok > 0)
+                            //Als er een ras in veldkaarten zit, die eruit halen en in aflegstapel kerkerkaarten steken
+                            foutmelding += kaarten_Stapel1.KaartVanStapelWisselen(aflegstapelKerkerkaarten);
+                            if (foutmelding == "")
                             {
-                                //kaart naar aflegstapel doen
-                                Kaarten_Stapel nieuweKaartenStapel2 = new Kaarten_Stapel();
-                                nieuweKaartenStapel2.Kaart_Id = kaarten_Stapel1.Kaart_Id;
-                                Wedstrijd wedstrijd1 = DatabaseOperations.OphalenWedstrijdViaId(gebruiker.Wedstrijd_Id ?? default);
-                                nieuweKaartenStapel2.Stapel_Id = wedstrijd1.Kerkerkaarten_Aflegstapel_Id;
-                                if (nieuweKaartenStapel2.IsGeldig())
-                                {
-                                    //nieuwe kaartenstapel toevoegen
-                                    int ok2 = DatabaseOperations.ToevoegenKaarten_Stapel(nieuweKaartenStapel2);
-                                    if (ok2 <= 0)
-                                    {
-                                        foutmelding += "Kaart niet in aflegstapel kunnen plaatsen\n";
-                                    }
-                                    else
-                                    {
-                                        rasweg += 1;
-                                    }
-                                }
-                                else
-                                {
-                                    foutmelding += nieuweKaartenStapel2.Error + Environment.NewLine;
-                                }
-                            }
-                            else
-                            {
-                                foutmelding += "Kaart niet uit de veldkaarten kunnen halen\n";
+                                rasweg += 1;
                             }
                         }
                         if (rasweg > 0)
@@ -1486,36 +967,11 @@ namespace Munckin_DAL
                         //check of er al een kaart van dit type in veldkaarten zit
                         if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains("HARNAS"))
                         {
-                            //Kaart verwijderen
-                            int ok = DatabaseOperations.VerwijderenKaarten_Stapel(kaarten_Stapel1);
-                            if (ok > 0)
+                            //Als er een harnas in veldkaarten zit, die eruit halen en in aflegstapel schatkaarten steken
+                            foutmelding += kaarten_Stapel1.KaartVanStapelWisselen(aflegstapelSchatkaarten);
+                            if (foutmelding == "")
                             {
-                                //kaart naar aflegstapel doen
-                                Kaarten_Stapel nieuweKaartenStapel2 = new Kaarten_Stapel();
-                                nieuweKaartenStapel2.Kaart_Id = kaarten_Stapel1.Kaart_Id;
-                                Wedstrijd wedstrijd1 = DatabaseOperations.OphalenWedstrijdViaId(gebruiker.Wedstrijd_Id ?? default);
-                                nieuweKaartenStapel2.Stapel_Id = wedstrijd1.Schatkaarten_Aflegstapel_Id;
-                                if (nieuweKaartenStapel2.IsGeldig())
-                                {
-                                    //nieuwe kaartenstapel toevoegen
-                                    int ok2 = DatabaseOperations.ToevoegenKaarten_Stapel(nieuweKaartenStapel2);
-                                    if (ok2 <= 0)
-                                    {
-                                        foutmelding += "Kaart niet in aflegstapel kunnen plaatsen\n";
-                                    }
-                                    else
-                                    {
-                                        harnasweg += 1;
-                                    }
-                                }
-                                else
-                                {
-                                    foutmelding += nieuweKaartenStapel2.Error + Environment.NewLine;
-                                }
-                            }
-                            else
-                            {
-                                foutmelding += "Kaart niet uit de veldkaarten kunnen halen\n";
+                                harnasweg += 1;
                             }
                         }
                         if (harnasweg > 0)
@@ -1533,36 +989,11 @@ namespace Munckin_DAL
                         //check of er al een kaart van dit type in veldkaarten zit
                         if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains("HOOFDDEKSEL"))
                         {
-                            //Kaart verwijderen
-                            int ok = DatabaseOperations.VerwijderenKaarten_Stapel(kaarten_Stapel1);
-                            if (ok > 0)
+                            //Als er een hoofddeksel in veldkaarten zit, die eruit halen en in aflegstapel schatkaarten steken
+                            foutmelding += kaarten_Stapel1.KaartVanStapelWisselen(aflegstapelSchatkaarten);
+                            if (foutmelding == "")
                             {
-                                //kaart naar aflegstapel doen
-                                Kaarten_Stapel nieuweKaartenStapel2 = new Kaarten_Stapel();
-                                nieuweKaartenStapel2.Kaart_Id = kaarten_Stapel1.Kaart_Id;
-                                Wedstrijd wedstrijd1 = DatabaseOperations.OphalenWedstrijdViaId(gebruiker.Wedstrijd_Id ?? default);
-                                nieuweKaartenStapel2.Stapel_Id = wedstrijd1.Schatkaarten_Aflegstapel_Id;
-                                if (nieuweKaartenStapel2.IsGeldig())
-                                {
-                                    //nieuwe kaartenstapel toevoegen
-                                    int ok2 = DatabaseOperations.ToevoegenKaarten_Stapel(nieuweKaartenStapel2);
-                                    if (ok2 <= 0)
-                                    {
-                                        foutmelding += "Kaart niet in aflegstapel kunnen plaatsen\n";
-                                    }
-                                    else
-                                    {
-                                        hoofddekselweg += 1;
-                                    }
-                                }
-                                else
-                                {
-                                    foutmelding += nieuweKaartenStapel2.Error + Environment.NewLine;
-                                }
-                            }
-                            else
-                            {
-                                foutmelding += "Kaart niet uit de veldkaarten kunnen halen\n";
+                                hoofddekselweg += 1;
                             }
                         }
                         if (hoofddekselweg > 0)
@@ -1580,36 +1011,11 @@ namespace Munckin_DAL
                         //check of er al een kaart van dit type in veldkaarten zit
                         if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains("SCHOEISEL"))
                         {
-                            //Kaart verwijderen
-                            int ok = DatabaseOperations.VerwijderenKaarten_Stapel(kaarten_Stapel1);
-                            if (ok > 0)
+                            //Als er schoenen in veldkaarten zitten, die eruit halen en in aflegstapel schatkaarten steken
+                            foutmelding += kaarten_Stapel1.KaartVanStapelWisselen(aflegstapelSchatkaarten);
+                            if (foutmelding == "")
                             {
-                                //kaart naar aflegstapel doen
-                                Kaarten_Stapel nieuweKaartenStapel2 = new Kaarten_Stapel();
-                                nieuweKaartenStapel2.Kaart_Id = kaarten_Stapel1.Kaart_Id;
-                                Wedstrijd wedstrijd1 = DatabaseOperations.OphalenWedstrijdViaId(gebruiker.Wedstrijd_Id ?? default);
-                                nieuweKaartenStapel2.Stapel_Id = wedstrijd1.Schatkaarten_Aflegstapel_Id;
-                                if (nieuweKaartenStapel2.IsGeldig())
-                                {
-                                    //nieuwe kaartenstapel toevoegen
-                                    int ok2 = DatabaseOperations.ToevoegenKaarten_Stapel(nieuweKaartenStapel2);
-                                    if (ok2 <= 0)
-                                    {
-                                        foutmelding += "Kaart niet in aflegstapel kunnen plaatsen\n";
-                                    }
-                                    else
-                                    {
-                                        schoeiselweg += 1;
-                                    }
-                                }
-                                else
-                                {
-                                    foutmelding += nieuweKaartenStapel2.Error + Environment.NewLine;
-                                }
-                            }
-                            else
-                            {
-                                foutmelding += "Kaart niet uit de veldkaarten kunnen halen\n";
+                                schoeiselweg += 1;
                             }
                         }
                         if (schoeiselweg > 0)
@@ -1622,42 +1028,11 @@ namespace Munckin_DAL
             //Checken of alle bonussen nog gelden en gevechtswaarde herberekenen
             slachtoffer.HerberekenBonussenVeldkaarten(veldkaartenSlachtoffer);
             //kaart naar aflegstapel doen
-            Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-            nieuweKaartenStapel.Kaart_Id = Id;
-            Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(gebruiker.Wedstrijd_Id ?? default);
-            nieuweKaartenStapel.Stapel_Id = wedstrijd.Kerkerkaarten_Aflegstapel_Id;
-            //als de nieuwe kaartenstapel en de wedstrijdspeler geldig zijn, gaan we aanpassing doorvoeren in db
-            if (nieuweKaartenStapel.IsGeldig() && slachtoffer.IsGeldig())
+            foutmelding += oudeKaartenStapel.KaartVanStapelWisselen(aflegstapelKerkerkaarten);
+            // als alles tot nu toe gelukt is dan wedstrijd speler aanpassen
+            if (foutmelding == "")
             {
-                //nieuwe kaartenstapel toevoegen
-                int ok = DatabaseOperations.ToevoegenKaarten_Stapel(nieuweKaartenStapel);
-                if (ok > 0)
-                {
-                    //oude kaartenstapel verwijderen
-                    int ok2 = DatabaseOperations.VerwijderenKaarten_Stapel(oudeKaartenStapel);
-                    if (ok2 > 0)
-                    {
-                        //wedstrijd_Speler aanpassen
-                        int ok3 = DatabaseOperations.AanpassenWedstrijd_Speler(slachtoffer);
-                        if (ok3 <= 0)
-                        {
-                            foutmelding += "Bonussen speler niet aangepast\n";
-                        }
-                    }
-                    else
-                    {
-                        foutmelding += "Kaart niet uit je hand kunnen halen\n";
-                    }
-                }
-                else
-                {
-                    foutmelding += "Kaart niet in aflegstapel kunnen plaatsen\n";
-                }
-            }
-            else
-            {
-                foutmelding += nieuweKaartenStapel.Error + Environment.NewLine;
-                foutmelding += slachtoffer.Error + Environment.NewLine;
+                foutmelding += slachtoffer.PasWedstrijd_SpelerAan();
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
@@ -1671,6 +1046,8 @@ namespace Munckin_DAL
         public string SpeelGebruikskaart(Wedstrijd_Speler gebruiker)
         {
             string foutmelding = "";
+            Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(gebruiker.Wedstrijd_Id ?? default);
+            Stapel aflegstapelSchatkaarten = DatabaseOperations.OphalenStapelViaId(wedstrijd.Schatkaarten_Aflegstapel_Id);
             //kaartenstapel ophalen om later de kaart te verwijderen uit hand
             Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
             //bonus kaart ophalen
@@ -1726,42 +1103,11 @@ namespace Munckin_DAL
                 }
             }
             //kaart naar aflegstapel doen
-            Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-            nieuweKaartenStapel.Kaart_Id = Id;
-            Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(gebruiker.Wedstrijd_Id ?? default);
-            nieuweKaartenStapel.Stapel_Id = wedstrijd.Schatkaarten_Aflegstapel_Id;
-            //als de nieuwe kaartenstapel en de wedstrijdspeler geldig zijn, gaan we aanpassing doorvoeren in db
-            if (nieuweKaartenStapel.IsGeldig() && gebruiker.IsGeldig())
+            foutmelding += oudeKaartenStapel.KaartVanStapelWisselen(aflegstapelSchatkaarten);
+            // als alles tot nu toe gelukt is dan wedstrijd speler aanpassen
+            if (foutmelding == "")
             {
-                //nieuwe kaartenstapel toevoegen
-                int ok = DatabaseOperations.ToevoegenKaarten_Stapel(nieuweKaartenStapel);
-                if (ok > 0)
-                {
-                    //oude kaartenstapel verwijderen
-                    int ok2 = DatabaseOperations.VerwijderenKaarten_Stapel(oudeKaartenStapel);
-                    if (ok2 > 0)
-                    {
-                        //wedstrijd_Speler aanpassen
-                        int ok3 = DatabaseOperations.AanpassenWedstrijd_Speler(gebruiker);
-                        if (ok3 <= 0)
-                        {
-                            foutmelding += "Level speler niet aangepast\n";
-                        }
-                    }
-                    else
-                    {
-                        foutmelding += "Kaart niet uit je hand kunnen halen\n";
-                    }
-                }
-                else
-                {
-                    foutmelding += "Kaart niet in aflegstapel kunnen plaatsen\n";
-                }
-            }
-            else
-            {
-                foutmelding += nieuweKaartenStapel.Error + Environment.NewLine;
-                foutmelding += gebruiker.Error + Environment.NewLine;
+                foutmelding += gebruiker.PasWedstrijd_SpelerAan();
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
@@ -1776,6 +1122,8 @@ namespace Munckin_DAL
         public string SpeelGebruikskaart(Wedstrijd_Speler gebruiker, Wedstrijd_Speler slachtoffer)
         {
             string foutmelding = "";
+            Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(gebruiker.Wedstrijd_Id ?? default);
+            Stapel aflegstapelSchatkaarten = DatabaseOperations.OphalenStapelViaId(wedstrijd.Schatkaarten_Aflegstapel_Id);
             //kaartenstapel ophalen om later de kaart te verwijderen uit hand
             Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
             //bonus kaart ophalen
@@ -1788,44 +1136,18 @@ namespace Munckin_DAL
                     //Bonus toevoegen aan gevechtswaarde
                     slachtoffer.Tijdelijke_Bonus += bonus.Waarde;
                 }
+                //voorlopig alleen kaarten met effect op gevechtswaarde
+                if (bonus.Waarop_Effect.ToUpper() == "LEVEL")
+                {
+                    return "Je kan deze kaart enkel op jezelf gebruiken";
+                }
             }
             //kaart naar aflegstapel doen
-            Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-            nieuweKaartenStapel.Kaart_Id = Id;
-            Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(gebruiker.Wedstrijd_Id ?? default);
-            nieuweKaartenStapel.Stapel_Id = wedstrijd.Schatkaarten_Aflegstapel_Id;
-            //als de nieuwe kaartenstapel en de wedstrijdspeler geldig zijn, gaan we aanpassing doorvoeren in db
-            if (nieuweKaartenStapel.IsGeldig() && slachtoffer.IsGeldig())
+            foutmelding += oudeKaartenStapel.KaartVanStapelWisselen(aflegstapelSchatkaarten);
+            // als alles tot nu toe gelukt is dan wedstrijd speler aanpassen
+            if (foutmelding == "")
             {
-                //nieuwe kaartenstapel toevoegen
-                int ok = DatabaseOperations.ToevoegenKaarten_Stapel(nieuweKaartenStapel);
-                if (ok > 0)
-                {
-                    //oude kaartenstapel verwijderen
-                    int ok2 = DatabaseOperations.VerwijderenKaarten_Stapel(oudeKaartenStapel);
-                    if (ok2 > 0)
-                    {
-                        //wedstrijd_Speler aanpassen
-                        int ok3 = DatabaseOperations.AanpassenWedstrijd_Speler(slachtoffer);
-                        if (ok3 <= 0)
-                        {
-                            foutmelding += "bonussen speler niet aangepast\n";
-                        }
-                    }
-                    else
-                    {
-                        foutmelding += "Kaart niet uit je hand kunnen halen\n";
-                    }
-                }
-                else
-                {
-                    foutmelding += "Kaart niet in aflegstapel kunnen plaatsen\n";
-                }
-            }
-            else
-            {
-                foutmelding += nieuweKaartenStapel.Error + Environment.NewLine;
-                foutmelding += slachtoffer.Error + Environment.NewLine;
+                foutmelding += gebruiker.PasWedstrijd_SpelerAan();
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
@@ -1839,6 +1161,8 @@ namespace Munckin_DAL
         public string SpeelGebruikskaart(Wedstrijd_Speler gebruiker, Kaart monster)
         {
             string foutmelding = "";
+            Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(gebruiker.Wedstrijd_Id ?? default);
+            Stapel aflegstapelKerkerkaarten = DatabaseOperations.OphalenStapelViaId(wedstrijd.Kerkerkaarten_Aflegstapel_Id);
             //kaartenstapel ophalen om later de kaart te verwijderen uit hand
             Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
             //bonus kaart ophalen
@@ -1862,42 +1186,15 @@ namespace Munckin_DAL
                 }
             }
             //kaart naar aflegstapel doen
-            Kaarten_Stapel nieuweKaartenStapel = new Kaarten_Stapel();
-            nieuweKaartenStapel.Kaart_Id = Id;
-            Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(gebruiker.Wedstrijd_Id ?? default);
-            nieuweKaartenStapel.Stapel_Id = wedstrijd.Kerkerkaarten_Aflegstapel_Id;
-            //als de nieuwe kaartenstapel en de wedstrijdspeler geldig zijn, gaan we aanpassing doorvoeren in db
-            if (nieuweKaartenStapel.IsGeldig() && monster.Kerkerkaart.IsGeldig())
+            foutmelding += oudeKaartenStapel.KaartVanStapelWisselen(aflegstapelKerkerkaarten);
+            // als alles tot nu toe gelukt is dan wedstrijd speler aanpassen
+            if (foutmelding == "")
             {
-                //monster aanpassen
                 int ok = DatabaseOperations.AanpassenKerkerkaart(monster.Kerkerkaart);
-                if (ok > 0)
-                {
-                    //oude kaartenstapel verwijderen
-                    int ok2 = DatabaseOperations.VerwijderenKaarten_Stapel(oudeKaartenStapel);
-                    if (ok2 > 0)
-                    {
-                        // kaart in aflegstapel plaatsen
-                        int ok3 = DatabaseOperations.ToevoegenKaarten_Stapel(nieuweKaartenStapel);
-                        if (ok3 <= 0)
-                        {
-                            foutmelding += "Kaart niet in aflegstapel kunnen plaatsen\n";
-                        }
-                    }
-                    else
-                    {
-                        foutmelding += "Kaart niet uit je hand kunnen halen\n";
-                    }
-                }
-                else
+                if (ok <= 0)
                 {
                     foutmelding += "bonussen monster niet aangepast\n";
                 }
-            }
-            else
-            {
-                foutmelding += nieuweKaartenStapel.Error + Environment.NewLine;
-                foutmelding += monster.Kerkerkaart.Error + Environment.NewLine;
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
@@ -1906,6 +1203,43 @@ namespace Munckin_DAL
             else
             {
                 return foutmelding;
+            }
+        }
+        public string ControleerGroteVoorwerpen(Stapel veldkaarten)
+        {
+            foreach (var kaarten_Stapel in veldkaarten.Kaarten_Stapels)
+            {
+                Kaart kaart = DatabaseOperations.OphalenKaartViaId(kaarten_Stapel.Kaart_Id);
+                if (Schatkaart != null)
+                {
+                    if (Schatkaart.Is_Groot == true && kaart.Schatkaart.Is_Groot == true)
+                    {
+                        return "je kan geen 2 grote voorwerpen dragen";
+                    }
+                }
+            }
+            return "";
+        }
+        public void BonussenItemToevoegen(Wedstrijd_Speler gebruiker)
+        {
+            //Bonus van kaart opvragen
+            List<Bonus> lijstBonusssen = DatabaseOperations.OphalenBonussenViaKaartId(Id);
+            foreach (var bonus in lijstBonusssen)
+            {
+                //Checken of hij dit kan gebruiken (hij equipt het sowieso want dat mag maar hij krijgt de bonus niet
+                if (bonus.Bruikbaar_Door.ToUpper() == gebruiker.Ras.ToUpper() || bonus.Bruikbaar_Door.ToUpper() == "IEDEREEN")
+                {
+                    if (bonus.Waarop_Effect.ToUpper() == "GEVECHTSWAARDE")
+                    {
+                        //Bonus toevoegen aan gevechtswaarde
+                        gebruiker.Gevechtsbonus += bonus.Waarde;
+                    }
+                    else if (bonus.Waarop_Effect.ToUpper() == "VLUCHTEN")
+                    {
+                        //Bonus toevoegen aan vluchtbonus
+                        gebruiker.Vluchtbonus += bonus.Waarde;
+                    }
+                }
             }
         }
     }
