@@ -220,10 +220,21 @@ namespace Munckin_DAL
             using (MunchkinEntities entities = new MunchkinEntities())
             {
                 return entities.Wedstrijd_Spelers
-                   .Where(p => p.Wedstrijd_Id == wedstrijdId)
-                    .ToList();
+                 .Include(x => x.Speler)
+                    .Where(p => p.Wedstrijd_Id == wedstrijdId)
+                   .ToList();
             }
         }
+        //public static List<Speler> OphalenSpelerViaID(int spelerid)
+        //{
+        //    using (MunchkinEntities entities = new MunchkinEntities())
+        //    {
+        //        var query = entities.Spelers
+        //            .Include(x => x.Wedstrijd_Spelers)
+        //            .Where(x => x.Id
+        //        return query;
+        //    }    
+        //}
 
         //Voorlopig niet nodig, ff in commentaar ipv weg voor de zekerheid
         //public static List<Kaart_Bonus> OphalenKaart_BonusViaKaart_Id(int kaartId)
