@@ -10,8 +10,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Niet_Bruikbaar_Door" Type="nvarchar" MaxLength="255" />
-          <Property Name="Bruikbaar_Door" Type="nvarchar" MaxLength="255" />
+          <Property Name="Niet_Bruikbaar_Door" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Bruikbaar_Door" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Waarde" Type="int" Nullable="false" />
           <Property Name="Waarop_Effect" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
@@ -54,6 +54,7 @@
           <Property Name="Aantal_schatten" Type="int" />
           <Property Name="Ondood" Type="bit" />
           <Property Name="Aantal_Levels" Type="int" />
+          <Property Name="Tijdelijke_Bonus" Type="int" />
         </EntityType>
         <EntityType Name="Schatkaarten">
           <Key>
@@ -100,10 +101,14 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Speler_Id" Type="int" Nullable="false" />
-          <Property Name="Wedstrijd_Id" Type="int" Nullable="false" />
+          <Property Name="Wedstrijd_Id" Type="int" />
           <Property Name="Handkaarten_Id" Type="int" Nullable="false" />
           <Property Name="Veldkaarten_Id" Type="int" Nullable="false" />
-          <Property Name="Level" Type="int" Nullable="false" />
+          <Property Name="Level" Type="int" />
+          <Property Name="Ras" Type="nvarchar" MaxLength="50" />
+          <Property Name="Vluchtbonus" Type="int" />
+          <Property Name="Gevechtsbonus" Type="int" />
+          <Property Name="Tijdelijke_Bonus" Type="int" />
         </EntityType>
         <EntityType Name="Wedstrijden">
           <Key>
@@ -298,7 +303,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Wedstrijd_Id">
-          <End Role="Wedstrijden" Type="Self.Wedstrijden" Multiplicity="1" />
+          <End Role="Wedstrijden" Type="Self.Wedstrijden" Multiplicity="0..1" />
           <End Role="Wedstrijd_Spelers" Type="Self.Wedstrijd_Spelers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Wedstrijden">
@@ -428,8 +433,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Niet_Bruikbaar_Door" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Bruikbaar_Door" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Niet_Bruikbaar_Door" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Bruikbaar_Door" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Waarde" Type="Int32" Nullable="false" />
           <Property Name="Waarop_Effect" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Kaart_Bonussen" Relationship="Self.FK_Bonus_Id" FromRole="Bonussen" ToRole="Kaart_Bonussen" />
@@ -483,6 +488,7 @@
           <Property Name="Ondood" Type="Boolean" />
           <Property Name="Aantal_Levels" Type="Int32" />
           <NavigationProperty Name="Kaart" Relationship="Self.FK_Kerkerkaart_Id" FromRole="Kerkerkaarten" ToRole="Kaarten" />
+          <Property Name="Tijdelijke_Bonus" Type="Int32" />
         </EntityType>
         <EntityType Name="Schatkaart">
           <Key>
@@ -543,14 +549,18 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Speler_Id" Type="Int32" Nullable="false" />
-          <Property Name="Wedstrijd_Id" Type="Int32" Nullable="false" />
+          <Property Name="Wedstrijd_Id" Type="Int32" />
           <Property Name="Handkaarten_Id" Type="Int32" Nullable="false" />
           <Property Name="Veldkaarten_Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Speler" Relationship="Self.FK_Speler_Id" FromRole="Wedstrijd_Spelers" ToRole="Spelers" />
           <NavigationProperty Name="Stapel_Handkaarten" Relationship="Self.FK_Handkaarten_Id" FromRole="Wedstrijd_Spelers" ToRole="Stapels" />
           <NavigationProperty Name="Stapel_Veldkaarten" Relationship="Self.FK_Veldkaarten_Id" FromRole="Wedstrijd_Spelers" ToRole="Stapels" />
           <NavigationProperty Name="Wedstrijd" Relationship="Self.FK_Wedstrijd_Id" FromRole="Wedstrijd_Spelers" ToRole="Wedstrijden" />
-          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="Level" Type="Int32" />
+          <Property Name="Ras" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vluchtbonus" Type="Int32" />
+          <Property Name="Gevechtsbonus" Type="Int32" />
+          <Property Name="Tijdelijke_Bonus" Type="Int32" />
         </EntityType>
         <EntityType Name="Wedstrijd">
           <Key>
@@ -776,7 +786,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Wedstrijd_Id">
-          <End Role="Wedstrijden" Type="MunchkinModel.Wedstrijd" Multiplicity="1" />
+          <End Role="Wedstrijden" Type="MunchkinModel.Wedstrijd" Multiplicity="0..1" />
           <End Role="Wedstrijd_Spelers" Type="MunchkinModel.Wedstrijd_Speler" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Wedstrijden">
@@ -924,6 +934,7 @@
           <EntitySetMapping Name="Kerkerkaarten">
             <EntityTypeMapping TypeName="MunchkinModel.Kerkerkaart">
               <MappingFragment StoreEntitySet="Kerkerkaarten">
+                <ScalarProperty Name="Tijdelijke_Bonus" ColumnName="Tijdelijke_Bonus" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Beschrijving_2" ColumnName="Beschrijving_2" />
                 <ScalarProperty Name="Portie_Ellende" ColumnName="Portie_Ellende" />
@@ -981,6 +992,10 @@
           <EntitySetMapping Name="Wedstrijd_Spelers">
             <EntityTypeMapping TypeName="MunchkinModel.Wedstrijd_Speler">
               <MappingFragment StoreEntitySet="Wedstrijd_Spelers">
+                <ScalarProperty Name="Tijdelijke_Bonus" ColumnName="Tijdelijke_Bonus" />
+                <ScalarProperty Name="Gevechtsbonus" ColumnName="Gevechtsbonus" />
+                <ScalarProperty Name="Vluchtbonus" ColumnName="Vluchtbonus" />
+                <ScalarProperty Name="Ras" ColumnName="Ras" />
                 <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Speler_Id" ColumnName="Speler_Id" />
