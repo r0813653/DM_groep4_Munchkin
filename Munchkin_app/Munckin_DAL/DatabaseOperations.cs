@@ -19,7 +19,7 @@ namespace Munckin_DAL
                 return entities.SaveChanges();
             }
         }
-      
+
         public static List<Kaart> OphalenKaartenViaNaam(string DeelNaam)
         {
             using (MunchkinEntities entities = new MunchkinEntities())
@@ -86,9 +86,11 @@ namespace Munckin_DAL
 
         public static Kaart OphalenKaartViaId(int id)
         {
-          var query = entities.Kaarten
-                               .Include(x=> x.Schatkaart)
-                               .Include(x=> x.Kerkerkaart)
+            using (MunchkinEntities entities = new MunchkinEntities())
+            {
+                var query = entities.Kaarten
+                               .Include(x => x.Schatkaart)
+                               .Include(x => x.Kerkerkaart)
                               .Where(x => x.Id == id);
                 return query.SingleOrDefault();
             }
@@ -121,8 +123,7 @@ namespace Munckin_DAL
             {
                 return entities.Bonussen
                     .Include(x => x.Kaart_Bonussen.Select(y => y.Kaart))
-                   .Where(p => p.Kaart_Bonussen.Any(b => b.Kaart_Id == kaartId))
-
+                    .Where(p => p.Kaart_Bonussen.Any(b => b.Kaart_Id == kaartId))
                     .ToList();
             }
         }
@@ -238,10 +239,10 @@ namespace Munckin_DAL
         {
             using (MunchkinEntities entities = new MunchkinEntities())
             {
-                return  entities.Kerkerkaarten
-                            .Include(x=>x.Kaart)
-                            .ToList() ;                        
-               
+                return entities.Kerkerkaarten
+                            .Include(x => x.Kaart)
+                            .ToList();
+
             }
         }
 
@@ -249,10 +250,10 @@ namespace Munckin_DAL
         {
             using (MunchkinEntities entities = new MunchkinEntities())
             {
-                return  entities.Schatkaarten
-                            .Include(x=>x.Kaart)
-                            .ToList();         
-               
+                return entities.Schatkaarten
+                            .Include(x => x.Kaart)
+                            .ToList();
+
             }
         }
 
@@ -262,11 +263,11 @@ namespace Munckin_DAL
             {
                 entities.Stapels.Add(stapel);
                 return entities.SaveChanges();
-                                 
+
             }
         }
 
-      
+
         //Van de Jens, veranderd naar functie die Domien had geschreven, ff in commentaar voor het geval er toch iets anders in de functie is
         //public static int ToevoegenKaartenStapel(Kaarten_Stapel kaarten_Stapel)
         //{
