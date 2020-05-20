@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -19,6 +19,18 @@ namespace Munckin_DAL
                 return entities.SaveChanges();
             }
         }
+      
+        public static List<Kaart> OphalenKaartenViaNaam(string DeelNaam)
+        {
+            using (MunchkinEntities entities = new MunchkinEntities())
+            {
+                var query = entities.Kaarten
+                    .Where(x => x.Naam.Contains(DeelNaam))
+                    .OrderBy(x => x.Naam);
+                return query.ToList();
+            }
+        }
+
         public static int AanpassenWedstrijd_Speler(Wedstrijd_Speler wedstrijd_Speler)
         {
             try
@@ -74,9 +86,7 @@ namespace Munckin_DAL
 
         public static Kaart OphalenKaartViaId(int id)
         {
-            using (MunchkinEntities entities = new MunchkinEntities())
-            {
-                var query = entities.Kaarten
+          var query = entities.Kaarten
                                .Include(x=> x.Schatkaart)
                                .Include(x=> x.Kerkerkaart)
                               .Where(x => x.Id == id);
@@ -287,7 +297,6 @@ namespace Munckin_DAL
                 return entities.SaveChanges();
             }
         }
-      
-
     }
+
 }

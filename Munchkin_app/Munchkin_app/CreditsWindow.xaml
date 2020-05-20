@@ -27,7 +27,7 @@
                 <Label Content="Domien Van Den Heuvel" FontSize="60" HorizontalAlignment="Center"/>
             </StackPanel>
             <Image Grid.Row="2" Source="images/Credits.png" Width="1000" />
-            <Button Style="{StaticResource CustomButton}" Grid.Row="3" FontSize="50" Content="Ga terug" Width="200" Margin="20"/>
+            <Button Style="{StaticResource CustomButton}" Grid.Row="3" FontSize="50" Content="Ga terug" Width="200" Margin="20" Click="Button_Click"/>
         </Grid>
     </ScrollViewer>
 </Window>
