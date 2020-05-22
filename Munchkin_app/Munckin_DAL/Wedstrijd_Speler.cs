@@ -14,6 +14,16 @@ namespace Munckin_DAL
     
     public partial class Wedstrijd_Speler
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Wedstrijd_Speler()
+        {
+            this.Level = 1;
+            this.Ras = "Mens";
+            this.Vluchtbonus = 0;
+            this.Gevechtsbonus = 0;
+            this.Tijdelijke_Bonus = 0;
+        }
+    
         public int Id { get; set; }
         public int Speler_Id { get; set; }
         public Nullable<int> Wedstrijd_Id { get; set; }

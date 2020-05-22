@@ -20,5 +20,7 @@ namespace Munckin_DAL
                 return "";
             }
         }
+
+        public int Tijdelijke_Bonus { get; set; } = 0;
     }
 }

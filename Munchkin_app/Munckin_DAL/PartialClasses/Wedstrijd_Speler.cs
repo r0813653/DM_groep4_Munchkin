@@ -65,5 +65,23 @@ namespace Munckin_DAL
                 }
             }
         }
+        public string PasWedstrijd_SpelerAan()
+        {
+            string foutmelding = "";
+            if (IsGeldig())
+            {
+                //wedstrijd_Speler aanpassen
+                int ok3 = DatabaseOperations.AanpassenWedstrijd_Speler(this);
+                if (ok3 <= 0)
+                {
+                    foutmelding += "Wedstrijd_speler niet aangepast\n";
+                }
+            }
+            else
+            {
+                foutmelding += Error + Environment.NewLine;
+            }
+            return foutmelding;
+        }
     }
 }

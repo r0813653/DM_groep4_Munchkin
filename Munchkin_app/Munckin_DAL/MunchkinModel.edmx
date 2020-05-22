@@ -54,7 +54,6 @@
           <Property Name="Aantal_schatten" Type="int" />
           <Property Name="Ondood" Type="bit" />
           <Property Name="Aantal_Levels" Type="int" />
-          <Property Name="Tijdelijke_Bonus" Type="int" />
         </EntityType>
         <EntityType Name="Schatkaarten">
           <Key>
@@ -488,7 +487,6 @@
           <Property Name="Ondood" Type="Boolean" />
           <Property Name="Aantal_Levels" Type="Int32" />
           <NavigationProperty Name="Kaart" Relationship="Self.FK_Kerkerkaart_Id" FromRole="Kerkerkaarten" ToRole="Kaarten" />
-          <Property Name="Tijdelijke_Bonus" Type="Int32" />
         </EntityType>
         <EntityType Name="Schatkaart">
           <Key>
@@ -556,11 +554,11 @@
           <NavigationProperty Name="Stapel_Handkaarten" Relationship="Self.FK_Handkaarten_Id" FromRole="Wedstrijd_Spelers" ToRole="Stapels" />
           <NavigationProperty Name="Stapel_Veldkaarten" Relationship="Self.FK_Veldkaarten_Id" FromRole="Wedstrijd_Spelers" ToRole="Stapels" />
           <NavigationProperty Name="Wedstrijd" Relationship="Self.FK_Wedstrijd_Id" FromRole="Wedstrijd_Spelers" ToRole="Wedstrijden" />
-          <Property Name="Level" Type="Int32" />
-          <Property Name="Ras" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Vluchtbonus" Type="Int32" />
-          <Property Name="Gevechtsbonus" Type="Int32" />
-          <Property Name="Tijdelijke_Bonus" Type="Int32" />
+          <Property Name="Level" Type="Int32" annotation:StoreGeneratedPattern="None" DefaultValue="1" />
+          <Property Name="Ras" Type="String" MaxLength="50" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="None" DefaultValue="Mens" />
+          <Property Name="Vluchtbonus" Type="Int32" annotation:StoreGeneratedPattern="None" DefaultValue="0" />
+          <Property Name="Gevechtsbonus" Type="Int32" annotation:StoreGeneratedPattern="None" DefaultValue="0" />
+          <Property Name="Tijdelijke_Bonus" Type="Int32" annotation:StoreGeneratedPattern="None" DefaultValue="0" />
         </EntityType>
         <EntityType Name="Wedstrijd">
           <Key>
@@ -934,7 +932,6 @@
           <EntitySetMapping Name="Kerkerkaarten">
             <EntityTypeMapping TypeName="MunchkinModel.Kerkerkaart">
               <MappingFragment StoreEntitySet="Kerkerkaarten">
-                <ScalarProperty Name="Tijdelijke_Bonus" ColumnName="Tijdelijke_Bonus" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Beschrijving_2" ColumnName="Beschrijving_2" />
                 <ScalarProperty Name="Portie_Ellende" ColumnName="Portie_Ellende" />

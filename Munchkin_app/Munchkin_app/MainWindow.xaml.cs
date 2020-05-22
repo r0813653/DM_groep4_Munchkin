@@ -33,6 +33,7 @@ namespace Munchkin_app
             InfoWindow infoWindow = new InfoWindow();
             infoWindow.Show();
             this.Hide();
+
         }
 
        

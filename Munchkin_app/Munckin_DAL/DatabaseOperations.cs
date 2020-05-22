@@ -78,7 +78,8 @@ namespace Munckin_DAL
             using (MunchkinEntities entities = new MunchkinEntities())
             {
                 var query = entities.Stapels
-                            .Include(x => x.Kaarten_Stapels.Select(sub => sub.Kaart))
+                    //Gaat 2de select?
+                            .Include(x => x.Kaarten_Stapels.Select(sub => sub.Kaart).Select(b=> b.Schatkaart))
                             .Where(x => x.Id == Id);
                 return query.SingleOrDefault();
             }
@@ -96,16 +97,16 @@ namespace Munckin_DAL
             }
         }
 
-        //voorlopig niet nodig, laat nog ff staan voor de zekerheid
-        //public static Wedstrijd_Speler OphalenWedstrijd_SpelerViaId(int id)
-        //{
-        //    using (MunchkinEntities entities = new MunchkinEntities())
-        //    {
-        //        var query = entities.Wedstrijd_Spelers
-        //                      .Where(x => x.Id == id);
-        //        return query.SingleOrDefault();
-        //    }
-        //}
+        //voorlopig enkel nodig voor testen
+        public static Wedstrijd_Speler OphalenWedstrijd_SpelerViaId(int id)
+        {
+            using (MunchkinEntities entities = new MunchkinEntities())
+            {
+                var query = entities.Wedstrijd_Spelers
+                              .Where(x => x.Id == id);
+                return query.SingleOrDefault();
+            }
+        }
 
         public static Type OphalenType(int typeId)
         {

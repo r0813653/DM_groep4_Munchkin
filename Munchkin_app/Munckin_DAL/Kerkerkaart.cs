@@ -21,7 +21,6 @@ namespace Munckin_DAL
         public Nullable<int> Aantal_schatten { get; set; }
         public Nullable<bool> Ondood { get; set; }
         public Nullable<int> Aantal_Levels { get; set; }
-        public Nullable<int> Tijdelijke_Bonus { get; set; }
     
         public virtual Kaart Kaart { get; set; }
     }
