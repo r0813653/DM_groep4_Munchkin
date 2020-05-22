@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Munchkin_app"
         mc:Ignorable="d"
         FontFamily="fonts/#Victoriana"
-        Title="UseCardWindow" Height="600" Width="900">
+        Title="UseCardWindow" Height="600" Width="900" Loaded="Window_Loaded">
     <Window.Background>
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
     </Window.Background>
@@ -24,23 +24,25 @@
 
         <Label FontSize="75" Content="Gebruik kaart" HorizontalAlignment="Center" Foreground="#FF3C0900" Grid.Column="0" Grid.ColumnSpan="3" Margin="0 20 0 0 "></Label>
         <StackPanel Grid.Row="1" Margin="30" Grid.Column="0">
-            <Label FontSize="30" HorizontalAlignment="Center">kaarten speler</Label>
-            <ComboBox BorderBrush="#FFE21B1B" FontSize="25" Foreground="#FF3C0900"></ComboBox>
+            <Label FontSize="30" HorizontalAlignment="Center">speler</Label>
+            <ComboBox x:Name="cmbGebruiker" BorderBrush="#FFE21B1B" FontSize="25" Foreground="#FF3C0900" SelectionChanged="cmbGebruiker_SelectionChanged"></ComboBox>
+            <Label FontSize="30" HorizontalAlignment="Center">kaarten</Label>
+            <ComboBox x:Name="cmbKaarten" BorderBrush="#FFE21B1B" FontSize="25" IsEnabled="False" Foreground="#FF3C0900" SelectionChanged="cmbKaarten_SelectionChanged"></ComboBox>
         </StackPanel>
 
         <StackPanel Margin="30" Grid.Row="1" Grid.Column="1">
             <Label FontSize="30" HorizontalAlignment="Center">informatie kaart</Label>
-            <Image  Source="images/queen.png" Height="267"></Image>
+            <Image x:Name="imgKaart"  Source="images/queen.png" Height="267"></Image>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Margin="30" Grid.Column="2">
-            <Label FontSize="30" HorizontalAlignment="Center">Gebruik kaart op speler</Label>
-            <ComboBox BorderBrush="#FFE21B1B" FontSize="25" Foreground="#FF3C0900" ></ComboBox>
+            <Label FontSize="30" HorizontalAlignment="Center">Gebruik kaart op</Label>
+            <ComboBox  x:Name="cmbDoel" BorderBrush="#FFE21B1B" FontSize="25" Foreground="#FF3C0900" ></ComboBox>
         </StackPanel>
 
         <WrapPanel Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <Button Style="{StaticResource CustomButton}" FontSize="30" Width="200" Margin="0 0 90 40">Terug</Button>
-            <Button Style="{StaticResource CustomButton}" FontSize="30" Width="200" Margin="90 0 0 40">Verder</Button>
+            <Button Style="{StaticResource CustomButton}" FontSize="30" Width="200" Margin="0 0 90 40" Click="Button_Click_1">Terug</Button>
+            <Button Style="{StaticResource CustomButton}" FontSize="30" Width="200" Margin="90 0 0 40" Click="Button_Click">Verder</Button>
         </WrapPanel>
 
     </Grid>

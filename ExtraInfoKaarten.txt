@@ -2,7 +2,6 @@ Rassen: check
 Je kan ras toevoegen je krijgt een string terug met een bericht of het gelukt is of niet
 Het werkt alleen als je Mens bent, anders krijg je melding dat je je ras eerst moet afleggen.
 Meeste dingen moeten in de schermen geprogrammeerd worden nl.:
--	als ge elf bent, krijgt ge ook level als je helpt
 -	als dwerg kan je 6 kaarten op hand hebben en onbeperkt aantal grote voorwerpen dragen
 -	als hafling mag je 1 kaart per beurt verkopen voor het dubbele van de prijs en als je vluchtpoging niet lukt mag je nog een keer proberen als je 1 kaart aflegt
 Je kan aan het ras door Wedstrijd_Speler.Ras op te vragen
@@ -11,8 +10,6 @@ Als je van ras veranderd checkt het al je bonussen terug opnieuw want je had mis
 Equipment: check
 Je kan equipen ook als je niet het ras bent dat nodig is maar dan wordt je bonus niet toegevoegd ( gelijk aan het echte spel)
 
-VLUCHT NOG VERDER SCHRIJVEN
-IS GROOT NOG CHECKEN
 BIJ SCHERMEN MOET JE NOG CHECKEN OF JE DE KAART MAG GEBRUIKEN IN DIE FASE bv in gevecht
 Tijdelijke bonus van de speler op het einde van de beurt altijd leegmaken, van alle spelers
 tijdelijke bonus monster altijd leegmaken als die afgelegt wordt.
@@ -26,6 +23,7 @@ helper krijgt helft van de schatkaarten ( afgerond naar boven)
 vlucht monster, als er geholpen is moet je de functie nog eens oproepen voor de tweede speler
 
 vechtmonster haalt de kaart niet uit de trekstapel, steekt deze wel in de aflegstapel
-koning toet bij vluchten programmeren.. checken voor kerker en schatkaarten same voor draak en kwelrog
-Aantal_schatten van een monster waar bv een baby op gespeeld is is te laag.
+
 Als je een vervloeking trekt deze eerst sowieso in handkaarten steken, ook al wordt die direct gebruikt
+
+usecard als target hetzelfde is als de gebruiker speelkaart met enkel gebruiker meegeven, niet gebruiker en slachtoffer

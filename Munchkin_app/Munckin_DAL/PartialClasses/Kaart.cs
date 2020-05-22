@@ -1006,6 +1006,10 @@ namespace Munckin_DAL
             //loopen door de bonus(sen)
             foreach (var bonus in lijstBonussen)
             {
+                if (bonus.Waarop_Effect.ToUpper() == "MONSTER")
+                {
+                    return "Je kan deze kaart enkel op een monster gebruiken!";
+                }
                 if (bonus.Waarop_Effect.ToUpper() == "LEVEL")
                 {
                     if (Naam.ToUpper().Contains("ZEUREN"))
@@ -1084,7 +1088,7 @@ namespace Munckin_DAL
             {
                 if (bonus.Waarop_Effect.ToUpper() == "MONSTER")
                 {
-                    return "Je kan deze kaart enkel op ene monster gebruiken!";
+                    return "Je kan deze kaart enkel op een monster gebruiken!";
                 }
                 if (bonus.Waarop_Effect.ToUpper() == "GEVECHTSWAARDE")
                 {
@@ -1205,6 +1209,11 @@ namespace Munckin_DAL
                     }
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return Naam;
         }
     }
 }
