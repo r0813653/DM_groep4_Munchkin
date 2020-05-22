@@ -14,7 +14,7 @@ namespace Munckin_DAL
             using (MunchkinEntities entities = new MunchkinEntities())
             {
                 entities.Spelers.Add(speler);
-                return 0; //entities.SaveChanges();
+                return entities.SaveChanges();
             }
         }
 

@@ -83,6 +83,7 @@
       <DependentUpon>MunchkinModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="PartialClasses\Kaarten_Stapel.cs" />
+    <Compile Include="PartialClasses\Stapel.cs" />
     <Compile Include="PartialClasses\Toernooi.cs" />
     <Compile Include="PartialClasses\Kaart.cs" />
     <Compile Include="PartialClasses\Kerkerkaart.cs" />
