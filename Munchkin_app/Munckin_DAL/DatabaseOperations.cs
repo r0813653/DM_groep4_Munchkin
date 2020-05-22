@@ -1,6 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
@@ -15,6 +17,17 @@ namespace Munckin_DAL
             {
                 entities.Spelers.Add(speler);
                 return entities.SaveChanges();
+            }
+        }
+
+        public static List<Kaart> OphalenKaartenViaNaam(string DeelNaam)
+        {
+            using (MunchkinEntities entities = new MunchkinEntities())
+            {
+                var query = entities.Kaarten
+                    .Where(x => x.Naam.Contains(DeelNaam))
+                    .OrderBy(x => x.Naam);
+                return query.ToList();
             }
         }
 
@@ -77,8 +90,8 @@ namespace Munckin_DAL
             using (MunchkinEntities entities = new MunchkinEntities())
             {
                 var query = entities.Kaarten
-                               .Include(x=> x.Schatkaart)
-                               .Include(x=> x.Kerkerkaart)
+                               .Include(x => x.Schatkaart)
+                               .Include(x => x.Kerkerkaart)
                               .Where(x => x.Id == id);
                 return query.SingleOrDefault();
             }
@@ -111,8 +124,7 @@ namespace Munckin_DAL
             {
                 return entities.Bonussen
                     .Include(x => x.Kaart_Bonussen.Select(y => y.Kaart))
-                   .Where(p => p.Kaart_Bonussen.Any(b => b.Kaart_Id == kaartId))
-
+                    .Where(p => p.Kaart_Bonussen.Any(b => b.Kaart_Id == kaartId))
                     .ToList();
             }
         }
@@ -224,6 +236,69 @@ namespace Munckin_DAL
         //        return query.ToList();
         //    }
         //}
+        public static List<Kerkerkaart> OphalenKerkerkaarten()
+        {
+            using (MunchkinEntities entities = new MunchkinEntities())
+            {
+                return entities.Kerkerkaarten
+                            .Include(x => x.Kaart)
+                            .ToList();
 
+            }
+        }
+
+        public static List<Schatkaart> OphalenSchatkaarten()
+        {
+            using (MunchkinEntities entities = new MunchkinEntities())
+            {
+                return entities.Schatkaarten
+                            .Include(x => x.Kaart)
+                            .ToList();
+
+            }
+        }
+
+        public static int ToevoegenStapel(Stapel stapel)
+        {
+            using (MunchkinEntities entities = new MunchkinEntities())
+            {
+                entities.Stapels.Add(stapel);
+                return entities.SaveChanges();
+
+            }
+        }
+
+
+        //Van de Jens, veranderd naar functie die Domien had geschreven, ff in commentaar voor het geval er toch iets anders in de functie is
+        //public static int ToevoegenKaartenStapel(Kaarten_Stapel kaarten_Stapel)
+        //{
+        //    using (MunchkinEntities entities = new MunchkinEntities())
+        //    {
+        //        entities.Kaarten_Stapels.Add(kaarten_Stapel);
+
+        //        return entities.SaveChanges();
+        //    }
+        //}
+
+        public static int ToevoegenWedstrijd(Wedstrijd wedstrijd)
+        {
+            using (MunchkinEntities entities = new MunchkinEntities())
+            {
+                entities.Wedstrijden.Add(wedstrijd);
+
+                return entities.SaveChanges();
+            }
+        }
+
+        public static int ToevoegenWedstrijdSpelers(Wedstrijd_Speler wedstrijd_Speler)
+        {
+            using (MunchkinEntities entities = new MunchkinEntities())
+            {
+                entities.Wedstrijd_Spelers.Add(wedstrijd_Speler);
+
+                return entities.SaveChanges();
+            }
+        }
     }
+
 }

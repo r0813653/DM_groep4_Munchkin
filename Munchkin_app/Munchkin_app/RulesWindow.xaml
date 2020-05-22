@@ -79,7 +79,7 @@ Kaarten die in het spel zijn mogen niet worden teruggenomen in je hand - ze moet
 <LineBreak/><LineBreak/>Als de kaarten de regels tegenspreken, dan zijn de kaarten leidend.
                 </TextBlock>
             </ScrollViewer>
-            <Button Style="{StaticResource CustomButton}" Grid.Row="2" FontSize="50" Content="Ga terug" Width="200" Margin="20"/>
+            <Button Style="{StaticResource CustomButton}" Grid.Row="2" FontSize="50" Content="Ga terug" Width="200" Margin="20" Click="Button_Click"/>
         </Grid>
     </ScrollViewer>
 </Window>
