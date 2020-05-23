@@ -20,26 +20,23 @@ namespace Munchkin_app
     /// </summary>
     public partial class UseCardWindow : Window
     {
-        int wedstrijd_Id;
         //monsterkaart op null zetten zodat je met een simpele if kan check of er een monster meegegeven is of niet
         Kaart monsterKaart = null;
 
         //wedstrijd id moet meegegeven worden om spelers te kunnen ophalen
-        public UseCardWindow(int wedstrijdId)
+        public UseCardWindow()
         {
             InitializeComponent();
-            wedstrijd_Id = wedstrijdId;
         }
 
         //als je in een gevecht zit moet er een monster meegegeven worden zodat daar ook kaarten op gespeeld kunnen worden
-        public UseCardWindow(int wedstrijdId, Kaart monster)
+        public UseCardWindow(Kaart monster)
         {
             InitializeComponent();
-            wedstrijd_Id = wedstrijdId;
             monsterKaart = monster;
         }
         List<Kaarten_Stapel> lijstHandkaartenGebruikskaarten = new List<Kaarten_Stapel>();
-
+        int wedstrijd_Id = GlobalVariables.WedstrijdId;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //spelers van deze wedstrij ophalen

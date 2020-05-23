@@ -11,6 +11,6 @@ namespace Munckin_DAL
         public static int indexer = 0;
         public static int WedstrijdId { get; set; }
         public static List<Wedstrijd_Speler> wedstrijd_Spelers = new List<Wedstrijd_Speler>();
-        public static Wedstrijd_Speler actieveSpeler= wedstrijd_Spelers[indexer];       
+        public static Wedstrijd_Speler actieveSpeler;    
     }
 }
