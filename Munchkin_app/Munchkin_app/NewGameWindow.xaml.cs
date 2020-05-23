@@ -342,7 +342,7 @@ namespace Munchkin_app
 
                 int gelukt = DatabaseOperations.ToevoegenWedstrijd(wedstrijd);
 
-               
+                GlobalVariables.WedstrijdId = wedstrijd.Id;
                 
                
                 //DatabaseOperations.ToevoegenWedstrijdSpelers(wedstrijd.Id);
@@ -365,11 +365,21 @@ namespace Munchkin_app
                         wedstrijd_Speler.Veldkaarten_Id = lijstIdSpelerVeldkaarten[0];
                         lijstIdSpelerVeldkaarten.Remove(lijstIdSpelerVeldkaarten[0]);
                         DatabaseOperations.ToevoegenWedstrijdSpelers(wedstrijd_Speler);
+
+                        GlobalVariables.wedstrijd_Spelers.Add(wedstrijd_Speler);
                     }                 
      
                 }
                 
             }
+
+            GlobalVariables.actieveSpeler = GlobalVariables.wedstrijd_Spelers[GlobalVariables.indexer];
+
+            MessageBox.Show(GlobalVariables.actieveSpeler.Id.ToString()) ;
+
+            GlobalVariables.indexer += 1;
+            MessageBox.Show(GlobalVariables.actieveSpeler.Id.ToString());
+          
 
             Fase1 fase1 = new Fase1();
             fase1.Show();

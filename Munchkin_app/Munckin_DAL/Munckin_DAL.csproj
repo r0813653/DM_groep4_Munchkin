@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="DatabaseOperations.cs" />
     <Compile Include="FileOperations.cs" />
+    <Compile Include="GlobalVariables.cs" />
     <Compile Include="Kaart.cs">
       <DependentUpon>MunchkinModel.tt</DependentUpon>
     </Compile>
