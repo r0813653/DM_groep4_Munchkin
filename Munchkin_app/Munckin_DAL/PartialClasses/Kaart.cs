@@ -1155,15 +1155,6 @@ namespace Munckin_DAL
                 //kaart naar aflegstapel kerkerkaarten doen
                 foutmelding += oudeKaartenStapel.KaartVanStapelWisselen(aflegstapelKerkerkaarten);
             }
-            // als alles tot nu toe gelukt is dan wedstrijd speler aanpassen
-            if (foutmelding == "")
-            {
-                int ok = DatabaseOperations.AanpassenKerkerkaart(monster.Kerkerkaart);
-                if (ok <= 0)
-                {
-                    foutmelding += "bonussen monster niet aangepast\n";
-                }
-            }
             if (string.IsNullOrEmpty(foutmelding))
             {
                 return $"Je hebt {Naam} gebruikt!";
