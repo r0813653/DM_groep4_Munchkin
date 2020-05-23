@@ -32,6 +32,18 @@ namespace Munckin_DAL
                 return "";
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Wedstrijd_Speler speler &&
+                   Id == speler.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 2108858624 + Id.GetHashCode();
+        }
+
         public void HerberekenBonussenVeldkaarten(Stapel veldkaarten)
         {
             
@@ -82,6 +94,10 @@ namespace Munckin_DAL
                 foutmelding += Error + Environment.NewLine;
             }
             return foutmelding;
+        }
+        public override string ToString()
+        {
+            return Speler.Naam;
         }
     }
 }
