@@ -182,22 +182,22 @@ namespace Munckin_DAL
         //        return query.ToList();
         //    }
         //}
-        public static int AanpassenKerkerkaart(Kerkerkaart kaart)
-        {
-            try
-            {
-                using (MunchkinEntities entities = new MunchkinEntities())
-                {
-                    entities.Entry(kaart).State = EntityState.Modified;
-                    return entities.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                FileOperations.FoutLoggen(ex);
-                return 0;
-            }
-        }
+        //public static int AanpassenKerkerkaart(Kerkerkaart kaart)
+        //{
+        //    try
+        //    {
+        //        using (MunchkinEntities entities = new MunchkinEntities())
+        //        {
+        //            entities.Entry(kaart).State = EntityState.Modified;
+        //            return entities.SaveChanges();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        FileOperations.FoutLoggen(ex);
+        //        return 0;
+        //    }
+        //}
         public static Wedstrijd OphalenWedstrijdViaId(int Id)
         {
             using (MunchkinEntities entities = new MunchkinEntities())

@@ -30,10 +30,12 @@
             <ComboBox x:Name="cmbKaarten" BorderBrush="#FFE21B1B" FontSize="25" IsEnabled="False" Foreground="#FF3C0900" SelectionChanged="cmbKaarten_SelectionChanged"></ComboBox>
         </StackPanel>
 
-        <StackPanel Margin="30" Grid.Row="1" Grid.Column="1">
-            <Label FontSize="30" HorizontalAlignment="Center">informatie kaart</Label>
-            <Image x:Name="imgKaart"  Source="images/queen.png" Height="267"></Image>
-        </StackPanel>
+        <ScrollViewer x:Name="scrollKaart" VerticalScrollBarVisibility="Auto" Margin="30" Grid.Row="1" Grid.Column="1">
+            <StackPanel  >
+                <Label FontSize="30" HorizontalAlignment="Center">informatie kaart</Label>
+                <Image x:Name="imgKaart"  Source="images/queen.png" Height="250"></Image>
+            </StackPanel>
+        </ScrollViewer>
 
         <StackPanel Grid.Row="1" Margin="30" Grid.Column="2">
             <Label FontSize="30" HorizontalAlignment="Center">Gebruik kaart op</Label>

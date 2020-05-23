@@ -81,6 +81,7 @@ namespace Munchkin_app
             var kaart = (Kaarten_Stapel)cmbKaarten.SelectedItem;
             string path = kaart.Kaart.Afbeelding;
             imgKaart.Source = new BitmapImage(new Uri(@path, UriKind.Relative));
+            imgKaart.Height = 400;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
