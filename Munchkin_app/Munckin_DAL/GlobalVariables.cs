@@ -9,6 +9,9 @@ namespace Munckin_DAL
     public static class GlobalVariables
     {      
         public static int indexer=0;
+        public static Wedstrijd wedstrijd;
+        public static List<Kerkerkaart> alleKerkerkaarten = new List<Kerkerkaart>(); 
+        public static List<Schatkaart> alleSchatkaarten = new List<Schatkaart>(); 
         public static int WedstrijdId { get; set; }
         public static List<Wedstrijd_Speler> wedstrijd_Spelers = new List<Wedstrijd_Speler>();
         public static Wedstrijd_Speler actieveSpeler;       

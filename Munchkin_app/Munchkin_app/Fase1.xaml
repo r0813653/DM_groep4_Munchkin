@@ -72,7 +72,7 @@
                 <Image x:Name="imgFeedslot" Source="images/Armour.png"  Margin="5" />
             </StackPanel>
 
-            <ListBox  x:Name="handkaartenGrid" Grid.ColumnSpan="8" Margin="0,117.8,0,231.6" Grid.RowSpan="5" Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" Width="512" Height="auto" >
+            <ListBox SelectionChanged="handkaartenGrid_SelectionChanged"  x:Name="handkaartenGrid" Grid.ColumnSpan="8" Margin="0,117.8,0,231.6" Grid.RowSpan="5" Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" Width="512" Height="auto" >
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"></StackPanel>

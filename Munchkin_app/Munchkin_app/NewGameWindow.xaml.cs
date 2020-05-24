@@ -343,7 +343,7 @@ namespace Munchkin_app
                 int gelukt = DatabaseOperations.ToevoegenWedstrijd(wedstrijd);
 
                 GlobalVariables.WedstrijdId = wedstrijd.Id;
-                
+                GlobalVariables.wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(wedstrijd.Id);
                
                 //DatabaseOperations.ToevoegenWedstrijdSpelers(wedstrijd.Id);
 

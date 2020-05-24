@@ -1,19 +1,9 @@
 ﻿using Munckin_DAL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Munchkin_app;
 
 
 namespace Munchkin_app
@@ -33,6 +23,9 @@ namespace Munchkin_app
            
             GlobalVariables.wedstrijd_Spelers = DatabaseOperations.OphalenWedstrijd_SpelersViaWedstrijdId(GlobalVariables.WedstrijdId);
             GlobalVariables.actieveSpeler = GlobalVariables.wedstrijd_Spelers[GlobalVariables.indexer];
+            GlobalVariables.alleKerkerkaarten = DatabaseOperations.OphalenKerkerkaarten();
+            GlobalVariables.alleSchatkaarten = DatabaseOperations.OphalenSchatkaarten();
+
             lblSpeler.Content = GlobalVariables.actieveSpeler.Speler.Naam;
             lblLevel.Content = GlobalVariables.actieveSpeler.Level;
             lblRas.Content = GlobalVariables.actieveSpeler.Ras;
@@ -57,6 +50,51 @@ namespace Munchkin_app
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void handkaartenGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (handkaartenGrid.SelectedItem is Image picture)
+            {
+                MessageBoxResult result = MessageBox.Show("Wil je deze kaart weggooien ?", "opgelet", MessageBoxButton.YesNo);
+
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        foreach (var handkaart in handkaartenSpeler)
+                        {
+                            if (picture.Source.ToString() == "pack://application:,,,/Munchkin_app;component/" + handkaart.Kaart.Afbeelding )
+                            {
+                                foreach (var kerkerkaart in GlobalVariables.alleKerkerkaarten)
+                                {
+                                    if (kerkerkaart.Id == handkaart.Kaart_Id)
+                                    {
+                                        MessageBox.Show("u made it so far voor handkaarten");
+                                        handkaart.KaartVanStapelWisselen(GlobalVariables.wedstrijd.Kerkerkaarten_Trekstapel);
+                                    }
+                                }
+
+                                foreach (var schatkaart in GlobalVariables.alleSchatkaarten)
+                                {
+                                    if (schatkaart.Id == handkaart.Kaart.Id)
+                                    {
+                                        MessageBox.Show("u made it so far voor schatkaarten");
+                                        handkaart.KaartVanStapelWisselen(GlobalVariables.wedstrijd.Kerkerkaarten_Trekstapel);
+                                    }
+                                }
+                                
+                                //handkaart.KaartVanStapelWisselen(GlobalVariables.wedstrijd.)
+                            }
+                        }
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                    default:
+                        break;
+                }
+
+
+            }
         }
     }
 }
