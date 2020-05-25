@@ -1,4 +1,4 @@
-﻿using Munchkin_MODELS;
+using Munchkin_MODELS;
 using Munckin_DAL;
 using System;
 using System.Collections.Generic;
@@ -366,14 +366,9 @@ namespace Munchkin_app
                         lijstIdSpelerVeldkaarten.Remove(lijstIdSpelerVeldkaarten[0]);
                         DatabaseOperations.ToevoegenWedstrijdSpelers(wedstrijd_Speler);
 
-                       
                     }                 
-     
-                }
-                
+                } 
             }
-
-           
             Fase1 fase1 = new Fase1();
             fase1.Show();
             this.Close();

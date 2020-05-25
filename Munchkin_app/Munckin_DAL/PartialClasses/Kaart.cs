@@ -994,6 +994,142 @@ namespace Munckin_DAL
                 return foutmelding;
             }
         }
+        public string KrijgVervloeking(Wedstrijd_Speler slachtoffer)
+        {
+            string foutmelding = "";
+            //aflegstapels ophalen
+            Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(slachtoffer.Wedstrijd_Id ?? default);
+            Stapel aflegstapelKerkerkaarten = DatabaseOperations.OphalenStapelViaId(wedstrijd.Kerkerkaarten_Aflegstapel_Id);
+            Stapel aflegstapelSchatkaarten = DatabaseOperations.OphalenStapelViaId(wedstrijd.Schatkaarten_Aflegstapel_Id);
+            //veldkaarten slachtoffer voor herberekenen bonussen
+            Stapel veldkaartenSlachtoffer = DatabaseOperations.OphalenStapelViaId(slachtoffer.Veldkaarten_Id);
+            //bonus kaart ophalen
+            List<Bonus> lijstBonussen = DatabaseOperations.OphalenBonussenViaKaartId(Id);
+            //checken waarop (negatieve)bonus en juiste actie doen
+            foreach (var bonus in lijstBonussen)
+            {
+                if (bonus.Waarop_Effect.ToUpper() == "LEVEL")
+                {
+                    //level aftrekken
+                    slachtoffer.Level += bonus.Waarde;
+                    if (slachtoffer.Level <= 0)
+                    {
+                        slachtoffer.Level = 1;
+                    }
+                }
+                //voorlopig alleen negatieve bonussen op level
+            }
+            //checken of je iets moet verliezen
+            if (Naam.ToUpper().Contains("VERLIES"))
+            {
+
+                //Ras verliezen
+                if (Naam.ToUpper().Contains("RAS"))
+                {
+                    slachtoffer.Ras = "Mens";
+                    //raskaart uit veldkaarten halen
+                    foreach (var kaarten_Stapel1 in veldkaartenSlachtoffer.Kaarten_Stapels)
+                    {
+                        int rasweg = 0;
+                        //check of er een raskaart in veldkaarten zit
+                        if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains("RAS"))
+                        {
+                            //Als er een ras in veldkaarten zit, die eruit halen en in aflegstapel kerkerkaarten steken
+                            foutmelding += kaarten_Stapel1.KaartVanStapelWisselen(aflegstapelKerkerkaarten);
+                            if (foutmelding == "")
+                            {
+                                rasweg += 1;
+                            }
+                        }
+                        if (rasweg > 0)
+                        {
+                            break;
+                        }
+                    }
+                }
+                //Als je harnas moet verliezen
+                else if (Naam.ToUpper().Contains("HARNAS"))
+                {
+                    foreach (var kaarten_Stapel1 in veldkaartenSlachtoffer.Kaarten_Stapels)
+                    {
+                        int harnasweg = 0;
+                        //check of er al een kaart van dit type in veldkaarten zit
+                        if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains("HARNAS"))
+                        {
+                            //Als er een harnas in veldkaarten zit, die eruit halen en in aflegstapel schatkaarten steken
+                            foutmelding += kaarten_Stapel1.KaartVanStapelWisselen(aflegstapelSchatkaarten);
+                            if (foutmelding == "")
+                            {
+                                harnasweg += 1;
+                            }
+                        }
+                        if (harnasweg > 0)
+                        {
+                            break;
+                        }
+                    }
+                }
+                //Als je hoofddeksel moet verliezen
+                else if (Naam.ToUpper().Contains("HOOFDDEKSEL"))
+                {
+                    foreach (var kaarten_Stapel1 in veldkaartenSlachtoffer.Kaarten_Stapels)
+                    {
+                        int hoofddekselweg = 0;
+                        //check of er al een kaart van dit type in veldkaarten zit
+                        if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains("HOOFDDEKSEL"))
+                        {
+                            //Als er een hoofddeksel in veldkaarten zit, die eruit halen en in aflegstapel schatkaarten steken
+                            foutmelding += kaarten_Stapel1.KaartVanStapelWisselen(aflegstapelSchatkaarten);
+                            if (foutmelding == "")
+                            {
+                                hoofddekselweg += 1;
+                            }
+                        }
+                        if (hoofddekselweg > 0)
+                        {
+                            break;
+                        }
+                    }
+                }
+                //als je je schoeisel moet verliezen
+                else if (Naam.ToUpper().Contains("SCHOEISEL"))
+                {
+                    foreach (var kaarten_Stapel1 in veldkaartenSlachtoffer.Kaarten_Stapels)
+                    {
+                        int schoeiselweg = 0;
+                        //check of er al een kaart van dit type in veldkaarten zit
+                        if (DatabaseOperations.OphalenType(kaarten_Stapel1.Kaart.Type_id).Soort.ToUpper().Contains("SCHOEISEL"))
+                        {
+                            //Als er schoenen in veldkaarten zitten, die eruit halen en in aflegstapel schatkaarten steken
+                            foutmelding += kaarten_Stapel1.KaartVanStapelWisselen(aflegstapelSchatkaarten);
+                            if (foutmelding == "")
+                            {
+                                schoeiselweg += 1;
+                            }
+                        }
+                        if (schoeiselweg > 0)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            //Checken of alle bonussen nog gelden en gevechtswaarde herberekenen
+            slachtoffer.HerberekenBonussenVeldkaarten(veldkaartenSlachtoffer);
+            // als alles tot nu toe gelukt is dan wedstrijd speler aanpassen
+            if (foutmelding == "")
+            {
+                foutmelding += slachtoffer.PasWedstrijd_SpelerAan();
+            }
+            if (string.IsNullOrEmpty(foutmelding))
+            {
+                return $"Je hebt {Naam} gebruikt!";
+            }
+            else
+            {
+                return foutmelding;
+            }
+        }
         public string SpeelGebruikskaart(Wedstrijd_Speler gebruiker)
         {
             string foutmelding = "";
