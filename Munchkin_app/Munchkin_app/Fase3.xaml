@@ -40,7 +40,7 @@
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto" ></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="2" Grid.ColumnSpan="4" Margin="0 -100 0 0" Grid.RowSpan="2">
+            <StackPanel Grid.Row="3" Grid.ColumnSpan="4" Margin="0 0 0 0" Grid.RowSpan="2">
                 <Button Style="{StaticResource CustomButton}" x:Name="btnVervloeking" Content="Vervloeking"  Height="50" Width="150" FontSize="20"></Button>
                 <Button Style="{StaticResource CustomButton}" x:Name="btnRuilen" Content="Ruilen"  Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
                 <Button Style="{StaticResource CustomButton}" x:Name="btnVerkopen" Content="Verkopen"   Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
@@ -54,36 +54,151 @@
             <StackPanel Grid.Row="1" Margin="50,0,0,0" Grid.ColumnSpan="4">
                 <Label x:Name="lblSpeler" Content="speler naam" FontSize="20"></Label>
                 <Label x:Name="lblLevel" Content="Level:" FontSize="20"></Label>
-                <Label x:Name="lblBonus" Content="Bonus:" FontSize="20"></Label>
+                <Label x:Name="lblGevechtsBonus" Content="Gevechts Bonus:" FontSize="20"></Label>
+                <Label x:Name="lblTijdelijkeBonus" Content="Tijdelijke Bonus:" FontSize="20"></Label>
                 <Label x:Name="lblRas" Content="Ras:" FontSize="20"></Label>
-                <Label x:Name="lblKlasse" Content="Klasse:" FontSize="20"></Label>
+                <Button x:Name="btnRas" Click="btnKaart_Click" HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
+                <Image x:Name="imgRas"   Grid.ColumnSpan="2" Height="150"   Visibility="Collapsed" >
+                    <Image.ToolTip>
+                        <Image Height="300" x:Name="toolTipRas"/>
+                    </Image.ToolTip>
+                </Image>
+                </Button>
             </StackPanel>
 
             <Image x:Name="imgItemManneke" Source="images/ItemManneke.png" Grid.ColumnSpan="5" Margin="10,10,33,26"  Grid.Column="8" Grid.Row="1" Grid.RowSpan="2"/>
             <StackPanel Grid.ColumnSpan="2" Grid.Column="6"  Grid.Row="1" Grid.RowSpan="2" Margin="0,0,31,51" >
-                <Image x:Name="imgHand1_1"   Grid.ColumnSpan="2" Height="100" Margin="5" Grid.Column="6"  Visibility="Collapsed"/>
-                <Image x:Name="imgHarnas"   Grid.ColumnSpan="2" Height="100" Margin="5" Grid.Column="13" Visibility="Collapsed"/>
-                <Image x:Name="imgHoofddeksel"   Grid.ColumnSpan="2" Height="100" Margin="5,5,4.8,5" Grid.Column="6"  Visibility="Collapsed" />
+                <Button x:Name="btnHoofddeksel"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHoofddeksel"   Grid.ColumnSpan="2" Height="100" Margin="5,5,4.8,5" Grid.Column="6"  Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHoofddeksel"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand1_1"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand1_1"   Grid.ColumnSpan="2" Height="100" Margin="5" Grid.Column="6"  Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand1_1"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnSchoeisel"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgSchoeisel"   Margin="5"  Height="100" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipSchoeisel"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
             </StackPanel>
             <StackPanel Grid.ColumnSpan="2" Grid.Column="13"  Grid.Row="1" Grid.RowSpan="2" Margin="0,0,36,46.8">
-                <Image x:Name="imgHand1_2"  Margin="5,5,5.2,5" Height="100" Visibility="Collapsed"/>
-                <Image x:Name="imgSchoeisel"   Margin="5"  Height="100" Visibility="Collapsed"/>
+                <Button x:Name="btnHarnas"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHarnas"   Grid.ColumnSpan="2" Height="100" Margin="5" Grid.Column="13" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHarnas"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand1_2"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand1_2"  Margin="5,5,5.2,5" Height="100" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand1_2"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
             </StackPanel>
 
             <WrapPanel   Grid.ColumnSpan="11" Margin="-10 -30 0 5"  Grid.Column="5" Grid.Row="3" HorizontalAlignment="Center" >
-                <Image x:Name="imgHand0"   Margin="5,5,0,5" Height="150" Visibility="Collapsed"/>
-                <Image x:Name="imgHand1"   Margin="5,5,0,5" Height="150" Visibility="Collapsed"/>
-                <Image x:Name="imgHand2"   Margin="5,5,0,5" Height="150" Visibility="Collapsed"/>
-                <Image x:Name="imgHand3"   Margin="5,5,0,5" Height="150" Visibility="Collapsed"/>
-                <Image x:Name="imgHand4"   Margin="5,5,0,5" Height="150" Visibility="Collapsed"/>
-                <Image x:Name="imgHand5"   Margin="5,5,0,5" Height="150" Visibility="Collapsed"/>
-                <Image x:Name="imgHand6"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" />
-                <Image x:Name="imgHand7"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" />
-                <Image x:Name="imgHand8"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" />
-                <Image x:Name="imgHand9"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" />
-                <Image x:Name="imgHand10"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" />
-                <Image x:Name="imgHand11"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" />
-                <Image x:Name="imgHand12"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" />
+                <Button x:Name="btnHand0"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click" Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand0"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand0"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand1"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand1"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand1"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand2"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click" Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand2"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand2"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand3"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand3"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand3"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand4"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand4"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand4"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand5"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand5"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand5"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand6"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click" Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand6"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand6"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand7"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand7"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand7"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand8"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click" Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand8"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand8"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand9"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand9"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand9"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand10"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click" Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand10"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand10"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand11"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click" Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand11"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand11"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand12"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand12"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand12"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
             </WrapPanel>
             <GroupBox Grid.Column="16" Grid.ColumnSpan="4" Margin="0,0,10,0" Grid.RowSpan="3" BorderBrush="#FF3C0900">
                 <GroupBox.Header>
@@ -91,12 +206,48 @@
                 </GroupBox.Header>
 
                 <WrapPanel Orientation="Horizontal" Grid.ColumnSpan="10" Grid.Column="6" Grid.Row="0" Margin="10,10,0,0">
-                    <Image x:Name="imgExtra0"   Grid.Column="7" Margin="5" Height="130" Visibility="Collapsed" />
-                    <Image x:Name="imgExtra1"   Grid.Column="8" Margin="5" Height="130" Visibility="Collapsed"/>
-                    <Image x:Name="imgExtra2"   Grid.Column="9" Margin="5" Height="130" Visibility="Collapsed"/>
-                    <Image x:Name="imgExtra3"   Grid.Column="10" Margin="5" Height="130" Visibility="Collapsed"/>
-                    <Image x:Name="imgExtra4"   Grid.Column="11" Margin="5" Height="130" Visibility="Collapsed"/>
-                    <Image x:Name="imgExtra5"   Grid.Column="12" Margin="5" Height="130" Visibility="Collapsed"/>
+                    <Button x:Name="btnExtra0"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                        <Image x:Name="imgExtra0"  Grid.Column="7" Margin="5" Height="130" Visibility="Collapsed" >
+                            <Image.ToolTip>
+                                <Image Height="300" x:Name="toolTipExtra0"/>
+                            </Image.ToolTip>
+                        </Image>
+                    </Button>
+                    <Button x:Name="btnExtra1"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                        <Image x:Name="imgExtra1"   Grid.Column="8" Margin="5" Height="130" Visibility="Collapsed">
+                            <Image.ToolTip>
+                                <Image Height="300" x:Name="toolTipExtra1"/>
+                            </Image.ToolTip>
+                        </Image>
+                    </Button>
+                    <Button x:Name="btnExtra2"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                        <Image x:Name="imgExtra2"   Grid.Column="9" Margin="5" Height="130" Visibility="Collapsed">
+                            <Image.ToolTip>
+                                <Image Height="300" x:Name="toolTipExtra2"/>
+                            </Image.ToolTip>
+                        </Image>
+                    </Button>
+                    <Button x:Name="btnExtra3"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                        <Image x:Name="imgExtra3"   Grid.Column="10" Margin="5" Height="130" Visibility="Collapsed">
+                            <Image.ToolTip>
+                                <Image Height="300" x:Name="toolTipExtra3"/>
+                            </Image.ToolTip>
+                        </Image>
+                    </Button>
+                    <Button x:Name="btnExtra4"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click" Background="Transparent" Margin="0" BorderThickness="0">
+                        <Image x:Name="imgExtra4"   Grid.Column="11" Margin="5" Height="130" Visibility="Collapsed">
+                            <Image.ToolTip>
+                                <Image Height="300" x:Name="toolTipExtra4"/>
+                            </Image.ToolTip>
+                        </Image>
+                    </Button>
+                    <Button x:Name="btnExtra5"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnKaart_Click"  Background="Transparent" Margin="0" BorderThickness="0">
+                        <Image x:Name="imgExtra5"   Grid.Column="12" Margin="5" Height="130" Visibility="Collapsed">
+                            <Image.ToolTip>
+                                <Image Height="300" x:Name="toolTipExtra5"/>
+                            </Image.ToolTip>
+                        </Image>
+                    </Button>
                 </WrapPanel>
             </GroupBox>
             <Label x:Name="lblHandKaarten" Content="Handkaarten" HorizontalAlignment="Center" FontSize="20" Grid.ColumnSpan="2" Margin="45,40,0,70" Grid.Column="3" Grid.Row="3" Width="84" />
