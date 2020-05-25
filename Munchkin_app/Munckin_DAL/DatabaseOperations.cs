@@ -219,6 +219,9 @@ namespace Munckin_DAL
             {
                 return entities.Kaarten_Stapels
                     .Include(x => x.Kaart)
+                    .Include(x => x.Kaart.Kerkerkaart)
+                    .Include(x => x.Kaart.Schatkaart)
+                    .Include(x => x.Kaart.Type)
                     .Where(p => p.Stapel_Id == stapelId)
                     .ToList();
             }
