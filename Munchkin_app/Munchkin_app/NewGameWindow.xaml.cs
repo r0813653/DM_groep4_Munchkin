@@ -369,9 +369,17 @@ namespace Munchkin_app
                     }                 
                 } 
             }
-            Fase1 fase1 = new Fase1();
-            fase1.Show();
-            this.Close();
+            if (string.IsNullOrWhiteSpace(foutmelding))
+            {
+                Fase1 fase1 = new Fase1();
+                fase1.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show(foutmelding);
+            }
+            
         }
     }
 }
