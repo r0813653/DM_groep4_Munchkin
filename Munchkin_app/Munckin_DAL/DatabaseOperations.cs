@@ -207,10 +207,8 @@ namespace Munckin_DAL
                             .Include(a => a.Kerkerkaarten_Aflegstapel)
                             .Include(b => b.Schatkaarten_Aflegstapel)
                             .Include(c => c.Schatkaarten_Aflegstapel.Kaarten_Stapels)
-                            .Include(a => a.Kerkerkaarten_Aflegstapel);
-
-
-
+                            .Include(d => d.Schatkaarten_Trekstapel)
+                            .Include(e => e.Kerkerkaarten_Trekstapel);
 
                 return query.SingleOrDefault();
             }

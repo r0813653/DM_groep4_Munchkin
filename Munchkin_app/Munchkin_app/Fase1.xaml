@@ -79,16 +79,13 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
-            <WrapPanel   Grid.ColumnSpan="9" Margin="58,0.2,10,69.4" Grid.Column="5" Grid.Row="6" HorizontalAlignment="Center">
-                <Image x:Name="imgVeld1"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" Visibility="Collapsed" />
-                <Image x:Name="imgVeld2"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" Visibility="Collapsed" />
-                <Image x:Name="imgVeld3"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" Visibility="Collapsed" />
-                <Image x:Name="imgVeld4"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
-                <Image x:Name="imgVeld5"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
-                <Image x:Name="imgVeld6"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
-                <Image x:Name="imgVeld7"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
-                <Image x:Name="imgVeld8"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
-            </WrapPanel>
+            <ListBox x:Name="veldkaartenGrid" SelectionChanged="veldkaartenGrid_SelectionChanged" Grid.ColumnSpan="8" Margin="0,0.4,0,69.6" Grid.Column="6" Grid.Row="6" HorizontalAlignment="Center" Width="512" Height="auto">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
             <GroupBox Grid.Column="16" Grid.ColumnSpan="4" Margin="0,0,10,219.6" Grid.RowSpan="7" BorderBrush="#FF3C0900">
                 <GroupBox.Header>
                     <Label FontSize="20">Extra items</Label>

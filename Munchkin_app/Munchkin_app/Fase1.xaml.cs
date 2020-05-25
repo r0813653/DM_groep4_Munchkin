@@ -17,6 +17,9 @@ namespace Munchkin_app
 
 
         List<Kaarten_Stapel> handkaartenSpeler = new List<Kaarten_Stapel>();
+        List<Kaarten_Stapel> veldkaartenSpeler = new List<Kaarten_Stapel>();
+        List<Image> imagesHandkaartenSpeler = new List<Image>();
+        List<Image> imagesVeldkaartenSpeler = new List<Image>();
         public Fase1()
         {
             InitializeComponent();
@@ -30,7 +33,7 @@ namespace Munchkin_app
             lblLevel.Content = GlobalVariables.actieveSpeler.Level;
             lblRas.Content = GlobalVariables.actieveSpeler.Ras;
 
-            List<Image> images = new List<Image>();
+            
 
             handkaartenSpeler = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Handkaarten_Id);
             foreach (var handkaart in handkaartenSpeler)
@@ -39,12 +42,22 @@ namespace Munchkin_app
                 Uri uri = new Uri(handkaart.Kaart.Afbeelding, UriKind.Relative);
                 picture.Source = new BitmapImage(uri);
 
-                images.Add(picture);
+                imagesHandkaartenSpeler.Add(picture);
                 
             }
-            handkaartenGrid.ItemsSource = images;
+            handkaartenGrid.ItemsSource = imagesHandkaartenSpeler;
 
+            veldkaartenSpeler = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Veldkaarten_Id);
+            foreach (var veldkaart in veldkaartenSpeler)
+            {
+                Image picture = new Image();
+                Uri uri = new Uri(veldkaart.Kaart.Afbeelding, UriKind.Relative);
+                picture.Source = new BitmapImage(uri);
 
+                imagesVeldkaartenSpeler.Add(picture);
+
+            }
+            veldkaartenGrid.ItemsSource = imagesHandkaartenSpeler;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -69,8 +82,20 @@ namespace Munchkin_app
                                 {
                                     if (kerkerkaart.Id == handkaart.Kaart_Id)
                                     {
-                                        MessageBox.Show("u made it so far voor handkaarten");
-                                        handkaart.KaartVanStapelWisselen(GlobalVariables.wedstrijd.Kerkerkaarten_Trekstapel);
+                                       
+                                        handkaart.KaartVanStapelWisselen(GlobalVariables.wedstrijd.Kerkerkaarten_Aflegstapel);
+                                        handkaartenSpeler = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Handkaarten_Id);
+                                        imagesHandkaartenSpeler.Clear();
+                                        foreach (var kaart in handkaartenSpeler)
+                                        {
+                                            Image foto = new Image();
+                                            Uri uri = new Uri(handkaart.Kaart.Afbeelding, UriKind.Relative);
+                                            picture.Source = new BitmapImage(uri);
+
+                                            imagesHandkaartenSpeler.Add(foto);
+
+                                        }
+                                        handkaartenGrid.ItemsSource = imagesHandkaartenSpeler;
                                     }
                                 }
 
@@ -78,12 +103,24 @@ namespace Munchkin_app
                                 {
                                     if (schatkaart.Id == handkaart.Kaart.Id)
                                     {
-                                        MessageBox.Show("u made it so far voor schatkaarten");
-                                        handkaart.KaartVanStapelWisselen(GlobalVariables.wedstrijd.Kerkerkaarten_Trekstapel);
+                                       
+                                        handkaart.KaartVanStapelWisselen(GlobalVariables.wedstrijd.Schatkaarten_Aflegstapel);
+                                        handkaartenSpeler = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Handkaarten_Id);
+                                        imagesHandkaartenSpeler.Clear();
+                                        foreach (var kaart in handkaartenSpeler)
+                                        {
+                                            Image foto1 = new Image();
+                                            Uri uri = new Uri(handkaart.Kaart.Afbeelding, UriKind.Relative);
+                                            picture.Source = new BitmapImage(uri);
+
+                                            imagesHandkaartenSpeler.Add(foto1);
+
+                                        }
+                                        handkaartenGrid.ItemsSource = imagesHandkaartenSpeler;
                                     }
                                 }
                                 
-                                //handkaart.KaartVanStapelWisselen(GlobalVariables.wedstrijd.)
+                               
                             }
                         }
                         break;
@@ -95,6 +132,11 @@ namespace Munchkin_app
 
 
             }
+        }
+
+        private void veldkaartenGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
