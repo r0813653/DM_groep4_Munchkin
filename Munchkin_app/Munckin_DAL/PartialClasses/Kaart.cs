@@ -1210,7 +1210,7 @@ namespace Munckin_DAL
                 }
             }
         }
-
+        
         public override string ToString()
         {
             return Naam;
