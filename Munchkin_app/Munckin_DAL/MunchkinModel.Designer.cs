@@ -1,5 +1,4 @@
-// T4 code generation is enabled for model 'C:\Users\Jensv\OneDrive\Bureaublad\Datamodellering\Datamodellering_projectwerk\DM_groep4_Munchkin\Munchkin_app\Munckin_DAL\MunchkinModel.edmx'. 
-
+﻿// T4 code generation is enabled for model 'C:\Users\Jensv\OneDrive\Bureaublad\Munchkin_SPEL\DM_groep4_Munchkin\Munchkin_app\Munckin_DAL\MunchkinModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

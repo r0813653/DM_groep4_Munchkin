@@ -1,4 +1,4 @@
-﻿using Munchkin_MODELS;
+using Munchkin_MODELS;
 using Munckin_DAL;
 using System;
 using System.Collections.Generic;
@@ -343,7 +343,7 @@ namespace Munchkin_app
                 int gelukt = DatabaseOperations.ToevoegenWedstrijd(wedstrijd);
 
                 GlobalVariables.WedstrijdId = wedstrijd.Id;
-                
+                GlobalVariables.wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(wedstrijd.Id);
                
                 //DatabaseOperations.ToevoegenWedstrijdSpelers(wedstrijd.Id);
 

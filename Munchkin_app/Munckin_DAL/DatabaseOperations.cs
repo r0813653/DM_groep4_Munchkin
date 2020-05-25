@@ -203,7 +203,13 @@ namespace Munckin_DAL
             using (MunchkinEntities entities = new MunchkinEntities())
             {
                 var query = entities.Wedstrijden
-                            .Where(x => x.Id == Id);
+                            .Where(x => x.Id == Id)
+                            .Include(a => a.Kerkerkaarten_Aflegstapel)
+                            .Include(b => b.Schatkaarten_Aflegstapel)
+                            .Include(c => c.Schatkaarten_Aflegstapel.Kaarten_Stapels)
+                            .Include(d => d.Schatkaarten_Trekstapel)
+                            .Include(e => e.Kerkerkaarten_Trekstapel);
+
                 return query.SingleOrDefault();
             }
         }
