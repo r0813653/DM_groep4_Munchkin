@@ -1,4 +1,5 @@
 ﻿using Munckin_DAL;
+using Munchkin_MODELS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,17 +24,27 @@ namespace Munchkin_app
         public Fase3()
         {
             InitializeComponent();
+            //Enkel nodig om te testen zonder door fase1 te gaan
+            GlobalVariables.wedstrijd_Spelers = DatabaseOperations.OphalenWedstrijd_SpelersViaWedstrijdId(GlobalVariables.WedstrijdId);
+            GlobalVariables.actieveSpeler = GlobalVariables.wedstrijd_Spelers[GlobalVariables.indexer];
         }
-        //List<Kaarten_Stapel> handkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Handkaarten_Id);
-        //List<Kaarten_Stapel> veldkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Veldkaarten_Id);
-        //Stapel aflegstapelKerkerkaarten = DatabaseOperations.OphalenStapelViaId(GlobalVariables.wedstrijd.Kerkerkaarten_Aflegstapel_Id);
-        //Stapel aflegstapelSchatkaarten = DatabaseOperations.OphalenStapelViaId(GlobalVariables.wedstrijd.Schatkaarten_Aflegstapel_Id);
-        List<Kaarten_Stapel> handkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(671);
-        List<Kaarten_Stapel> veldkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(672);
-        Stapel aflegstapelKerkerkaarten = DatabaseOperations.OphalenStapelViaId(3);
-        Stapel aflegstapelSchatkaarten = DatabaseOperations.OphalenStapelViaId(4);
+
+        List<Kaarten_Stapel> handkaarten_stapels = new List<Kaarten_Stapel>();
+        List<Kaarten_Stapel> veldkaarten_stapels = new List<Kaarten_Stapel>();
+        Stapel veldkaarten = new Stapel();
+        Stapel aflegstapelKerkerkaarten = new Stapel();
+        Stapel aflegstapelSchatkaarten = new Stapel();
+        Wedstrijd_Speler speler = new Wedstrijd_Speler();
+        bool showCards = true;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            handkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Handkaarten_Id);
+            veldkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Veldkaarten_Id);
+            aflegstapelKerkerkaarten = DatabaseOperations.OphalenStapelViaId(GlobalVariables.wedstrijd.Kerkerkaarten_Aflegstapel_Id);
+            aflegstapelSchatkaarten = DatabaseOperations.OphalenStapelViaId(GlobalVariables.wedstrijd.Schatkaarten_Aflegstapel_Id);
+            lblSpeler.Content = GlobalVariables.actieveSpeler.Speler.Naam;
+            speler = DatabaseOperations.OphalenWedstrijd_SpelerViaId(GlobalVariables.actieveSpeler.Id);
+            LabelsVeranderen();
             ShowHandkaarten();
             ShowVeldkaarten();
 
@@ -51,6 +62,35 @@ namespace Munchkin_app
             {
                 Image img = this.FindName("imgHand" + i) as Image;
                 string path = handkaarten_stapels[i].Kaart.Afbeelding;
+                img.Source = new BitmapImage(new Uri(@path, UriKind.Relative));
+                img.Visibility = Visibility.Visible;
+                Image tooltip = this.FindName("toolTipHand" + i) as Image;
+                tooltip.Source = new BitmapImage(new Uri(@path, UriKind.Relative));
+                Button btn = this.FindName("btnHand" + i) as Button;
+                btn.Tag = handkaarten_stapels[i];
+            }
+        }
+
+        private void HideHandkaarten()
+        {
+            for (int i = 0; i < 13; i++)
+            {
+                Image img = this.FindName("imgHand" + i) as Image;
+                img.Visibility = Visibility.Collapsed;
+
+            }
+            for (int i = 0; i < handkaarten_stapels.Count(); i++)
+            {
+                string path = "";
+                Image img = this.FindName("imgHand" + i) as Image;
+                if (handkaarten_stapels[i].Kaart.Kerkerkaart == null)
+                {
+                    path = "images/Schatkaart.png";
+                }
+                else
+                {
+                    path = "images/Kerkerkaart.png";
+                }
                 img.Source = new BitmapImage(new Uri(@path, UriKind.Relative));
                 img.Visibility = Visibility.Visible;
                 Image tooltip = this.FindName("toolTipHand" + i) as Image;
@@ -143,7 +183,7 @@ namespace Munchkin_app
             }
         }
 
-        private void btnKaart_Click(object sender, RoutedEventArgs e)
+        private void btnKaart_ClickRight(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Wil je deze kaart weggooien ?", "opgelet", MessageBoxButton.YesNo);
 
@@ -151,7 +191,24 @@ namespace Munchkin_app
             {
                 case MessageBoxResult.Yes:
                     Kaarten_Stapel kaarten_Stapel = (Kaarten_Stapel)((Button)sender).Tag;
-                    if (kaarten_Stapel.Kaart.Kerkerkaart == null)
+                    if (kaarten_Stapel.Kaart.Type.Soort.ToUpper() == "RAS")
+                    {
+                        speler.Ras = "Mens";
+                        if (speler.IsGeldig())
+                        {
+                            int ok = DatabaseOperations.AanpassenWedstrijd_Speler(speler);
+                            if (ok <= 0)
+                            {
+                                MessageBox.Show("Je bent niet van ras kunnen veranderen");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show(speler.Error);
+                        }
+
+                    }
+                    if (kaarten_Stapel.Kaart.Schatkaart == null)
                     {
                         kaarten_Stapel.KaartVanStapelWisselen(aflegstapelSchatkaarten);
                     }
@@ -159,8 +216,12 @@ namespace Munchkin_app
                     {
                         kaarten_Stapel.KaartVanStapelWisselen(aflegstapelKerkerkaarten);
                     }
-                    handkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(671);
-                    veldkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(672);
+                    
+                    handkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Handkaarten_Id);
+                    veldkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Veldkaarten_Id);
+                    veldkaarten = DatabaseOperations.OphalenStapelViaId(GlobalVariables.actieveSpeler.Veldkaarten_Id);
+                    speler.HerberekenBonussenVeldkaarten(veldkaarten);
+                    LabelsVeranderen();
                     ShowVeldkaarten();
                     ShowHandkaarten();
                     break;
@@ -169,6 +230,142 @@ namespace Munchkin_app
                 default:
                     break;
 
+            }
+        }
+
+        private void btnVervloeking_Click(object sender, RoutedEventArgs e)
+        {
+            CurseWindow curseWindow = new CurseWindow();
+            curseWindow.Show();
+        }
+
+        private void btnKaart_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Wil je deze kaart aan je veldkaarten toevoegen of gebruiken?", "opgelet", MessageBoxButton.YesNo);
+
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    Kaarten_Stapel kaarten_Stapel = (Kaarten_Stapel)((Button)sender).Tag;
+                    if (kaarten_Stapel.Kaart.Type.Soort.ToUpper() == "RAS" || kaarten_Stapel.Kaart.Type.Soort.ToUpper() == "HOOFDDEKSEL" || kaarten_Stapel.Kaart.Type.Soort.ToUpper() == "SCHOEISEL" || kaarten_Stapel.Kaart.Type.Soort.ToUpper() == "HARNAS" || kaarten_Stapel.Kaart.Type.Soort.ToUpper() == "EXTRA" || kaarten_Stapel.Kaart.Type.Soort.ToUpper() == "1HAND" || kaarten_Stapel.Kaart.Type.Soort.ToUpper() == "2HANDEN")
+                    {
+                        string message = kaarten_Stapel.Kaart.SpeelKaart(speler);
+                        handkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Handkaarten_Id);
+                        veldkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Veldkaarten_Id);
+                        ShowVeldkaarten();
+                        ShowHandkaarten();
+                        LabelsVeranderen();
+                        MessageBox.Show(message);
+                    }
+                    else if (kaarten_Stapel.Kaart.Type.Soort.ToUpper() == "GEBRUIKSKAARTEN" && kaarten_Stapel.Kaart.Wanneer_Bruikbaar.ToUpper() == "ALTIJD")
+                    {
+                        string message = kaarten_Stapel.Kaart.SpeelKaart(speler);
+                        handkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Handkaarten_Id);
+                        veldkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Veldkaarten_Id);
+                        ShowVeldkaarten();
+                        ShowHandkaarten();
+                        LabelsVeranderen();
+                        MessageBox.Show(message);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Je kan deze kaart niet op deze manier gebruiken");
+                    }
+                    break;
+                case MessageBoxResult.No:
+                    break;
+                default:
+                    break;
+
+            }
+        }
+
+        private void btnRuilen_Click(object sender, RoutedEventArgs e)
+        {
+            TradeWindow tradeWindow = new TradeWindow();
+            tradeWindow.Show();
+        }
+
+        private void btnVerkopen_Click(object sender, RoutedEventArgs e)
+        {
+            SellWindow sellWindow = new SellWindow();
+            sellWindow.Show();
+        }
+
+        private void btnSpelers_Click(object sender, RoutedEventArgs e)
+        {
+            ViewPlayerWindow viewPlayerWindow = new ViewPlayerWindow();
+            viewPlayerWindow.Show();
+        }
+
+        private void btnVerstopKaarten_Click(object sender, RoutedEventArgs e)
+        {
+            if (showCards == true)
+            {
+                HideHandkaarten();
+                showCards = false;
+            }
+            else
+            {
+                ShowHandkaarten();
+                showCards = true;
+            }
+        }
+
+        private void LabelsVeranderen()
+        {
+            lblLevel.Content = $"Level: {speler.Level}";
+            lblGevechtsBonus.Content = $"Gevechts Bonus: {speler.Gevechtsbonus}";
+            lblRas.Content = $"Ras: {speler.Ras}";
+            lblTijdelijkeBonus.Content = $"Tijdelijke Bonus: {speler.Tijdelijke_Bonus}";
+            lblVluchtsBonus.Content = $"Vlucht Bonus: {speler.Vluchtbonus}";
+        }
+
+        private void btnEindeBeurt_Click(object sender, RoutedEventArgs e)
+        {
+            int aantalKaarten = 5;
+            if (speler.Ras.ToUpper() == "DWERG")
+            {
+                aantalKaarten = 6;
+            }
+            if (handkaarten_stapels.Count() <= aantalKaarten)
+            {
+                List<Wedstrijd_Speler> spelers = DatabaseOperations.OphalenWedstrijd_SpelersViaWedstrijdId(GlobalVariables.WedstrijdId);
+                foreach (Wedstrijd_Speler speler in spelers)
+                {
+                    speler.Tijdelijke_Bonus = 0;
+                    if (speler.IsGeldig())
+                    {
+                        int ok = DatabaseOperations.AanpassenWedstrijd_Speler(speler);
+                        if (ok <= 0)
+                        {
+                            MessageBox.Show("Je bent niet van ras kunnen veranderen");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show(speler.Error);
+                    }
+                }
+                GlobalVariables.indexer += 1;
+                if (GlobalVariables.indexer >= GlobalVariables.wedstrijd_Spelers.Count() - 1)
+                {
+                    GlobalVariables.indexer = 0;
+                }
+                
+                Stapel trekstapelKerkerkaarten = DatabaseOperations.OphalenStapelViaId(GlobalVariables.wedstrijd.Kerkerkaarten_Trekstapel_Id);
+                Stapel trekstapelSchatkaarten = DatabaseOperations.OphalenStapelViaId(GlobalVariables.wedstrijd.Schatkaarten_Trekstapel_Id);
+                trekstapelKerkerkaarten.kerkerkaartTrekstapelsChecken();
+                trekstapelSchatkaarten.schatkaartTrekstapelChecken();
+
+                Fase1 fase1 = new Fase1();
+                fase1.Show();
+                this.Close();
+
+            }
+            else
+            {
+                MessageBox.Show($"Je mag maar {aantalKaarten} in je hand hebben, gelieve er eerst weg te doen");
             }
         }
     }

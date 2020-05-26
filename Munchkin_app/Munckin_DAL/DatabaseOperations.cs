@@ -103,7 +103,8 @@ namespace Munckin_DAL
             using (MunchkinEntities entities = new MunchkinEntities())
             {
                 var query = entities.Wedstrijd_Spelers
-                              .Where(x => x.Id == id);
+                            .Include(x => x.Speler)
+                            .Where(x => x.Id == id);
                 return query.SingleOrDefault();
             }
         }
