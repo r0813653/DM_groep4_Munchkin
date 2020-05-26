@@ -23,6 +23,8 @@ namespace Munchkin_app
         public CurseWindow()
         {
             InitializeComponent();
+            GlobalVariables.wedstrijd_Spelers = DatabaseOperations.OphalenWedstrijd_SpelersViaWedstrijdId(GlobalVariables.WedstrijdId);
+            GlobalVariables.actieveSpeler = GlobalVariables.wedstrijd_Spelers[GlobalVariables.indexer];
         }
         Wedstrijd_Speler ActieveSpeler = new Wedstrijd_Speler();
         List<Wedstrijd_Speler> LijstSpelers = new List<Wedstrijd_Speler>();
