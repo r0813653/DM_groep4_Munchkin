@@ -2,7 +2,6 @@ Rassen: check
 Je kan ras toevoegen je krijgt een string terug met een bericht of het gelukt is of niet
 Het werkt alleen als je Mens bent, anders krijg je melding dat je je ras eerst moet afleggen.
 Meeste dingen moeten in de schermen geprogrammeerd worden nl.:
--	als dwerg kan je 6 kaarten op hand hebben en onbeperkt aantal grote voorwerpen dragen
 -	als hafling mag je 1 kaart per beurt verkopen voor het dubbele van de prijs en als je vluchtpoging niet lukt mag je nog een keer proberen als je 1 kaart aflegt
 Je kan aan het ras door Wedstrijd_Speler.Ras op te vragen
 Als je van ras veranderd checkt het al je bonussen terug opnieuw want je had miss nog iets liggen dat enkel voor je ras vorige ras telde
@@ -10,20 +9,19 @@ Als je van ras veranderd checkt het al je bonussen terug opnieuw want je had mis
 Equipment: check
 Je kan equipen ook als je niet het ras bent dat nodig is maar dan wordt je bonus niet toegevoegd ( gelijk aan het echte spel)
 
+
+
 BIJ SCHERMEN MOET JE NOG CHECKEN OF JE DE KAART MAG GEBRUIKEN IN DIE FASE bv in gevecht
-Tijdelijke bonus van de speler op het einde van de beurt altijd leegmaken, van alle spelers
 tijdelijke bonus monster altijd leegmaken als die afgelegt wordt.
-Als trekstapel leeg is moet de aflegstapel geschud worden en terug in de trekstapel komen
-Bij use card pas targets laten zien als dit meegegeven moet worden
+
 ONDOOD MONSTER mag je bij andere monsters leggen zonder rondzwervend monster (doen of niet?) indien wel rondzwervend monster nog programmeren
-in scherm programmeren dat je de gebruikskaarten met bonus effect op monster enkel een monster als target kan kiezen
-Speler Dood
+
+
 vechtmonster functie, als er een helper is is het dezelfde functie met de helper als extra parameter.
 helper krijgt helft van de schatkaarten ( afgerond naar boven)
 vlucht monster, als er geholpen is moet je de functie nog eens oproepen voor de tweede speler
 
 vechtmonster haalt de kaart niet uit de trekstapel, steekt deze wel in de aflegstapel
 
-Als je een vervloeking trekt deze eerst sowieso in handkaarten steken, ook al wordt die direct gebruikt
-
-usecard als target hetzelfde is als de gebruiker speelkaart met enkel gebruiker meegeven, niet gebruiker en slachtoffer
+Aantal_schatten van een monster waar bv een baby op gespeeld is is te laag.
+Als je een vervloeking trekt deze in het scherm van stapel verwisselen

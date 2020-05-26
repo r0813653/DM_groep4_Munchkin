@@ -103,7 +103,8 @@ namespace Munckin_DAL
             using (MunchkinEntities entities = new MunchkinEntities())
             {
                 var query = entities.Wedstrijd_Spelers
-                              .Where(x => x.Id == id);
+                            .Include(x => x.Speler)
+                            .Where(x => x.Id == id);
                 return query.SingleOrDefault();
             }
         }
@@ -219,6 +220,9 @@ namespace Munckin_DAL
             {
                 return entities.Kaarten_Stapels
                     .Include(x => x.Kaart)
+                    .Include(x => x.Kaart.Kerkerkaart)
+                    .Include(x => x.Kaart.Schatkaart)
+                    .Include(x => x.Kaart.Type)
                     .Where(p => p.Stapel_Id == stapelId)
                     .ToList();
             }
