@@ -336,11 +336,6 @@ namespace Munchkin_app
             ShowVeldkaarten();
         }
 
-        private void btnVolgendeFase_Click(object sender, RoutedEventArgs e)
-        {
-            Fase2 fase = new Fase2();
-            fase.Show();
-            this.Close();
-        }
+        
     }
 }
