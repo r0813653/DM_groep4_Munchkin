@@ -47,6 +47,8 @@ namespace Munckin_DAL
                 return 0;
             }
         }
+
+        
         //Voorlopig niet nodig denk ik - voor de zekerheid ff commentaar ipv weg
         //public static Kaart OphalenKaartViaKaartIdMetBonusEnType(int kaartId)
         //{
