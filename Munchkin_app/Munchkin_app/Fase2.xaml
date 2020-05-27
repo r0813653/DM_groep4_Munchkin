@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Munchkin_app"
         mc:Ignorable="d"
-         Title="Fase3" Height="800" Width="1280" FontFamily="fonts/#Victoriana">
+         Title="Fase2" Height="800" Width="1280" FontFamily="fonts/#Victoriana" Loaded="Window_Loaded" Activated="Window_Activated">
     <Window.Background>
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
     </Window.Background>
@@ -34,20 +34,20 @@
                 <ColumnDefinition Width="88"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"></RowDefinition>
-                <RowDefinition Height="200" ></RowDefinition>
-                <RowDefinition Height="140"></RowDefinition>
-                <RowDefinition Height="140"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto" ></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto" ></RowDefinition>
+
+
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="2">
-                <Button Style="{StaticResource CustomButton}" x:Name="btnVervloeking" Content="Vervloeking"  Height="50" Width="150" FontSize="20"></Button>
-                <Button Style="{StaticResource CustomButton}" x:Name="btnRuilen" Content="Ruilen"  Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
-                <Button Style="{StaticResource CustomButton}" x:Name="btnVerkopen" Content="Verkopen"   Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
-                <Button Style="{StaticResource CustomButton}" x:Name="btnSpelers" Content="Spelers"   Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
-                <Button Style="{StaticResource CustomButton}" x:Name="btnVerstopKaarten" Content="verstop/laat zien"  Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
+            <StackPanel Grid.Row="3" Grid.ColumnSpan="4" Margin="0 0 0 0" Grid.RowSpan="2">
+                <Button Style="{StaticResource CustomButton}"  x:Name="btnVervloeking" Content="Vervloeking"  Height="50" Width="150" FontSize="20" Click="btnVervloeking_Click"></Button>
+                <Button Style="{StaticResource CustomButton}" x:Name="btnRuilen" Content="Ruilen"  Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20" Click="btnRuilen_Click"></Button>
+                <Button Style="{StaticResource CustomButton}" x:Name="btnVerkopen" Content="Verkopen"   Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20" Click="btnVerkopen_Click"></Button>
+                <Button Style="{StaticResource CustomButton}" x:Name="btnSpelers" Content="Spelers"   Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20" Click="btnSpelers_Click"></Button>
+                <Button Style="{StaticResource CustomButton}" x:Name="btnVerstopKaarten" Content="verstop/laat zien"  Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20" Click="btnVerstopKaarten_Click"></Button>
             </StackPanel>
             <StackPanel Grid.Row="6" Grid.Column="16" Grid.ColumnSpan="4" Margin="55,70,10,-70">
                 <Label x:Name="lblFase" Content="2/3" HorizontalAlignment="Center" FontSize="20" ></Label>
@@ -56,48 +56,236 @@
             <StackPanel Grid.Row="1" Margin="50,0,0,0" Grid.ColumnSpan="4">
                 <Label x:Name="lblSpeler" Content="speler naam" FontSize="20"></Label>
                 <Label x:Name="lblLevel" Content="Level:" FontSize="20"></Label>
-                <Label x:Name="lblBonus" Content="Bonus:" FontSize="20"></Label>
+                <Label x:Name="lblGevechtsBonus" Content="Gevechts Bonus:" FontSize="20"></Label>
+                <Label x:Name="lblVluchtsBonus" Content="Vlucht Bonus:" FontSize="20"></Label>
+                <Label x:Name="lblTijdelijkeBonus" Content="Tijdelijke Bonus:" FontSize="20"></Label>
                 <Label x:Name="lblRas" Content="Ras:" FontSize="20"></Label>
-                <Label x:Name="lblKlasse" Content="Klasse:" FontSize="20"></Label>
+                <Button x:Name="btnRas" MouseRightButtonUp="btnHand0_MouseRightButtonUp" HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgRas"   Grid.ColumnSpan="2" Height="150"   Visibility="collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipRas"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="5" Grid.RowSpan="2" Margin="20,10,45,30" Visibility="Visible">
-                <Button Style="{StaticResource CustomButton}" x:Name="btnVechten" Content="Vechten"  Height="50" Width="150" FontSize="20"></Button>
-                <Button Style="{StaticResource CustomButton}" x:Name="btnVraagHulp" Content="Vraag om hulp"  Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
-                <Button Style="{StaticResource CustomButton}" x:Name="btnVluchten" Content="Vluchten"   Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
-                <Button Style="{StaticResource CustomButton}" x:Name="btnGebruiksvoorwerpen" Content="Gebruiksvoorwerpen"   Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
+                <Button Style="{StaticResource CustomButton}" x:Name="btnVechten" Content="Vechten"  Height="50" Width="150" FontSize="20" Click="btnVechten_Click"></Button>
+                <Button Style="{StaticResource CustomButton}" x:Name="btnVraagHulp" Content="Vraag om hulp"  Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20" Click="btnVraagHulp_Click"></Button>
+                <Button Style="{StaticResource CustomButton}" x:Name="btnVluchten" Content="Vluchten"   Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20" Click="btnVluchten_Click"></Button>
+                <Button Style="{StaticResource CustomButton}" x:Name="btnGebruiksvoorwerpen" Content="Gebruiksvoorwerpen"   Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20" Click="btnGebruiksvoorwerpen_Click"></Button>
             </StackPanel>
-            <StackPanel Grid.Column="16" Grid.ColumnSpan="4" Grid.Row="1" Margin="0,0,0,130" Grid.RowSpan="2" >
-                <Label x:Name="lblDobbelsteenGetal" Content="Aantal:" FontSize="26" ></Label>
-                <Image x:Name="imgDobbelsteen"  Source="images/Dice.png" Margin="30,0,45,10" Height="180"  />
-            </StackPanel>
+            <WrapPanel x:Name="StPDobbelsteen" Grid.Column="16" Grid.ColumnSpan="4" Grid.Row="1" Margin="0,0,0,0" Grid.RowSpan="2" Visibility="Hidden">
+                <Label x:Name="lblAantal" Content="Aantal:" FontSize="26"></Label>
+                <Label x:Name="lblGedobbeld" Content="" FontSize="26"></Label>
+                <Button x:Name="btnDobbelSteen" Click="Dobbelsteen_click" Height="190" Width="200" Background="Transparent" >
+                    <Image x:Name="imgDobbelsteen" Source="images/dice.png" ></Image>
+                </Button>
+            </WrapPanel>
 
 
-            <WrapPanel Grid.Column="7" Margin="20,0,55,105" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="2">
-                <Image x:Name="imgDeck"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,70,5" Height="225"/>
-                <Image x:Name="imgGetrokkenKaart"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="225"/>
+            <WrapPanel Grid.Column="7" Margin="19.396,0.094,9.717,104.245" Grid.Row="1" Grid.ColumnSpan="8" Grid.RowSpan="2">
+                <Button x:Name="btnHand1_1"  HorizontalAlignment="Center" VerticalAlignment="Center"   Background="Transparent" Margin="0" BorderThickness="0" Click="btnHand1_1_Click">
+                    <Image x:Name="imgDeck"   Margin="5,5,10,5" Height="225"  Source="images/Kerkerkaart.png" />
+                </Button>
+                <Image x:Name="imgGetrokkenKaart"  Margin="5,5,0,5" Height="225" Visibility="Collapsed">
+                    <Image.ToolTip>
+                        <Image Height="350" x:Name="toolTipGetrokkenKaart0"/>
+                    </Image.ToolTip>
+                </Image>
+                <Label x:Name="lblTijdelijkeBonusMonster" Margin="5" Visibility="Collapsed" FontSize="25" ></Label>
             </WrapPanel>
-            <Label x:Name="lblMelding" Content="Trek een tweede kaart of &#10;speel een monster uit je hand." FontSize="26" Grid.ColumnSpan="4" Grid.Column="14" Margin="10,25,10,30" Grid.Row="2" BorderThickness="3" BorderBrush="#FF3C0900" Visibility="Visible" ></Label>
-            <WrapPanel   Grid.ColumnSpan="13" Margin="0,115,40,220" Grid.RowSpan="5" Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" >
-                <Image x:Name="imgHand1"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
-                <Image x:Name="imgHand2"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
-                <Image x:Name="imgHand3"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
-                <Image x:Name="imgHand4"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
-                <Image x:Name="imgHand5"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" Visibility="Collapsed"/>
-                <Image x:Name="imgHand6"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" Visibility="Collapsed"/>
-                <Image x:Name="imgHand7"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" Visibility="Collapsed" />
-                <Image x:Name="imgHand8"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" Visibility="Collapsed" />
+
+            
+            <WrapPanel   Grid.ColumnSpan="11" Margin="-10 -30 0 5"  Grid.Column="5" Grid.Row="3" HorizontalAlignment="Center" >
+                <Button x:Name="btnHand0"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp" Background="Transparent" Margin="0" BorderThickness="0" Click="btnHand0_Click" >
+                    <Image x:Name="imgHand0"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand0"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand1"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp" Background="Transparent" Margin="0" BorderThickness="0" Click="btnHand0_Click">
+                    <Image x:Name="imgHand1"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand1"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand2"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp" Background="Transparent" Margin="0" BorderThickness="0" Click="btnHand0_Click">
+                    <Image x:Name="imgHand2"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand2"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand3"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp" Background="Transparent" Margin="0" BorderThickness="0" Click="btnHand0_Click">
+                    <Image x:Name="imgHand3"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand3"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand4"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp" Background="Transparent" Margin="0" BorderThickness="0" Click="btnHand0_Click">
+                    <Image x:Name="imgHand4"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand4"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand5"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp" Background="Transparent" Margin="0" BorderThickness="0" Click="btnHand0_Click">
+                    <Image x:Name="imgHand5"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand5"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand6"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp" Background="Transparent" Margin="0" BorderThickness="0" Click="btnHand0_Click">
+                    <Image x:Name="imgHand6"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand6"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand7"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp" Background="Transparent" Margin="0" BorderThickness="0" Click="btnHand0_Click">
+                    <Image x:Name="imgHand7"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand7"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand8"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp" Background="Transparent" Margin="0" BorderThickness="0" Click="btnHand0_Click">
+                    <Image x:Name="imgHand8"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand8"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand9"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp" Background="Transparent" Margin="0" BorderThickness="0" Click="btnHand0_Click">
+                    <Image x:Name="imgHand9"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand9"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand10"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp" Background="Transparent" Margin="0" BorderThickness="0" Click="btnHand0_Click">
+                    <Image x:Name="imgHand10"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand10"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand11"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp" Background="Transparent" Margin="0" BorderThickness="0" Click="btnHand0_Click">
+                    <Image x:Name="imgHand11"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand11"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand12"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp" Background="Transparent" Margin="0" BorderThickness="0" Click="btnHand0_Click">
+                    <Image x:Name="imgHand12"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand12"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
             </WrapPanel>
-            <WrapPanel   Grid.ColumnSpan="9" Margin="58,0,10,70" Grid.Column="5" Grid.Row="6" HorizontalAlignment="Center">
-                <Image x:Name="imgVeld1"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" Visibility="Collapsed" />
-                <Image x:Name="imgVeld2"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" Visibility="Collapsed" />
-                <Image x:Name="imgVeld3"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" Visibility="Collapsed" />
-                <Image x:Name="imgVeld4"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
-                <Image x:Name="imgVeld5"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
-                <Image x:Name="imgVeld6"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
-                <Image x:Name="imgVeld7"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
-                <Image x:Name="imgVeld8"  Source="images/Waanzinnig_Dapperheidsdrankje.png" Margin="5,5,0,5" Height="150" Grid.RowSpan="6" />
+
+            <WrapPanel   Grid.ColumnSpan="10" Margin="58,0,10,70"  Grid.Column="5" Grid.Row="6" HorizontalAlignment="Center" >
+                <Button x:Name="btnVeld0"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp"   Background="Transparent" Margin="0" BorderThickness="0"  >
+                    <Image x:Name="imgVeld0"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipVeld0"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnVeld1"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp"    Background="Transparent" Margin="0" BorderThickness="0" >
+                    <Image x:Name="imgVeld1"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipVeld1"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnVeld2"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp"   Background="Transparent" Margin="0" BorderThickness="0" >
+                    <Image x:Name="imgVeld2"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipVeld2"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnVeld3"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp"    Background="Transparent" Margin="0" BorderThickness="0" >
+                    <Image x:Name="imgVeld3"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipVeld3"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnVeld4"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp"    Background="Transparent" Margin="0" BorderThickness="0" >
+                    <Image x:Name="imgVeld4"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipVeld4"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnVeld5"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp"   Background="Transparent" Margin="0" BorderThickness="0" >
+                    <Image x:Name="imgVeld5"   Margin="5,5,0,5" Height="150" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipVeld5"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnVeld6"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp"   Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgVeld6"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipVeld6"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnVeld"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp"    Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgVeld7"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipVeld7"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnVeld8"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp"   Background="Transparent" Margin="0" BorderThickness="0" >
+                    <Image x:Name="imgVeld8"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipVeld8"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnVeld9"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp"    Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgVeld9"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipVeld9"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnVeld10"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp"   Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgVeld10"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipVeld10"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnVeld11"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp"   Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgVeld11"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipVeld11"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnVeld12"  HorizontalAlignment="Center" VerticalAlignment="Center" MouseRightButtonUp="btnHand0_MouseRightButtonUp" Background="Transparent" Margin="0" BorderThickness="0" >
+                    <Image x:Name="imgVeld12"   Margin="5,5,0,5" Height="150" Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipVeld12"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
             </WrapPanel>
+
+
             <Label x:Name="lblVeldKaarten" Content="VeldKaarten" HorizontalAlignment="Center" FontSize="20" Grid.ColumnSpan="2" Grid.Column="3" Margin="45,50,0,150" Grid.Row="6" Width="84" ></Label>
             <Label x:Name="lblHandKaarten" Content="Handkaarten" HorizontalAlignment="Center" FontSize="20" Grid.ColumnSpan="2" Margin="45,40,0,70" Grid.Column="3" Grid.Row="3" Width="84" />
         </Grid>

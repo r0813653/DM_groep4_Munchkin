@@ -708,7 +708,7 @@ namespace Munckin_DAL
                 }
             }
             //controleer op grote voorwerpen
-            string groot = ControleerGroteVoorwerpen(veldkaarten);
+            string groot = ControleerGroteVoorwerpen(veldkaarten, gebruiker);
             if (groot != "")
             {
                 return "je kan geen 2 grote voorwerpen dragen";
@@ -738,7 +738,7 @@ namespace Munckin_DAL
             Stapel veldkaarten = DatabaseOperations.OphalenStapelViaId(gebruiker.Veldkaarten_Id);
             Kaarten_Stapel oudeKaartenStapel = DatabaseOperations.OphalenKaarten_StapelViaKaart_IdEnStapelId(gebruiker.Handkaarten_Id, Id);
             //Controleer op grote voorwerpen
-            string groot = ControleerGroteVoorwerpen(veldkaarten);
+            string groot = ControleerGroteVoorwerpen(veldkaarten, gebruiker);
             if (groot != "")
             {
                 return "je kan geen 2 grote voorwerpen dragen";
@@ -787,7 +787,7 @@ namespace Munckin_DAL
                 }
             }
             //Controleer op grote voorwerpen
-            string groot = ControleerGroteVoorwerpen(veldkaarten);
+            string groot = ControleerGroteVoorwerpen(veldkaarten, gebruiker);
             if (groot != "")
             {
                 return "je kan geen 2 grote voorwerpen dragen";
@@ -826,7 +826,7 @@ namespace Munckin_DAL
                 }
             }
             //Controleer op grote voorwerpen
-            string groot = ControleerGroteVoorwerpen(veldkaarten);
+            string groot = ControleerGroteVoorwerpen(veldkaarten, gebruiker);
             if (groot != "")
             {
                 return "je kan geen 2 grote voorwerpen dragen";
@@ -1300,19 +1300,23 @@ namespace Munckin_DAL
                 return foutmelding;
             }
         }
-        public string ControleerGroteVoorwerpen(Stapel veldkaarten)
+        public string ControleerGroteVoorwerpen(Stapel veldkaarten, Wedstrijd_Speler gebruiker)
         {
-            foreach (var kaarten_Stapel in veldkaarten.Kaarten_Stapels)
+            if (gebruiker.Ras.ToUpper() != "DWERG")
             {
-                Kaart kaart = DatabaseOperations.OphalenKaartViaId(kaarten_Stapel.Kaart_Id);
-                if (Schatkaart != null)
+                foreach (var kaarten_Stapel in veldkaarten.Kaarten_Stapels)
                 {
-                    if (Schatkaart.Is_Groot == true && kaart.Schatkaart.Is_Groot == true)
+                    Kaart kaart = DatabaseOperations.OphalenKaartViaId(kaarten_Stapel.Kaart_Id);
+                    if (Schatkaart != null && kaart.Schatkaart != null)
                     {
-                        return "je kan geen 2 grote voorwerpen dragen";
+                        if (Schatkaart.Is_Groot == true && kaart.Schatkaart.Is_Groot == true)
+                        {
+                            return "je kan geen 2 grote voorwerpen dragen";
+                        }
                     }
                 }
             }
+
             return "";
         }
         public void BonussenItemToevoegen(Wedstrijd_Speler gebruiker)
@@ -1337,10 +1341,11 @@ namespace Munckin_DAL
                 }
             }
         }
-        
+
         public override string ToString()
         {
             return Naam;
         }
     }
 }
+

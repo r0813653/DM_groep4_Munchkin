@@ -8,7 +8,7 @@ namespace Munckin_DAL
 {
     public static class GlobalVariables
     {      
-        public static int indexer=0;
+        public static int indexer;
         public static Wedstrijd wedstrijd;
         public static List<Kerkerkaart> alleKerkerkaarten = new List<Kerkerkaart>(); 
         public static List<Schatkaart> alleSchatkaarten = new List<Schatkaart>(); 

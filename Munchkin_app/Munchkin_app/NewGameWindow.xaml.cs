@@ -341,7 +341,7 @@ namespace Munchkin_app
                 wedstrijd.Schatkaarten_Trekstapel_Id = trekstapel_schat.Id;
 
                 int gelukt = DatabaseOperations.ToevoegenWedstrijd(wedstrijd);
-
+                GlobalVariables.indexer = 0;
                 GlobalVariables.WedstrijdId = wedstrijd.Id;
                 GlobalVariables.wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(wedstrijd.Id);
                

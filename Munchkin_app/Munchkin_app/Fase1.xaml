@@ -51,7 +51,7 @@
             </StackPanel>
             <StackPanel Grid.Row="6" Grid.Column="16" Grid.ColumnSpan="4" Margin="54,70,10,-70.4">
                 <Label x:Name="lblFase" Content="3/3" HorizontalAlignment="Center" FontSize="20" ></Label>
-                <Button Style="{StaticResource CustomButton}" x:Name="btnVolgendeFase" Content="Volgende fase" HorizontalAlignment="center" Height="50" Width="150" Margin="20,0,20,25" FontSize="25"></Button>
+                <Button Style="{StaticResource CustomButton}" x:Name="btnVolgendeFase" Content="Volgende fase" HorizontalAlignment="center" Height="50" Width="150" Margin="20,0,20,25" FontSize="25" Click="btnVolgendeFase_Click"></Button>
             </StackPanel>
             <StackPanel Grid.Row="1" Margin="50,0,0,0" Grid.ColumnSpan="4">
                 <Label x:Name="lblSpeler" Content="speler naam" FontSize="20"></Label>
