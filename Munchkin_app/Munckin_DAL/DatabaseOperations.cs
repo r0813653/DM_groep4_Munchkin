@@ -221,6 +221,7 @@ namespace Munckin_DAL
             using (MunchkinEntities entities = new MunchkinEntities())
             {
                 return entities.Kaarten_Stapels
+                    .Include(a=>a.Kaart.Schatkaart)
                     .Include(a=>a.Stapel)
                     .Include(x => x.Kaart)
                     .Include(x => x.Kaart.Kerkerkaart)

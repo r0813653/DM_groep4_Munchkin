@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Munchkin_app"
         mc:Ignorable="d"
-         Title="Fase3" Height="800" Width="1280" FontFamily="fonts/#Victoriana" Loaded="Window_Loaded_1" Activated="Window_Activated">
+         Title="Fase 1" Height="800" Width="1280" FontFamily="fonts/#Victoriana" Loaded="Window_Loaded_1" Activated="Window_Activated">
     <Window.Background>
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
     </Window.Background>
