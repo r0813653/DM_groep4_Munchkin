@@ -222,10 +222,10 @@ namespace Munchkin_app
                         monster = kaarten_Stapel.Kaart;
                         DatabaseOperations.VerwijderenKaarten_Stapel(kaarten_Stapel);
                         string path = monster.Afbeelding;
-                        imgGetrokkenKaart.Source = new BitmapImage(new Uri(path, UriKind.Relative));
+                        imgGetrokkenKaart.Source = new BitmapImage(new Uri(@path, UriKind.Relative));
                         imgGetrokkenKaart.Visibility = Visibility.Visible;
 
-                        toolTipGetrokkenKaart0.Source = new BitmapImage(new Uri(path, UriKind.Relative));
+                        toolTipGetrokkenKaart0.Source = new BitmapImage(new Uri(@path, UriKind.Relative));
                         handkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Handkaarten_Id);
                         veldkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Veldkaarten_Id);
                         ShowVeldkaarten();
@@ -259,7 +259,8 @@ namespace Munchkin_app
 
         private void btnVervloeking_Click(object sender, RoutedEventArgs e)
         {
-
+            CurseWindow curseWindow = new CurseWindow();
+            curseWindow.Show();
         }
 
         private void btnRuilen_Click(object sender, RoutedEventArgs e)
@@ -308,7 +309,7 @@ namespace Munchkin_app
                     monster = trekstapelKerkerkaartenstapel[AantalKeerGetrokken].Kaart;
                     AantalKeerGetrokken += 2;
 
-                    imgGetrokkenKaart.Source = new BitmapImage(new Uri(path, UriKind.Relative));
+                    imgGetrokkenKaart.Source = new BitmapImage(new Uri(@path, UriKind.Relative));
                     imgGetrokkenKaart.Visibility = Visibility.Visible;
                     lblTijdelijkeBonusMonster.Visibility = Visibility.Visible;
                     lblTijdelijkeBonusMonster.Content = "Tijdelijke bonus: " + monster.Kerkerkaart.Tijdelijke_Bonus;
@@ -514,7 +515,12 @@ namespace Munchkin_app
                     ShowVeldkaarten();
                     LabelsVeranderen();
                 }
-
+                isGeholpen = true;
+                monster = null;
+                imgGetrokkenKaart.Visibility = Visibility.Hidden;
+                lblTijdelijkeBonusMonster.Visibility = Visibility.Hidden;
+                ShowHandkaarten();
+                ShowVeldkaarten();
             }
         }
         private void btnGebruiksvoorwerpen_Click(object sender, RoutedEventArgs e)
@@ -536,7 +542,7 @@ namespace Munchkin_app
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            if (monster.Type_id == null)
+            if (monster == null)
             {
                 
             }
@@ -544,10 +550,6 @@ namespace Munchkin_app
             {
                 lblTijdelijkeBonusMonster.Content = "Tijdelijke bonus: " + monster.Kerkerkaart.Tijdelijke_Bonus;
                 lblTijdelijkeBonusMonster.Visibility = Visibility.Visible;
-            }
-            else
-            {
-
             }
 
             LabelsVeranderen();

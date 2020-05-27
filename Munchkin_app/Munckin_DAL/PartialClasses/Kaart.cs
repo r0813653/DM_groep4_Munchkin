@@ -473,10 +473,21 @@ namespace Munckin_DAL
                     {
                         vluchter.Level -= 1;
                     }
+                    if (vluchter.Level < 1)
+                    {
+                        vluchter.Level = 1;
+                    }
+
                     if (Naam.ToUpper() == "MAGERE HEIN" || Naam.ToUpper() == "ONDOOD PAARD" || Naam.ToUpper() == "PADDOS")
                     {
                         vluchter.Level -= 2;
+
                     }
+                    if (vluchter.Level < 1)
+                    {
+                        vluchter.Level = 1;
+                    }
+
                     if (Naam.ToUpper() == "GLITTERENDE VAMPIEREN")
                     {
                         int laagsteLevel = vluchter.Level ?? default;
@@ -523,6 +534,11 @@ namespace Munckin_DAL
                         {
                             vluchter.Level -= 1;
                         }
+                        if (vluchter.Level < 1)
+                        {
+                            vluchter.Level = 1;
+                        }
+
                     }
                     if (Naam.ToUpper() == "SNOETZUIGER")
                     {
@@ -547,6 +563,11 @@ namespace Munckin_DAL
                         {
                             vluchter.Level -= 1;
                         }
+                        if (vluchter.Level < 1)
+                        {
+                            vluchter.Level = 1;
+                        }
+
                     }
                     if (Naam.ToUpper() == "ACHTZIJDIGE DRILPUDDING")
                     {
@@ -619,10 +640,20 @@ namespace Munckin_DAL
                     {
                         vluchter.Level -= 2;
                     }
+                    if (vluchter.Level < 1)
+                    {
+                        vluchter.Level = 1;
+                    }
+
                     if (Naam.ToUpper() == "MAGERE HEIN")
                     {
                         vluchter.Level -= 1;
                     }
+                    if (vluchter.Level < 1)
+                    {
+                        vluchter.Level = 1;
+                    }
+
                     //kaart naar aflegstapel doen
                     //kaart naar aflegstapel doen
                     Kaarten_Stapel kaarten_Stapel1 = new Kaarten_Stapel();
