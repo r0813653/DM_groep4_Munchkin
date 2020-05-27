@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         FontFamily="fonts/#Victoriana"
         Foreground="#FF3C0900"
-        Title="TradeWindow" Height="600" Width="900">
+        Title="TradeWindow" Height="600" Width="900" Loaded="Window_Loaded">
     <Window.Background>
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
     </Window.Background>
@@ -25,14 +25,14 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Label Content="Ruilen" FontSize="75" HorizontalAlignment="Center" Foreground="#FF3C0900" Grid.ColumnSpan="3"/>
-            <Label Content="Kaart(en)" FontSize="35" Grid.Row="1" HorizontalAlignment="Center"/>
+            <Label Content="Kaart" FontSize="35" Grid.Row="1" HorizontalAlignment="Center"/>
             <Label Content="Speler met wie je wil ruilen" FontSize="35" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"/>
-            <Label Content="Kaart(en)" FontSize="35" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center"/>
-            <ListBox x:Name="lbSpeler1Kaarten" Grid.Row="2"  Grid.Column="0" Margin="20" Height="250" Background="Transparent" BorderThickness="8" BorderBrush="#FF3C0900" FontSize="40" Foreground="#FF3C0900" VerticalAlignment="Top"></ListBox>
-            <ListBox x:Name="lbSpeler2Kaarten" Grid.Row="2"  Grid.Column="2" Margin="20" Height="250" Background="Transparent" BorderThickness="8" BorderBrush="#FF3C0900" FontSize="40" Foreground="#FF3C0900" VerticalAlignment="Top"></ListBox>
-            <ListBox x:Name="lbSpelers" Grid.Row="2"  Grid.Column="1" Margin="20" Height="250" Background="Transparent" BorderThickness="8" BorderBrush="#FF3C0900" FontSize="40" Foreground="#FF3C0900" VerticalAlignment="Top"></ListBox>
+            <Label Content="Kaart" FontSize="35" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center"/>
+            <ListBox x:Name="lbSpeler1Kaarten" DisplayMemberPath="Kaart.Naam" Grid.Row="2"  Grid.Column="0" Margin="20" Height="250" Background="Transparent" BorderThickness="8" BorderBrush="#FF3C0900" FontSize="40" Foreground="#FF3C0900" VerticalAlignment="Top"></ListBox>
+            <ListBox x:Name="lbSpeler2Kaarten" DisplayMemberPath="Kaart.Naam" Grid.Row="2"  Grid.Column="2" Margin="20" Height="250" Background="Transparent" BorderThickness="8" BorderBrush="#FF3C0900" FontSize="40" Foreground="#FF3C0900" VerticalAlignment="Top"/>
+            <ListBox x:Name="lbSpelers" Grid.Row="2" SelectionChanged="lbSpelers_SelectionChanged" Grid.Column="1" Margin="20" Height="250" Background="Transparent" BorderThickness="8" BorderBrush="#FF3C0900" FontSize="40" Foreground="#FF3C0900" VerticalAlignment="Top"/>
             <WrapPanel Grid.ColumnSpan="3" Grid.Row="3" HorizontalAlignment="Center">
-                <Button Style="{StaticResource CustomButton}" FontSize="50" Content="Aanvaard" Width="200" Margin="0 0 150 40"/>
+                <Button Style="{StaticResource CustomButton}" Click="Button_Click" FontSize="50" Content="Aanvaard" Width="200" Margin="0 0 150 40"/>
                 <Button Style="{StaticResource CustomButton}" FontSize="50" Content="Sla af" Width="200" Margin="100 0 0 40"/>
             </WrapPanel>
         </Grid>

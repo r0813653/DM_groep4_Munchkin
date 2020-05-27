@@ -350,7 +350,7 @@ namespace Munchkin_app
                     }
                 }
                 GlobalVariables.indexer += 1;
-                if (GlobalVariables.indexer >= GlobalVariables.wedstrijd_Spelers.Count() - 1)
+                if (GlobalVariables.indexer >= GlobalVariables.wedstrijd_Spelers.Count())
                 {
                     GlobalVariables.indexer = 0;
                 }
