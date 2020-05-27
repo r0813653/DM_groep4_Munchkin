@@ -23,6 +23,8 @@ namespace Munchkin_app
         public CurseWindow()
         {
             InitializeComponent();
+            GlobalVariables.wedstrijd_Spelers = DatabaseOperations.OphalenWedstrijd_SpelersViaWedstrijdId(GlobalVariables.WedstrijdId);
+            GlobalVariables.actieveSpeler = GlobalVariables.wedstrijd_Spelers[GlobalVariables.indexer];
         }
         Wedstrijd_Speler ActieveSpeler = new Wedstrijd_Speler();
         List<Wedstrijd_Speler> LijstSpelers = new List<Wedstrijd_Speler>();
@@ -71,10 +73,9 @@ namespace Munchkin_app
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            int wedstrijdid = 1;
-            LijstSpelers = DatabaseOperations.OphalenWedstrijd_SpelersViaWedstrijdId(wedstrijdid);
-            //get actieve speler
-            ActieveSpeler = DatabaseOperations.OphalenWedstrijd_SpelerViaId(2);
+            this.WindowState = WindowState.Maximized;
+            LijstSpelers = DatabaseOperations.OphalenWedstrijd_SpelersViaWedstrijdId(GlobalVariables.WedstrijdId);
+            ActieveSpeler = GlobalVariables.actieveSpeler;
             //Actieve Speler HandKaarten
             SpelerHandKaarten = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(ActieveSpeler.Handkaarten_Id);
 

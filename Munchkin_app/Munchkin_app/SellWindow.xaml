@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         FontFamily="fonts/#Victoriana"
         Foreground="#FF3C0900"
-        Title="SellWindow" Height="600" Width="900">
+        Title="SellWindow" Height="600" Width="900" Loaded="Window_Loaded">
     <Window.Background>
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
     </Window.Background>
@@ -26,10 +26,10 @@
             <Label Content="Verkoop kaarten" FontSize="75" HorizontalAlignment="Center" Foreground="#FF3C0900" Grid.ColumnSpan="2"/>
             <Label Content="Kaart(en)" FontSize="35" Grid.Row="1" Margin="50 0"/>
             <Label x:Name="lblWaarde" Content="Waarde:" FontSize="35" Grid.Row="1" Grid.Column="1" Margin="50 0" />
-            <ListBox x:Name="lbSpelerKaarten" Grid.Row="2" Margin="20" Height="250" Background="Transparent" BorderThickness="8" BorderBrush="#FF3C0900" FontSize="40" Foreground="#FF3C0900" VerticalAlignment="Top"></ListBox>
+            <ListBox SelectionChanged="lbSpelerKaarten_SelectionChanged" SelectionMode="Multiple" x:Name="lbSpelerKaarten" Grid.Row="2" Margin="20" Height="250" Background="Transparent" BorderThickness="8" BorderBrush="#FF3C0900" FontSize="40" Foreground="#FF3C0900" VerticalAlignment="Top"></ListBox>
             <WrapPanel Grid.ColumnSpan="3" Grid.Row="3" HorizontalAlignment="Center">
-                <Button Style="{StaticResource CustomButton}" FontSize="50" Content="Aanvaard" Width="200" Margin="0 0 150 40"/>
-                <Button Style="{StaticResource CustomButton}" FontSize="50" Content="Sla af" Width="200" Margin="100 0 0 40"/>
+                <Button Click="Button_Click" Style="{StaticResource CustomButton}" FontSize="50" Content="Aanvaard" Width="200" Margin="0 0 150 40"/>
+                <Button Style="{StaticResource CustomButton}" Click="Button_Click_1" FontSize="50" Content="Sla af" Width="200" Margin="100 0 0 40"/>
             </WrapPanel>
             <Image Grid.Row="2" Source="images/Sell.png" Grid.Column="1" />
         </Grid>

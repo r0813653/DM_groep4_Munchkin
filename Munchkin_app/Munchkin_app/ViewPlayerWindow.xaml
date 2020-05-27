@@ -7,17 +7,18 @@
         mc:Ignorable="d"
         FontFamily="fonts/#Victoriana"
         Foreground="#FF3C0900"
-        Title="ViewPlayerWindow" Height="800" Width="1280">
+        Title="ViewPlayerWindow" Height="800" Width="1280" Loaded="Window_Loaded">
     <Window.Background>
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
     </Window.Background>
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition Width="240*"/>
+                <ColumnDefinition Width="239*"/>
+                <ColumnDefinition Width="304*"/>
+                <ColumnDefinition Width="239*"/>
                 <ColumnDefinition Width="250"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -25,42 +26,114 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Label HorizontalAlignment="Center" Margin="10" Content="Bekijk speler" FontSize="150" Grid.ColumnSpan="5" Foreground="#FF3C0900"/>
-            <StackPanel Grid.Row="1" HorizontalAlignment="Center" >
-                <ComboBox x:Name="cmbSpeler" Width="100" />
-                <Label x:Name="lblSpeler" Content="speler naam" FontSize="20"></Label>
-                <Label x:Name="lblLevel" Content="Level:" FontSize="20"></Label>
-                <Label x:Name="lblBonus" Content="Bonus:" FontSize="20"></Label>
-                <Label x:Name="lblRas" Content="Ras:" FontSize="20"></Label>
-                <Label x:Name="lblKlasse" Content="Klasse:" FontSize="20"></Label>
+            <Label HorizontalAlignment="Center" Margin="126,10,115.491,10.094" Content="Bekijk speler" FontSize="150" Grid.ColumnSpan="3" Foreground="#FF3C0900" Grid.Column="2"/>
+            <StackPanel HorizontalAlignment="Left" Margin="19.66,80,0,120.302" Grid.RowSpan="2" Width="184" Grid.Column="1" >
+                <ComboBox x:Name="cmbSpeler" Height="30" FontSize="30" SelectionChanged="cmbSpeler_SelectionChanged" />
+                <Label x:Name="lblSpeler" Content="speler naam" FontSize="30" ></Label>
+                <Label x:Name="lblLevel" Content="Level:" FontSize="30"></Label>
+                <Label x:Name="lblRas" Content="Ras:" FontSize="30"></Label>
+                <Label x:Name="lblGevechtsBonus" Content="GevechtBonus:" FontSize="30"></Label>
+                <Label x:Name="lblVluchtsBonus" Content="VluchtBonus:" FontSize="30"></Label>
+                <Label x:Name="lblTijdelijkeBonus" Content="TijdelijkeBonus:" FontSize="30"></Label>
+                <Button x:Name="btnRas" HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgRas"   Grid.ColumnSpan="2" Height="150"   Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipRas"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
             </StackPanel>
-            <Image x:Name="imgItemManneke" Source="images/ItemManneke.png" Grid.Column="2" Grid.Row="1" Height="400" VerticalAlignment="Top" />
-            <StackPanel Grid.Column="1"  Grid.Row="1" Margin="10">
-                <Image x:Name="imgHand1slot" Source="images/Armour.png" Height="90" Margin="5" />
-                <Image x:Name="imgBodyslot" Source="images/Armour.png" Height="90" Margin="5" />
-                <Image x:Name="imgHelmslot" Source="images/Armour.png" Height="90" Margin="5" />
+            <Image x:Name="imgItemManneke" Source="images/ItemManneke.png" Grid.Column="2" Height="400" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="239,191,0.396,0" Grid.RowSpan="2" />
+            <StackPanel Grid.Column="2" Margin="10,9.906,10.094,10.302" Grid.Row="1" >
+                <Button x:Name="btnHoofddeksel"  HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHoofddeksel"   Grid.ColumnSpan="2" Height="100" Margin="5,5,4.8,5" Grid.Column="6"  Visibility="Collapsed" >
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHoofddeksel"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand1_1"  HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand1_1"   Grid.ColumnSpan="2" Height="100" Margin="5" Grid.Column="6"  Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand1_1"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnSchoeisel"  HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgSchoeisel"   Margin="5"  Height="100" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipSchoeisel"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
             </StackPanel>
-            <StackPanel  Grid.Column="3"  Grid.Row="1" >
-                <Image x:Name="imgHand2slot" Source="images/Armour.png" Height="90" Margin="5" />
-                <Image x:Name="imgFeedslot" Source="images/Armour.png" Height="90" Margin="5" />
+            <StackPanel Grid.Column="4" Margin="9.604,9.906,10.491,10.302" Grid.Row="1">
+                <Button x:Name="btnHarnas"  HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHarnas"   Grid.ColumnSpan="2" Height="100" Margin="5" Grid.Column="13" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHarnas"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button x:Name="btnHand1_2"  HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
+                    <Image x:Name="imgHand1_2"  Margin="5,5,5.2,5" Height="100" Visibility="Collapsed">
+                        <Image.ToolTip>
+                            <Image Height="300" x:Name="toolTipHand1_2"/>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
             </StackPanel>
-            <GroupBox Grid.Column="4" Grid.Row="1" BorderBrush="#FF3C0900" Margin="10 -100">
+            <GroupBox Grid.Column="4" Grid.ColumnSpan="2" Margin="238.604,0,10.453,0.453" Grid.RowSpan="3" BorderBrush="#FF3C0900">
                 <GroupBox.Header>
                     <Label FontSize="20">Extra items</Label>
                 </GroupBox.Header>
 
-                <WrapPanel Orientation="Horizontal" Margin="10,10,0,0">
-                    <Image x:Name="imgExtra1"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130" />
-                    <Image x:Name="imgExtra2"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130" />
-                    <Image x:Name="imgExtra3"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130" />
-                    <Image x:Name="imgExtra4"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130"/>
-                    <Image x:Name="imgExtra5"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130"/>
-                    <Image x:Name="imgExtra6"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130"/>
-                    <Image x:Name="imgExtra7"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130"/>
-                    <Image x:Name="imgExtra8"  Source="images/Waanzinnig_Dapperheidsdrankje.png"  Margin="5" Height="130"/>
+                <WrapPanel Orientation="Horizontal" Grid.ColumnSpan="10" Grid.Column="6" Grid.Row="0" Margin="10,10,0,0">
+                    <Button x:Name="btnExtra0"  HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
+                        <Image x:Name="imgExtra0"  Grid.Column="7" Margin="5" Height="130" Visibility="Collapsed" >
+                            <Image.ToolTip>
+                                <Image Height="300" x:Name="toolTipExtra0"/>
+                            </Image.ToolTip>
+                        </Image>
+                    </Button>
+                    <Button x:Name="btnExtra1"  HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
+                        <Image x:Name="imgExtra1"   Grid.Column="8" Margin="5" Height="130" Visibility="Collapsed">
+                            <Image.ToolTip>
+                                <Image Height="300" x:Name="toolTipExtra1"/>
+                            </Image.ToolTip>
+                        </Image>
+                    </Button>
+                    <Button x:Name="btnExtra2"  HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
+                        <Image x:Name="imgExtra2"   Grid.Column="9" Margin="5" Height="130" Visibility="Collapsed">
+                            <Image.ToolTip>
+                                <Image Height="300" x:Name="toolTipExtra2"/>
+                            </Image.ToolTip>
+                        </Image>
+                    </Button>
+                    <Button x:Name="btnExtra3"  HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
+                        <Image x:Name="imgExtra3"   Grid.Column="10" Margin="5" Height="130" Visibility="Collapsed">
+                            <Image.ToolTip>
+                                <Image Height="300" x:Name="toolTipExtra3"/>
+                            </Image.ToolTip>
+                        </Image>
+                    </Button>
+                    <Button x:Name="btnExtra4"  HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent" Margin="0" BorderThickness="0">
+                        <Image x:Name="imgExtra4"   Grid.Column="11" Margin="5" Height="130" Visibility="Collapsed">
+                            <Image.ToolTip>
+                                <Image Height="300" x:Name="toolTipExtra4"/>
+                            </Image.ToolTip>
+                        </Image>
+                    </Button>
+                    <Button x:Name="btnExtra5"  HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
+                        <Image x:Name="imgExtra5"   Grid.Column="12" Margin="5" Height="130" Visibility="Collapsed">
+                            <Image.ToolTip>
+                                <Image Height="300" x:Name="toolTipExtra5"/>
+                            </Image.ToolTip>
+                        </Image>
+                    </Button>
                 </WrapPanel>
             </GroupBox>
-            <Button Style="{StaticResource CustomButton}" Grid.Row="2" FontSize="50" Content="Ga terug" Width="200" Margin="20 40"/>
+            <Button Style="{StaticResource CustomButton}" Grid.Row="2" FontSize="50" Content="Ga terug" Width="200" Margin="19.66,39.698,20,40.453" Grid.Column="1"/>
         </Grid>
     </ScrollViewer>
 </Window>

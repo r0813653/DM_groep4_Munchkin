@@ -47,6 +47,8 @@ namespace Munckin_DAL
                 return 0;
             }
         }
+
+        
         //Voorlopig niet nodig denk ik - voor de zekerheid ff commentaar ipv weg
         //public static Kaart OphalenKaartViaKaartIdMetBonusEnType(int kaartId)
         //{
@@ -104,7 +106,7 @@ namespace Munckin_DAL
             {
                 var query = entities.Wedstrijd_Spelers
                             .Include(x => x.Speler)
-                            .Include(x => x.Stapel_Handkaarten)
+                            .Include(x => x.Stapel_Handkaarten
                             .Where(x => x.Id == id);
                 return query.SingleOrDefault();
             }
@@ -220,6 +222,8 @@ namespace Munckin_DAL
             using (MunchkinEntities entities = new MunchkinEntities())
             {
                 return entities.Kaarten_Stapels
+                    .Include(a=>a.Kaart.Schatkaart)
+                    .Include(a=>a.Stapel)
                     .Include(x => x.Kaart)
                     .Include(x => x.Kaart.Kerkerkaart)
                     .Include(x => x.Kaart.Schatkaart)
@@ -233,6 +237,8 @@ namespace Munckin_DAL
             using (MunchkinEntities entities = new MunchkinEntities())
             {
                 return entities.Wedstrijd_Spelers
+                    .Include(a=>a.Stapel_Handkaarten)
+                    .Include(b=>b.Stapel_Veldkaarten)
                     .Include(x => x.Speler)
                    .Where(p => p.Wedstrijd_Id == wedstrijdId)
                     .ToList();

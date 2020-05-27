@@ -68,5 +68,39 @@ namespace Munckin_DAL
             }
             return foutmelding;
         }
+        public void kerkerkaartTrekstapelsChecken()
+        {
+            Stapel aflegstapelKerkerkaarten = DatabaseOperations.OphalenStapelViaId(GlobalVariables.wedstrijd.Kerkerkaarten_Aflegstapel_Id);
+            List<Kaarten_Stapel> kerkerkaartenStapels = new List<Kaarten_Stapel>();
+            if (Kaarten_Stapels.Count() <= 4)
+            {
+                foreach (Kaarten_Stapel kaarten_Stapel in aflegstapelKerkerkaarten.Kaarten_Stapels)
+                {
+                    kerkerkaartenStapels.Add(kaarten_Stapel);
+                }
+                kerkerkaartenStapels.Shuffle();
+                for (int i = 0; i < kerkerkaartenStapels.Count(); i++)
+                {
+                    kerkerkaartenStapels[i].KaartVanStapelWisselen(this);
+                }
+            }
+        }
+        public void schatkaartTrekstapelChecken()
+        {
+            Stapel aflegstapelSchatkaarten = DatabaseOperations.OphalenStapelViaId(GlobalVariables.wedstrijd.Schatkaarten_Aflegstapel_Id);
+            List<Kaarten_Stapel> schatkaartenStapels = new List<Kaarten_Stapel>();
+            if (Kaarten_Stapels.Count() <= 7)
+            {
+                foreach (Kaarten_Stapel kaarten_Stapel in aflegstapelSchatkaarten.Kaarten_Stapels)
+                {
+                    schatkaartenStapels.Add(kaarten_Stapel);
+                }
+                schatkaartenStapels.Shuffle();
+                for (int i = 0; i < schatkaartenStapels.Count(); i++)
+                {
+                    schatkaartenStapels[i].KaartVanStapelWisselen(this);
+                }
+            }
+        }
     }
 }
