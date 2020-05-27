@@ -52,6 +52,7 @@ namespace Munchkin_app
 
         private void ShowHandkaarten()
         {
+            handkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Handkaarten_Id);
             for (int i = 0; i < 13; i++)
             {
                 Image img = this.FindName("imgHand" + i) as Image;
@@ -102,6 +103,7 @@ namespace Munchkin_app
 
         private void ShowVeldkaarten()
         {
+            veldkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Veldkaarten_Id);
             Image img1 = this.FindName("imgHoofddeksel") as Image;
             img1.Visibility = Visibility.Collapsed;
             img1 = this.FindName("imgHarnas") as Image;
@@ -367,6 +369,13 @@ namespace Munchkin_app
             {
                 MessageBox.Show($"Je mag maar {aantalKaarten} in je hand hebben, gelieve er eerst weg te doen");
             }
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            ShowVeldkaarten();
+            ShowHandkaarten();
+            LabelsVeranderen();
         }
     }
 }
