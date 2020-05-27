@@ -61,24 +61,37 @@ namespace Munchkin_app
             cmbKaarten.IsEnabled = true;
             var speler = (Wedstrijd_Speler)cmbGebruiker.SelectedItem;
             Stapel handkaarten = DatabaseOperations.OphalenStapelViaId(speler.Handkaarten_Id);
+            
+            cmbKaarten.Items.Clear();
             foreach (Kaarten_Stapel kaarten_Stapel in handkaarten.Kaarten_Stapels)
             {
                 string type = DatabaseOperations.OphalenType(kaarten_Stapel.Kaart.Type_id).Soort.ToUpper();
                 if (type.ToUpper().Contains("GEBRUIKSKAARTEN"))
                 {
-                    lijstHandkaartenGebruikskaarten.Add(kaarten_Stapel);
+                    cmbKaarten.Items.Add(kaarten_Stapel);
                 }
             }
-            cmbKaarten.ItemsSource = lijstHandkaartenGebruikskaarten;
             cmbKaarten.DisplayMemberPath = "Kaart.Naam";
+
+           
         }
 
         private void cmbKaarten_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var kaart = (Kaarten_Stapel)cmbKaarten.SelectedItem;
-            string path = kaart.Kaart.Afbeelding;
-            imgKaart.Source = new BitmapImage(new Uri(@path, UriKind.Relative));
-            imgKaart.Height = 400;
+
+
+            if (cmbKaarten.SelectedIndex != -1)
+            {
+                var kaart = (Kaarten_Stapel)cmbKaarten.SelectedItem;
+                string path = kaart.Kaart.Afbeelding;
+                imgKaart.Source = new BitmapImage(new Uri(@path, UriKind.Relative));
+                imgKaart.Height = 400;
+            }
+            else
+            {
+                string path = "";
+                imgKaart.Source = new BitmapImage(new Uri(@path, UriKind.Relative));
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
