@@ -79,7 +79,7 @@ namespace Munckin_DAL
         {
             using (MunchkinEntities entities = new MunchkinEntities())
             {
-                var query = entities.Stapels
+                var query = entities.Stapels                            
                             //Gaat 2de select?
                             .Include(x => x.Kaarten_Stapels.Select(sub => sub.Kaart).Select(b => b.Schatkaart))
                             .Where(x => x.Id == Id);

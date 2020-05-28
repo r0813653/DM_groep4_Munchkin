@@ -31,5 +31,49 @@ namespace MunchkinTests
             Assert.AreEqual(wedstrijd_Speler, ophalenWedstrijd_Speler);
 
         }
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        [TestMethod] // jens
+        public void OphalenType_OphalenTypeViaTypeId_isequaltoType()
+        {
+            // arrange
+            Munckin_DAL.Type type = new Munckin_DAL.Type();
+            type.Id = 5;
+
+            Munckin_DAL.Type type1 = new Munckin_DAL.Type();
+
+            // act           
+            type1 = DatabaseOperations.OphalenType(5);
+
+            // assert
+            Assert.AreEqual(type.Id, type1.Id);
+            
+        }
     }
 }
