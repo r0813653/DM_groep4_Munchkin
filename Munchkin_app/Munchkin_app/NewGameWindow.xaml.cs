@@ -187,10 +187,7 @@ namespace Munchkin_app
                                     foutmelding+="toevoegen speler "+counter+" is niet gelukt omdat deze methode nog in commentaar staat" + Environment.NewLine;
                                 }
 
-                                else
-                                {
-                                    MessageBox.Show("speler "+counter+" is toegevoegd");
-                                }
+                               
                             }
                             else
                             {

@@ -59,6 +59,7 @@
     <Compile Include="SpelerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseOperationsTests.cs" />
+    <Compile Include="KaartTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

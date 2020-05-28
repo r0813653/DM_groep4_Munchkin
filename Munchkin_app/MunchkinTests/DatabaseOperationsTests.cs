@@ -32,7 +32,8 @@ namespace MunchkinTests
 
         }
 
-        [TestMethod]
+
+        [TestMethod]// unittestingYoran
         public void OphalenKaartMetOpgegevenID_OpgehaaldeKaartIsCorrect()
         {
             //arrange
@@ -57,5 +58,23 @@ namespace MunchkinTests
             Assert.AreEqual(kaart.Wanneer_Bruikbaar, ophalenKaart.Wanneer_Bruikbaar);
         }
 
+
+        
+        [TestMethod] // jens
+        public void OphalenType_OphalenTypeViaTypeId_isequaltoType()
+        {
+            // arrange
+            Munckin_DAL.Type type = new Munckin_DAL.Type();
+            type.Id = 5;
+
+            Munckin_DAL.Type type1 = new Munckin_DAL.Type();
+
+            // act           
+            type1 = DatabaseOperations.OphalenType(5);
+
+            // assert
+            Assert.AreEqual(type.Id, type1.Id);
+            
+        }
     }
 }
