@@ -325,6 +325,12 @@ namespace Munchkin_app
 
         private void btnEindeBeurt_Click(object sender, RoutedEventArgs e)
         {
+            if (speler.Level >= 10)
+            {
+                Eindscherm eindscherm = new Eindscherm();
+                eindscherm.Show();
+                this.Close();
+            }
             int aantalKaarten = 5;
             if (speler.Ras.ToUpper() == "DWERG")
             {

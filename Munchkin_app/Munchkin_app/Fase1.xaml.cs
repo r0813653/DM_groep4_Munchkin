@@ -269,14 +269,6 @@ namespace Munchkin_app
             }
         }
 
-        private void btnVolgendeFase_Click(object sender, RoutedEventArgs e)
-        {
-            Fase2 fase2Window = new Fase2();
-            fase2Window.Show();
-            this.Close();
-            // naar volgende fase klikken 
-        }
-
         private void btnVervloeking_Click(object sender, RoutedEventArgs e)
         {
             CurseWindow curseWindow = new CurseWindow();
@@ -338,8 +330,8 @@ namespace Munchkin_app
 
         private void btnVolgendeFase_Click(object sender, RoutedEventArgs e)
         {
-            Fase2 fase = new Fase2();
-            fase.Show();
+            Fase2 fase2 = new Fase2();
+            fase2.Show();
             this.Close();
         }
     }

@@ -298,38 +298,57 @@ namespace Munchkin_app
         private void btnHand1_1_Click(object sender, RoutedEventArgs e)
         {
 
-            string path = trekstapelKerkerkaartenstapel[AantalKeerGetrokken].Kaart.Afbeelding;
+            string path = trekstapelKerkerkaartenstapel[0].Kaart.Afbeelding;
             if (AantalKeerGetrokken == 0)
             {
 
 
 
-                if (trekstapelKerkerkaartenstapel[AantalKeerGetrokken].Kaart.Type_id == 3)//kijken of het een monster is
+                if (trekstapelKerkerkaartenstapel[0].Kaart.Type_id == 3)//kijken of het een monster is
                 {
-                    monster = trekstapelKerkerkaartenstapel[AantalKeerGetrokken].Kaart;
+                    monster = trekstapelKerkerkaartenstapel[0].Kaart;
                     AantalKeerGetrokken += 2;
 
                     imgGetrokkenKaart.Source = new BitmapImage(new Uri(@path, UriKind.Relative));
                     imgGetrokkenKaart.Visibility = Visibility.Visible;
+                    toolTipGetrokkenKaart0.Source = new BitmapImage(new Uri(@path, UriKind.Relative));
                     lblTijdelijkeBonusMonster.Visibility = Visibility.Visible;
                     lblTijdelijkeBonusMonster.Content = "Tijdelijke bonus: " + monster.Kerkerkaart.Tijdelijke_Bonus;
                     //monster.Kerkerkaart.Tijdelijke_Bonus
+                    int ok = DatabaseOperations.VerwijderenKaarten_Stapel(trekstapelKerkerkaartenstapel[0]);
+                    if (ok <= 0)
+                    {
+                        MessageBox.Show("Kaart niet uit stapel kunnen halen");
+                    }
+                    trekstapelKerkerkaartenstapel.RemoveAt(0);
                 }
-                else if (trekstapelKerkerkaartenstapel[AantalKeerGetrokken].Kaart.Type_id == 4)
+                else if (trekstapelKerkerkaartenstapel[0].Kaart.Type_id == 4)
                 {
-                    MessageBox.Show(trekstapelKerkerkaartenstapel[AantalKeerGetrokken].Kaart.KrijgVervloeking(speler));
+                    MessageBox.Show(trekstapelKerkerkaartenstapel[0].Kaart.KrijgVervloeking(speler));
                     AantalKeerGetrokken += 1;
+                    int ok = DatabaseOperations.VerwijderenKaarten_Stapel(trekstapelKerkerkaartenstapel[0]);
+                    if (ok <= 0)
+                    {
+                        MessageBox.Show("Kaart niet uit stapel kunnen halen");
+                    }
+                    trekstapelKerkerkaartenstapel.RemoveAt(0);
                 }
                 else
                 {
-                    trekstapelKerkerkaartenstapel[AantalKeerGetrokken].KaartVanStapelWisselen(speler.Stapel_Handkaarten);
+                    trekstapelKerkerkaartenstapel[0].KaartVanStapelWisselen(speler.Stapel_Handkaarten);
                     AantalKeerGetrokken += 1;
+                    trekstapelKerkerkaartenstapel.RemoveAt(0);
                 }
             }
             else if (AantalKeerGetrokken == 1)
             {
-                trekstapelKerkerkaartenstapel[AantalKeerGetrokken].KaartVanStapelWisselen(speler.Stapel_Handkaarten);
+                trekstapelKerkerkaartenstapel[0].KaartVanStapelWisselen(speler.Stapel_Handkaarten);
                 AantalKeerGetrokken += 1;
+                trekstapelKerkerkaartenstapel.RemoveAt(0);
+            }
+            else
+            {
+                MessageBox.Show("Je kan geen kaarten meer trekken");
             }
             ShowHandkaarten();
             LabelsVeranderen();
@@ -554,6 +573,13 @@ namespace Munchkin_app
 
             LabelsVeranderen();
             ShowHandkaarten();
+        }
+
+        private void btnVolgendefase_Click(object sender, RoutedEventArgs e)
+        {
+            Fase3 fase3 = new Fase3();
+            fase3.Show();
+            this.Close();
         }
     }
 }

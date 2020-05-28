@@ -106,7 +106,7 @@ namespace Munckin_DAL
             {
                 var query = entities.Wedstrijd_Spelers
                             .Include(x => x.Speler)
-                            .Include(x => x.Stapel_Handkaarten
+                            .Include(x => x.Stapel_Handkaarten)
                             .Where(x => x.Id == id);
                 return query.SingleOrDefault();
             }
