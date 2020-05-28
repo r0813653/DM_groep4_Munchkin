@@ -521,12 +521,13 @@ namespace Munchkin_app
             }
             else
             {
-                var resultaat = "Je kan niet winnen tegen " + monster.Naam;
-                if (resultaat == monster.VechtMonster(speler, helper))
+                var resultaat = monster.VechtMonster(speler, helper);
+                MessageBox.Show(resultaat);
+               if (resultaat == "Je kan niet winnen tegen " + monster.Naam)
                 {
                     isGeholpen = true;
-                    MessageBox.Show(monster.VluchtMonster(speler, Roldobbelsteen()));
-                    MessageBox.Show(monster.VluchtMonster(helper, Roldobbelsteen()));
+                    MessageBox.Show(speler.Speler.Naam +" "+ monster.VluchtMonster(speler, Roldobbelsteen()));
+                    MessageBox.Show(helper.Speler.Naam +" "+ monster.VluchtMonster(helper, Roldobbelsteen()));
                     monster = null;
                     imgGetrokkenKaart.Visibility = Visibility.Hidden;
                     lblTijdelijkeBonusMonster.Visibility = Visibility.Hidden;
@@ -577,9 +578,18 @@ namespace Munchkin_app
 
         private void btnVolgendefase_Click(object sender, RoutedEventArgs e)
         {
+            if (AantalKeerGetrokken <2)
+            {
+                MessageBox.Show("Je bent nog niet klaar hier");
+            }
+            else
+            {
+
+            
             Fase3 fase3 = new Fase3();
             fase3.Show();
             this.Close();
+        }
         }
     }
 }

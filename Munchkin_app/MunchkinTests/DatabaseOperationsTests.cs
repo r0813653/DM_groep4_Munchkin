@@ -32,32 +32,33 @@ namespace MunchkinTests
 
         }
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+        [TestMethod]// unittestingYoran
+        public void OphalenKaartMetOpgegevenID_OpgehaaldeKaartIsCorrect()
+        {
+            //arrange
+            Kaart kaart = new Kaart();
+            //act
+            kaart.Id = 1;
+            kaart.Naam = "Lamme Goblin";
+            kaart.Beschrijving = "+1 voor vluchten";
+            kaart.Afbeelding = "images/Lamme_goblin.png";
+            kaart.Type_id = 3;
+            kaart.Eenmalig = null;
+            kaart.Wanneer_Bruikbaar = "Altijd";
+
+            Kaart ophalenKaart = DatabaseOperations.OphalenKaartViaId(1);
+            //assert
+            //Assert.AreEqual(kaart, ophalenKaart);
+            Assert.AreEqual(kaart.Naam, ophalenKaart.Naam);
+            Assert.AreEqual(kaart.Id, ophalenKaart.Id);
+            Assert.AreEqual(kaart.Afbeelding, ophalenKaart.Afbeelding);
+            Assert.AreEqual(kaart.Type_id, ophalenKaart.Type_id);
+            Assert.AreEqual(kaart.Eenmalig, ophalenKaart.Eenmalig);
+            Assert.AreEqual(kaart.Wanneer_Bruikbaar, ophalenKaart.Wanneer_Bruikbaar);
+        }
+
+
         
         [TestMethod] // jens
         public void OphalenType_OphalenTypeViaTypeId_isequaltoType()
