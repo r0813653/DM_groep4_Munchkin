@@ -188,7 +188,7 @@ namespace Munchkin_app
                 case MessageBoxResult.Yes:
 
                     Kaarten_Stapel kaarten_Stapel = ((Button)sender).Tag as Kaarten_Stapel; 
-                    if (kaarten_Stapel.Kaart.Type.Soort.ToUpper()== "RAS" && kaarten_Stapel.Stapel_Id == speler.Handkaarten_Id)
+                    if (kaarten_Stapel.Kaart.Type.Soort.ToUpper()== "RAS" && kaarten_Stapel.Stapel_Id == speler.Veldkaarten_Id)
                     {
                         speler.Ras = "Mens";
                         if (speler.IsGeldig())
