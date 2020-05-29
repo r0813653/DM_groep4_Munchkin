@@ -14,12 +14,12 @@
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0*"/>
-                <ColumnDefinition Width="240*"/>
-                <ColumnDefinition Width="239*"/>
-                <ColumnDefinition Width="304*"/>
-                <ColumnDefinition Width="239*"/>
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -44,7 +44,7 @@
                 </Button>
             </StackPanel>
             <Image x:Name="imgItemManneke" Source="images/ItemManneke.png" Grid.Column="2" Height="400" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="239,191,0.396,0" Grid.RowSpan="2" />
-            <StackPanel Grid.Column="2" Margin="10,9.906,10.094,10.302" Grid.Row="1" >
+            <StackPanel Grid.Column="2" Margin="35.189,191,106.208,10.208" Grid.RowSpan="2" >
                 <Button x:Name="btnHoofddeksel"  HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
                     <Image x:Name="imgHoofddeksel"   Grid.ColumnSpan="2" Height="100" Margin="5,5,4.8,5" Grid.Column="6"  Visibility="Collapsed" >
                         <Image.ToolTip>
@@ -67,7 +67,7 @@
                     </Image>
                 </Button>
             </StackPanel>
-            <StackPanel Grid.Column="4" Margin="9.604,9.906,10.491,10.302" Grid.Row="1">
+            <StackPanel Grid.Column="4" Margin="9.943,191,10.113,10.208" Grid.RowSpan="2">
                 <Button x:Name="btnHarnas"  HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
                     <Image x:Name="imgHarnas"   Grid.ColumnSpan="2" Height="100" Margin="5" Grid.Column="13" Visibility="Collapsed">
                         <Image.ToolTip>
@@ -88,7 +88,7 @@
                     <Label FontSize="20">Extra items</Label>
                 </GroupBox.Header>
 
-                <WrapPanel Orientation="Horizontal" Grid.ColumnSpan="10" Grid.Column="6" Grid.Row="0" Margin="10,10,0,0">
+                <WrapPanel Orientation="Horizontal" Grid.ColumnSpan="10" Grid.Column="6" Grid.Row="0" Margin="10,10,-80.472,0.415">
                     <Button x:Name="btnExtra0"  HorizontalAlignment="Center" VerticalAlignment="Center"  Background="Transparent" Margin="0" BorderThickness="0">
                         <Image x:Name="imgExtra0"  Grid.Column="7" Margin="5" Height="130" Visibility="Collapsed" >
                             <Image.ToolTip>

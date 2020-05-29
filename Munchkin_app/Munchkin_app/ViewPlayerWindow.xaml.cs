@@ -36,7 +36,7 @@ namespace Munchkin_app
         }
         private void ShowVeldkaarten()
         {
-            veldkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Veldkaarten_Id);
+            veldkaarten_stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(speler.Veldkaarten_Id);
             Image img1 = this.FindName("imgHoofddeksel") as Image;
             img1.Visibility = Visibility.Collapsed;
             img1 = this.FindName("imgHarnas") as Image;
