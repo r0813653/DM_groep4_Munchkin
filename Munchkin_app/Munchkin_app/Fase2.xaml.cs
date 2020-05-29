@@ -36,7 +36,7 @@ namespace Munchkin_app
         Stapel aflegstapelKerkerkaarten = new Stapel();
         Stapel aflegstapelSchatkaarten = new Stapel();
         List<Kaarten_Stapel> trekstapelKerkerkaartenstapel = new List<Kaarten_Stapel>();
-        Kaart monster = new Kaart();
+        Kaart monster = null;
         Wedstrijd_Speler speler = new Wedstrijd_Speler();
         Wedstrijd_Speler helper = new Wedstrijd_Speler();
         List<Wedstrijd_Speler> lijstWedstrijd_Spelers = new List<Wedstrijd_Speler>();
@@ -393,7 +393,7 @@ namespace Munchkin_app
 
                 if (!ikvlucht)
                 {
-                    if (monster.Type_id == 3)
+                    if (monster != null)
                     {
                         if (AantalKeerGevochten == 0)
                         {
@@ -406,7 +406,7 @@ namespace Munchkin_app
                             {
                                 MessageBox.Show(resultaat);
                                 imgGetrokkenKaart.Visibility = Visibility.Hidden;
-                                monster = new Kaart();
+                                monster = null;
                                 AantalKeerGevochten += 1;
                             }
 
@@ -440,7 +440,7 @@ namespace Munchkin_app
             {
 
 
-                if (monster.Type_id == 3)
+                if (monster != null)
                 {
                     var resultaat = monster.VluchtMonster(speler, 10);
                     if (resultaat == "Je kan winnen tegen " + monster.Naam)
@@ -474,7 +474,7 @@ namespace Munchkin_app
         {
             if (!isGeholpen)
             {
-                if (monster.Type_id == 3)
+                if (monster != null)
                 {
                     foreach (Wedstrijd_Speler wedstrijd_Speler in lijstWedstrijd_Spelers)
                     {
@@ -499,7 +499,7 @@ namespace Munchkin_app
                         }
 
                     }
- 
+
                 }
                 else
                 {
@@ -526,11 +526,11 @@ namespace Munchkin_app
             {
                 var resultaat = monster.VechtMonster(speler, helper);
                 MessageBox.Show(resultaat);
-               if (resultaat == "Je kan niet winnen tegen " + monster.Naam)
+                if (resultaat == "Je kan niet winnen tegen " + monster.Naam)
                 {
                     isGeholpen = true;
-                    MessageBox.Show(speler.Speler.Naam +" "+ monster.VluchtMonster(speler, Roldobbelsteen()));
-                    MessageBox.Show(helper.Speler.Naam +" "+ monster.VluchtMonster(helper, Roldobbelsteen()));
+                    MessageBox.Show(speler.Speler.Naam + " " + monster.VluchtMonster(speler, Roldobbelsteen()));
+                    MessageBox.Show(helper.Speler.Naam + " " + monster.VluchtMonster(helper, Roldobbelsteen()));
                     monster = null;
                     imgGetrokkenKaart.Visibility = Visibility.Hidden;
                     lblTijdelijkeBonusMonster.Visibility = Visibility.Hidden;
@@ -567,7 +567,7 @@ namespace Munchkin_app
         {
             if (monster == null)
             {
-                
+
             }
             else if (monster.Type_id == 3)
             {
@@ -581,18 +581,20 @@ namespace Munchkin_app
 
         private void btnVolgendefase_Click(object sender, RoutedEventArgs e)
         {
-            if (AantalKeerGetrokken <2)
+            if (AantalKeerGetrokken < 2)
             {
                 MessageBox.Show("Je bent nog niet klaar hier");
             }
+            else if (monster != null)
+            {
+                MessageBox.Show("Het monster laat je niet zo maar gaan!");
+            }
             else
             {
-
-            
-            Fase3 fase3 = new Fase3();
-            fase3.Show();
-            this.Close();
-        }
+                Fase3 fase3 = new Fase3();
+                fase3.Show();
+                this.Close();
+            }
         }
     }
 }
