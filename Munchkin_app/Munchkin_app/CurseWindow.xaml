@@ -39,7 +39,7 @@
         </StackPanel>
 
         <WrapPanel Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <Button Style="{StaticResource CustomButton}" FontSize="30" Width="200" Margin="0 0 90 40">Terug</Button>
+            <Button Style="{StaticResource CustomButton}" FontSize="30" Width="200" Margin="0 0 90 40" Click="Button_Click_1">Terug</Button>
             <Button Style="{StaticResource CustomButton}" FontSize="30" Width="200" Margin="90 0 0 40" Click="Button_Click">Verder</Button>
         </WrapPanel>
 

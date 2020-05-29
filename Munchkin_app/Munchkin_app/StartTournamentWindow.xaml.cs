@@ -23,6 +23,7 @@ namespace Munchkin_app
         public StartTournamentWindow()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
         }
 
         List<int> lijstAantalSpelers = new List<int>();
@@ -46,6 +47,11 @@ namespace Munchkin_app
 
             cmb_AantalSpelers.ItemsSource = lijstAantalSpelers;
            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Toernooi is nog niet beschikbaar");
         }
     }
 }

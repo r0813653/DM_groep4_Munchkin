@@ -30,35 +30,35 @@ namespace Munchkin_app
         {
             MainWindow mainwindow = new MainWindow();
             mainwindow.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             RulesWindow rulesWindow = new RulesWindow();
             rulesWindow.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void btn_spelregels_Click(object sender, RoutedEventArgs e)
         {
             RulesWindow rulesWindow = new RulesWindow();
             rulesWindow.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void btn_zoekFavorieteKaart_Click(object sender, RoutedEventArgs e)
         {
             SearchCard searchCard = new SearchCard();
             searchCard.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void btn_credits_Click(object sender, RoutedEventArgs e)
         {
             CreditsWindow creditsWindow = new CreditsWindow();
             creditsWindow.Show();
-            this.Hide();
+            this.Close();
         }
     }
 }

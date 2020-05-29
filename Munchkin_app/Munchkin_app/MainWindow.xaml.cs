@@ -32,7 +32,7 @@ namespace Munchkin_app
         {
             InfoWindow infoWindow = new InfoWindow();
             infoWindow.Show();
-            this.Hide();
+            this.Close();
         }
 
        
@@ -40,14 +40,14 @@ namespace Munchkin_app
         {
             NewGameWindow newGameWindow = new NewGameWindow();
             newGameWindow.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void btn_startTournament_Click(object sender, RoutedEventArgs e)
         {
             StartTournamentWindow startTournamentWindow = new StartTournamentWindow();
             startTournamentWindow.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void btn_exit_Click(object sender, RoutedEventArgs e)

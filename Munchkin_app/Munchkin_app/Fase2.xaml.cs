@@ -146,7 +146,7 @@ namespace Munchkin_app
             {
                 case MessageBoxResult.Yes:
                     Kaarten_Stapel kaarten_Stapel = (Kaarten_Stapel)((Button)sender).Tag;
-                    if (kaarten_Stapel.Kaart.Type.Soort.ToUpper() == "RAS")
+                    if (kaarten_Stapel.Kaart.Type.Soort.ToUpper() == "RAS" && kaarten_Stapel.Stapel_Id == speler.Veldkaarten_Id)
                     {
                         speler.Ras = "Mens";
                         if (speler.IsGeldig())
@@ -325,6 +325,9 @@ namespace Munchkin_app
                 else if (trekstapelKerkerkaartenstapel[0].Kaart.Type_id == 4)
                 {
                     MessageBox.Show(trekstapelKerkerkaartenstapel[0].Kaart.KrijgVervloeking(speler));
+                    LabelsVeranderen();
+                    ShowHandkaarten();
+                    ShowVeldkaarten();
                     AantalKeerGetrokken += 1;
                     int ok = DatabaseOperations.VerwijderenKaarten_Stapel(trekstapelKerkerkaartenstapel[0]);
                     if (ok <= 0)

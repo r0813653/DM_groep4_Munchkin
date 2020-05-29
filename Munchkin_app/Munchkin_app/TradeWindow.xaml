@@ -33,7 +33,7 @@
             <ListBox x:Name="lbSpelers" Grid.Row="2" SelectionChanged="lbSpelers_SelectionChanged" Grid.Column="1" Margin="20" Height="250" Background="Transparent" BorderThickness="8" BorderBrush="#FF3C0900" FontSize="40" Foreground="#FF3C0900" VerticalAlignment="Top"/>
             <WrapPanel Grid.ColumnSpan="3" Grid.Row="3" HorizontalAlignment="Center">
                 <Button Style="{StaticResource CustomButton}" Click="Button_Click" FontSize="50" Content="Aanvaard" Width="200" Margin="0 0 150 40"/>
-                <Button Style="{StaticResource CustomButton}" FontSize="50" Content="Sla af" Width="200" Margin="100 0 0 40"/>
+                <Button Style="{StaticResource CustomButton}" FontSize="50" Content="Sla af" Width="200" Margin="100 0 0 40" Click="Button_Click_1"/>
             </WrapPanel>
         </Grid>
     </ScrollViewer>

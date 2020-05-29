@@ -27,6 +27,7 @@ namespace Munchkin_app
         public UseCardWindow()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
         }
 
         //als je in een gevecht zit moet er een monster meegegeven worden zodat daar ook kaarten op gespeeld kunnen worden
@@ -34,8 +35,8 @@ namespace Munchkin_app
         {
             InitializeComponent();
             monsterKaart = monster;
+            this.WindowState = WindowState.Maximized;
         }
-        List<Kaarten_Stapel> lijstHandkaartenGebruikskaarten = new List<Kaarten_Stapel>();
         int wedstrijd_Id = GlobalVariables.WedstrijdId;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

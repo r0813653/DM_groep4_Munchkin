@@ -76,7 +76,7 @@ namespace Munchkin_app
                 if (GlobalVariables.actieveSpeler.Ras.ToUpper() == "HALFLING")
                 {
                     totaal = totaal * 2;
-                    if (totaal > 1000)
+                    if (totaal >= 1000)
                     {
                         wedstrijd_Speler.Level += 1;
                         DatabaseOperations.AanpassenWedstrijd_Speler(wedstrijd_Speler);

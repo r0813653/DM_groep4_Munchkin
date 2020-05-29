@@ -22,6 +22,7 @@ namespace Munchkin_app
         public ViewPlayerWindow()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
         }
         List<Kaarten_Stapel> veldkaarten_stapels = new List<Kaarten_Stapel>();
         Stapel veldkaarten = new Stapel();
@@ -131,6 +132,11 @@ namespace Munchkin_app
             lblRas.Content = $"Ras: {speler.Ras}";
             lblTijdelijkeBonus.Content = $"Tijdelijke Bonus: {speler.Tijdelijke_Bonus}";
             lblVluchtsBonus.Content = $"Vlucht Bonus: {speler.Vluchtbonus}";
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
