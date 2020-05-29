@@ -10,7 +10,7 @@
         <ImageBrush ImageSource="images/Munchkin_background.jpeg"></ImageBrush>
     </Window.Background>
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="auto">
-        <Grid>
+        <Grid >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="64"></ColumnDefinition>
                 <ColumnDefinition Width="64"></ColumnDefinition>
@@ -34,24 +34,22 @@
                 <ColumnDefinition Width="88"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"></RowDefinition>
-                <RowDefinition Height="200" ></RowDefinition>
-                <RowDefinition Height="140"></RowDefinition>
-                <RowDefinition Height="140"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto" ></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto" ></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+            <StackPanel Grid.Row="3" Grid.ColumnSpan="4" Margin="0 0 0 0" Grid.RowSpan="2">
                 <Button Style="{StaticResource CustomButton}" x:Name="btnVervloeking" Content="Vervloeking" Click="btnVervloeking_Click"  Height="50" Width="150" FontSize="20"></Button>
                 <Button Style="{StaticResource CustomButton}" x:Name="btnRuilen" Content="Ruilen" Click="btnRuilen_Click"  Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
                 <Button Style="{StaticResource CustomButton}" x:Name="btnVerkopen" Content="Verkopen" Click="btnVerkopen_Click"  Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
                 <Button Style="{StaticResource CustomButton}" x:Name="btnSpelers" Content="Spelers" Click="btnSpelers_Click"  Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
                 <Button Style="{StaticResource CustomButton}" x:Name="btnVerstopKaarten" Content="verstop/laat zien" Click="btnVerstopKaarten_Click" Height="50" Width="150" Margin="0,7.5,0,0" FontSize="20"></Button>
             </StackPanel>
-            <StackPanel Grid.Row="6" Grid.Column="16" Grid.ColumnSpan="4" Margin="54,70,10,-70.4">
+            <StackPanel Grid.Row="3" Grid.Column="16" Grid.ColumnSpan="4" Margin="40" VerticalAlignment="Bottom">
                 <Label x:Name="lblFase" Content="1/3" HorizontalAlignment="Center" FontSize="20" ></Label>
-                <Button Style="{StaticResource CustomButton}" Click="btnVolgendeFase_Click" x:Name="btnVolgendeFase" Content="Volgende fase" HorizontalAlignment="center" Height="50" Width="150" Margin="20,0,20,25" FontSize="25"></Button>
+                <Button Style="{StaticResource CustomButton}" Click="btnVolgendeFase_Click" x:Name="btnVolgendeFase" Content="Volgende fase" HorizontalAlignment="center" Height="50" Width="150" Margin="0" FontSize="25"></Button>
             </StackPanel>
             <StackPanel Grid.Row="1" Margin="50,0,0,0" Grid.ColumnSpan="4">
                 <Label x:Name="lblSpeler" Content="speler naam" FontSize="20"></Label>
@@ -252,7 +250,7 @@
                     </Button>
                 </WrapPanel>
             </GroupBox>
-            
+
             <Label x:Name="lblHandKaarten" Content="Handkaarten" HorizontalAlignment="Center" FontSize="20" Grid.ColumnSpan="2" Margin="45,40,0,70" Grid.Column="3" Grid.Row="3" Width="84" />
         </Grid>
     </ScrollViewer>

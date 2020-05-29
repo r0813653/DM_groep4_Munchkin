@@ -29,6 +29,8 @@ namespace Munchkin_app
         int totaal;
         List<Kaarten_Stapel> kaartenStapelActieveSpeler = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(GlobalVariables.actieveSpeler.Handkaarten_Id);
         List<Kaarten_Stapel> schatkaartenActieveSpeler = new List<Kaarten_Stapel>();
+        Stapel aflegstapelSchatkaarten = DatabaseOperations.OphalenStapelViaId(GlobalVariables.wedstrijd.Schatkaarten_Aflegstapel_Id);
+        
         Wedstrijd_Speler wedstrijd_Speler = DatabaseOperations.OphalenWedstrijd_SpelerViaId(GlobalVariables.actieveSpeler.Id);
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -80,13 +82,27 @@ namespace Munchkin_app
                     {
                         wedstrijd_Speler.Level += 1;
                         DatabaseOperations.AanpassenWedstrijd_Speler(wedstrijd_Speler);
+                        foreach (var item in lbSpelerKaarten.SelectedItems)
+                        {
+                            ((Kaarten_Stapel)item).KaartVanStapelWisselen(aflegstapelSchatkaarten);
+                        }
+                        MessageBox.Show("je bent een level gestegen");
                         this.Close();
                     }
+                    else
+                    {
+                        MessageBox.Show("de waarde van de kaarten is niet genoeg om te verkopen");
+                    }
                 }
-                else if (totaal > 1000)
+                else if (totaal >= 1000)
                 {
                     wedstrijd_Speler.Level += 1;
                     DatabaseOperations.AanpassenWedstrijd_Speler(wedstrijd_Speler);
+                    foreach (var item in lbSpelerKaarten.SelectedItems)
+                    {
+                        ((Kaarten_Stapel)item).KaartVanStapelWisselen(aflegstapelSchatkaarten);
+                    }
+                    MessageBox.Show("je bent een level gestegen");
                     this.Close();
                 }
                 else
