@@ -32,9 +32,9 @@ namespace Munchkin_app
         List<Kaarten_Stapel> lijstSpelerVervloekingskaarten = new List<Kaarten_Stapel>();
         private void cmbKaartenSpeler_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //var kaart = (Kaarten_Stapel)cmbKaartenSpeler.SelectedItem;
-            //string path = kaart.Kaart.Afbeelding;
-            //imgInfoKaart.Source = new BitmapImage(new Uri(@path, UriKind.Relative));
+            var kaart = (Kaarten_Stapel)cmbKaartenSpeler.SelectedItem;
+            string path = kaart.Kaart.Afbeelding;
+            imgInfoKaart.Source = new BitmapImage(new Uri(@path, UriKind.Relative));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -106,6 +106,11 @@ namespace Munchkin_app
             cmbKaartenSpeler.ItemsSource = lijstSpelerVervloekingskaarten;
             cmbKaartenSpeler.DisplayMemberPath = "Kaart.Naam";
 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

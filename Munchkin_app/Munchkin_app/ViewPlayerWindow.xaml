@@ -133,7 +133,7 @@
                     </Button>
                 </WrapPanel>
             </GroupBox>
-            <Button Style="{StaticResource CustomButton}" Grid.Row="2" FontSize="50" Content="Ga terug" Width="200" Margin="19.66,39.698,20,40.453" Grid.Column="1"/>
+            <Button Style="{StaticResource CustomButton}" Grid.Row="2" FontSize="50" Content="Ga terug" Width="200" Margin="19.66,39.698,20,40.453" Grid.Column="1" Click="Button_Click"/>
         </Grid>
     </ScrollViewer>
 </Window>

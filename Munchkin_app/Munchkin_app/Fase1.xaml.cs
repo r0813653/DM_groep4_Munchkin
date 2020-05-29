@@ -18,7 +18,7 @@ namespace Munchkin_app
         public Fase1()
         {
             InitializeComponent();
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            this.WindowState = WindowState.Maximized;
             GlobalVariables.wedstrijd_Spelers = DatabaseOperations.OphalenWedstrijd_SpelersViaWedstrijdId(GlobalVariables.WedstrijdId);
             GlobalVariables.actieveSpeler = GlobalVariables.wedstrijd_Spelers[GlobalVariables.indexer];
 
@@ -188,7 +188,7 @@ namespace Munchkin_app
                 case MessageBoxResult.Yes:
 
                     Kaarten_Stapel kaarten_Stapel = ((Button)sender).Tag as Kaarten_Stapel; 
-                    if (kaarten_Stapel.Kaart.Type.Soort.ToUpper()== "RAS")
+                    if (kaarten_Stapel.Kaart.Type.Soort.ToUpper()== "RAS" && kaarten_Stapel.Stapel_Id == speler.Handkaarten_Id)
                     {
                         speler.Ras = "Mens";
                         if (speler.IsGeldig())

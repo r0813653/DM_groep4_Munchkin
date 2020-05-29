@@ -48,33 +48,6 @@ namespace Munckin_DAL
             }
         }
 
-        
-        //Voorlopig niet nodig denk ik - voor de zekerheid ff commentaar ipv weg
-        //public static Kaart OphalenKaartViaKaartIdMetBonusEnType(int kaartId)
-        //{
-        //    using (MunchkinEntities entities = new MunchkinEntities())
-        //    {
-        //        var query = entities.Kaarten
-        //                      .Include(x => x.Kaart_Bonussen.Select(sub => sub.Bonus))
-        //                      .Include(x => x.Type)
-        //                      .Where(x => x.Id == kaartId);
-        //        return query.SingleOrDefault();
-        //    }
-        //}
-
-        //Voorlopig niet nodig denk ik
-        //public static Kaart OphalenKaartViaKaartIdMetType(int kaartId)
-        //{
-        //    using (MunchkinEntities entities = new MunchkinEntities())
-        //    {
-        //        var query = entities.Kaarten
-        //                      .Include(x => x.Type)
-        //                      .Include(x => x.Schatkaart)
-        //                      .Where(x => x.Id == kaartId);
-        //        return query.SingleOrDefault();
-        //    }
-        //}
-
         public static Stapel OphalenStapelViaId(int Id)
         {
             using (MunchkinEntities entities = new MunchkinEntities())
@@ -99,7 +72,6 @@ namespace Munckin_DAL
             }
         }
 
-        //voorlopig enkel nodig voor testen
         public static Wedstrijd_Speler OphalenWedstrijd_SpelerViaId(int id)
         {
             using (MunchkinEntities entities = new MunchkinEntities())
@@ -176,32 +148,7 @@ namespace Munckin_DAL
                 return query.SingleOrDefault();
             }
         }
-        //Voorlopig niet meer nodig, voor de zekerheid ff commentaar
-        //public static List<Wedstrijd_Speler> OphalenWedstrijd_SpelerViaWedstrijd_Id(int wedstrijdId)
-        //{
-        //    using (MunchkinEntities entities = new MunchkinEntities())
-        //    {
-        //        var query = entities.Wedstrijd_Spelers
-        //                      .Where(x => x.Wedstrijd_Id == wedstrijdId);
-        //        return query.ToList();
-        //    }
-        //}
-        //public static int AanpassenKerkerkaart(Kerkerkaart kaart)
-        //{
-        //    try
-        //    {
-        //        using (MunchkinEntities entities = new MunchkinEntities())
-        //        {
-        //            entities.Entry(kaart).State = EntityState.Modified;
-        //            return entities.SaveChanges();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        FileOperations.FoutLoggen(ex);
-        //        return 0;
-        //    }
-        //}
+        
         public static Wedstrijd OphalenWedstrijdViaId(int Id)
         {
             using (MunchkinEntities entities = new MunchkinEntities())
@@ -245,16 +192,6 @@ namespace Munckin_DAL
             }
         }
 
-        //Voorlopig niet nodig, ff in commentaar ipv weg voor de zekerheid
-        //public static List<Kaart_Bonus> OphalenKaart_BonusViaKaart_Id(int kaartId)
-        //{
-        //    using (MunchkinEntities entities = new MunchkinEntities())
-        //    {
-        //        var query = entities.Kaart_Bonussen
-        //                    .Where(x => x.Kaart_Id == kaartId);
-        //        return query.ToList();
-        //    }
-        //}
         public static List<Kerkerkaart> OphalenKerkerkaarten()
         {
             using (MunchkinEntities entities = new MunchkinEntities())
@@ -286,18 +223,6 @@ namespace Munckin_DAL
 
             }
         }
-
-
-        //Van de Jens, veranderd naar functie die Domien had geschreven, ff in commentaar voor het geval er toch iets anders in de functie is
-        //public static int ToevoegenKaartenStapel(Kaarten_Stapel kaarten_Stapel)
-        //{
-        //    using (MunchkinEntities entities = new MunchkinEntities())
-        //    {
-        //        entities.Kaarten_Stapels.Add(kaarten_Stapel);
-
-        //        return entities.SaveChanges();
-        //    }
-        //}
 
         public static int ToevoegenWedstrijd(Wedstrijd wedstrijd)
         {

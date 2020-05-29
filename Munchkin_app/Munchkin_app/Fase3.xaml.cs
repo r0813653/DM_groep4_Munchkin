@@ -24,9 +24,7 @@ namespace Munchkin_app
         public Fase3()
         {
             InitializeComponent();
-            //Enkel nodig om te testen zonder door fase1 te gaan
-            GlobalVariables.wedstrijd_Spelers = DatabaseOperations.OphalenWedstrijd_SpelersViaWedstrijdId(GlobalVariables.WedstrijdId);
-            GlobalVariables.actieveSpeler = GlobalVariables.wedstrijd_Spelers[GlobalVariables.indexer];
+            this.WindowState = WindowState.Maximized;
         }
 
         List<Kaarten_Stapel> handkaarten_stapels = new List<Kaarten_Stapel>();
@@ -193,20 +191,13 @@ namespace Munchkin_app
             {
                 case MessageBoxResult.Yes:
                     Kaarten_Stapel kaarten_Stapel = (Kaarten_Stapel)((Button)sender).Tag;
-                    if (kaarten_Stapel.Kaart.Type.Soort.ToUpper() == "RAS")
+                    if (kaarten_Stapel.Kaart.Type.Soort.ToUpper() == "RAS" && kaarten_Stapel.Stapel_Id == speler.Handkaarten_Id)
                     {
                         speler.Ras = "Mens";
-                        if (speler.IsGeldig())
+                        string fout = speler.PasWedstrijd_SpelerAan();
+                        if (!string.IsNullOrEmpty(fout))
                         {
-                            int ok = DatabaseOperations.AanpassenWedstrijd_Speler(speler);
-                            if (ok <= 0)
-                            {
-                                MessageBox.Show("Je bent niet van ras kunnen veranderen");
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show(speler.Error);
+                            MessageBox.Show(fout);
                         }
 
                     }
@@ -342,17 +333,10 @@ namespace Munchkin_app
                 foreach (Wedstrijd_Speler speler in spelers)
                 {
                     speler.Tijdelijke_Bonus = 0;
-                    if (speler.IsGeldig())
+                    string fout = speler.PasWedstrijd_SpelerAan();
+                    if (!string.IsNullOrEmpty(fout))
                     {
-                        int ok = DatabaseOperations.AanpassenWedstrijd_Speler(speler);
-                        if (ok <= 0)
-                        {
-                            MessageBox.Show("Je bent niet van ras kunnen veranderen");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show(speler.Error);
+                        MessageBox.Show(fout);
                     }
                 }
                 GlobalVariables.indexer += 1;

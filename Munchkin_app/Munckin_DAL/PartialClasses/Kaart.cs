@@ -157,20 +157,9 @@ namespace Munckin_DAL
             {
                 //levels omhoog, waars dboperations
                 vechter.Level += Kerkerkaart.Aantal_Levels;
-                if (vechter.IsGeldig())
-                {
-                    int ok2 = DatabaseOperations.AanpassenWedstrijd_Speler(vechter);
-                    if (ok2 <= 0)
-                    {
-                        foutmelding += "Level is niet gestegen\n";
-                    }
-                }
-                else
-                {
-                    foutmelding += vechter.Error + Environment.NewLine;
-                }
+                foutmelding += vechter.PasWedstrijd_SpelerAan();
 
-                //schatkaarten trekken
+              //schatkaarten trekken
                 int wedstrijdId = vechter.Wedstrijd_Id ?? default;
                 Wedstrijd wedstrijd = DatabaseOperations.OphalenWedstrijdViaId(wedstrijdId);
                 List<Kaarten_Stapel> trekstapelSchatkaartenKaarten_Stapels = DatabaseOperations.OphalenKaarten_StapelsViaStapelId(wedstrijd.Schatkaarten_Trekstapel_Id);
@@ -225,7 +214,6 @@ namespace Munckin_DAL
             //speciale gevallen sterkte berekenen
             if (Naam.ToUpper().Contains("VAMPIEREN"))
             {
-                //default checken, weet niet of dit werkt
                 spelersterkte = vechter.Level + helper.Level ?? default;
             }
             //Normaal geval sterkte berekenen
@@ -654,7 +642,6 @@ namespace Munckin_DAL
                         vluchter.Level = 1;
                     }
 
-                    //kaart naar aflegstapel doen
                     //kaart naar aflegstapel doen
                     Kaarten_Stapel kaarten_Stapel1 = new Kaarten_Stapel();
                     kaarten_Stapel1.Kaart_Id = Id;
@@ -1154,7 +1141,7 @@ namespace Munckin_DAL
             }
             if (string.IsNullOrEmpty(foutmelding))
             {
-                return $"Je hebt {Naam} gebruikt!";
+                return $"Je hebt {Naam} als vervloeking tegen je gekregen!";
             }
             else
             {
